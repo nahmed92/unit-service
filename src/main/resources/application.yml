@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: UnitServiceApplication
+  profiles:
+    active: dev
+info:
+  version: ${project.version}
+endpoints:
+  shutdown:
+    enabled: true
+server:
+  port: 8080
+mongeez:
+  location: mongo-changelog/changelog-master.xml
+
+---
+spring:
+  profiles: dev
+  data:
+    mongodb:
+      host: localhost
+      database: unit-service
+
+---
+spring:
+  profiles: docker
+  data:
+    mongodb:
+      host: unitservicedb
+      database: unit-service

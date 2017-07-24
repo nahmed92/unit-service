@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: test
+endpoints:
+  shutdown:
+    enabled: true
+server:
+  port: 0
+mongeez:
+  location: mongo-changelog/changelog-master.xml
+
+---
+spring:
+  profiles: test
+  data:
+    mongodb:
+      port: 0
+      database: unit-service
