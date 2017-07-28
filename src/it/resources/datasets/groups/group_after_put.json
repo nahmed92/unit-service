@@ -1,0 +1,12 @@
+{
+    "name": "resolution group",
+    "description": "this is latest resolution unit group",
+    "_links": {
+        "self": {
+            "href": "@ignore@"
+        },
+        "group": {
+            "href": "@ignore@"
+        }
+    }
+}

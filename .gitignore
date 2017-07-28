@@ -32,3 +32,6 @@ nbdist/
 
 ### Mac ###
 .DS_Store
+
+### Integration ##
+test-output/
