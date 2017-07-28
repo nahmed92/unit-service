@@ -26,30 +26,17 @@
  * #endregion
  */
 
-package com.etilize.burraq.unit.test;
+package com.etilize.burraq.unit.group;
 
-import static com.lordofthejars.nosqlunit.mongodb.MongoDbRule.MongoDbRuleBuilder.*;
-
-import org.junit.Rule;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-
-import com.lordofthejars.nosqlunit.mongodb.MongoDbRule;
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
- * Base class for integration tests
+ * It's repository interface for {@link Group}.
  *
- * @author Faisal Feroz
+ * @author Nasir Ahmed
  * @since 1.0
- *
  */
-public abstract class AbstractIntegrationTest extends AbstractTest {
-
-    @Rule
-    public MongoDbRule mongoDbRule = newMongoDbRule().defaultSpringMongoDb(
-            "unit-service");
-
-    @Autowired
-    protected ApplicationContext context;
+public interface GroupRepository extends MongoRepository<Group, ObjectId> {
 
 }

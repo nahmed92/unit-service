@@ -26,30 +26,40 @@
  * #endregion
  */
 
-package com.etilize.burraq.unit.test;
+package com.etilize.burraq.unit.base;
 
-import static com.lordofthejars.nosqlunit.mongodb.MongoDbRule.MongoDbRuleBuilder.*;
+import java.io.Serializable;
 
-import org.junit.Rule;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-
-import com.lordofthejars.nosqlunit.mongodb.MongoDbRule;
+import org.springframework.data.annotation.Id;
+import org.springframework.hateoas.Identifiable;
 
 /**
- * Base class for integration tests
- *
- * @author Faisal Feroz
- * @since 1.0
- *
+ * Base class for Mongo entity implementations.
+ * @param <ID> Identifiable ID
+ * @author Nasir Ahmed
  */
-public abstract class AbstractIntegrationTest extends AbstractTest {
+public abstract class AbstractMongoEntity<ID extends Serializable>
+        implements Identifiable<ID> {
 
-    @Rule
-    public MongoDbRule mongoDbRule = newMongoDbRule().defaultSpringMongoDb(
-            "unit-service");
+    @Id
+    private ID id;
 
-    @Autowired
-    protected ApplicationContext context;
+    @Override
+    public ID getId() {
+        return id;
+    }
+
+    public void setId(final ID id) {
+        this.id = id;
+    }
+
+    @Override
+    public abstract boolean equals(Object object);
+
+    @Override
+    public abstract int hashCode();
+
+    @Override
+    public abstract String toString();
 
 }
