@@ -49,7 +49,7 @@ public class UnitServiceApplication {
     /**
      * main entry-point
      *
-     * @param args
+     * @param args command line arguments
      */
     public static void main(String[] args) {
         SpringApplication.run(UnitServiceApplication.class, args);

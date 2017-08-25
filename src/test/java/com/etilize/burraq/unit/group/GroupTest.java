@@ -26,30 +26,50 @@
  * #endregion
  */
 
-package com.etilize.burraq.unit.test;
+package com.etilize.burraq.unit.group;
 
-import static com.lordofthejars.nosqlunit.mongodb.MongoDbRule.MongoDbRuleBuilder.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
-import org.junit.Rule;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.apache.commons.lang3.ObjectUtils;
+import org.junit.Test;
 
-import com.lordofthejars.nosqlunit.mongodb.MongoDbRule;
+import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
+import com.openpojo.validation.rule.impl.GetterMustExistRule;
+import com.openpojo.validation.rule.impl.SetterMustExistRule;
+import com.openpojo.validation.test.impl.GetterTester;
+import com.openpojo.validation.test.impl.SetterTester;
 
-/**
- * Base class for integration tests
- *
- * @author Faisal Feroz
- * @since 1.0
- *
- */
-public abstract class AbstractIntegrationTest extends AbstractTest {
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
-    @Rule
-    public MongoDbRule mongoDbRule = newMongoDbRule().defaultSpringMongoDb(
-            "unit-service");
+public class GroupTest {
 
-    @Autowired
-    protected ApplicationContext context;
+    private Validator validator;
+
+    @Test
+    public void shouldHaveGettersAndSetters() {
+        validator = ValidatorBuilder.create() //
+                .with(new GetterMustExistRule()) //
+                .with(new SetterMustExistRule()) //
+                .with(new SetterTester()) //
+                .with(new GetterTester()).build();
+        validator.validate(PojoClassFactory.getPojoClass(Group.class));
+    }
+
+    @Test
+    public void shouldFollowEqualsContract() {
+        EqualsVerifier.forClass(Group.class) //
+                .suppress(Warning.ALL_FIELDS_SHOULD_BE_USED) //
+                .verify();
+    }
+
+    @Test
+    public void hasToString() {
+        final Group group = new Group("Temperature", "This is temperature unit group");
+        assertThat(ObjectUtils.identityToString(group), not(group.toString()));
+    }
 
 }

@@ -1,0 +1,30 @@
+{
+      "groups":{
+         "indexes":[
+            {
+               "index":{
+                  "name":1
+               },
+               "options":{
+                  "unique":true
+               }
+            }
+         ],
+         "data":[
+            {
+               "_id":{
+                  "$oid":"53e9155b5ed24e4c38d60e3c"
+               },
+               "name":"weight",
+               "description":"This is weight unit"
+            },
+            {
+               "_id":{
+                  "$oid":"74e9155b5ed24e4c38d60e3c"
+               },
+               "name":"temperature",
+               "description":"This is Temperature unit"
+            }
+         ]
+      }
+   }
