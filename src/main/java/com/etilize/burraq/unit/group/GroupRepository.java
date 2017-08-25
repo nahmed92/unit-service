@@ -30,6 +30,11 @@ package com.etilize.burraq.unit.group;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.querydsl.QueryDslPredicateExecutor;
+import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
+import org.springframework.data.querydsl.binding.QuerydslBindings;
+
+import com.querydsl.core.types.dsl.StringPath;
 
 /**
  * It's repository interface for {@link Group}.
@@ -37,6 +42,13 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * @author Nasir Ahmed
  * @since 1.0
  */
-public interface GroupRepository extends MongoRepository<Group, ObjectId> {
+public interface GroupRepository extends MongoRepository<Group, ObjectId>,
+        QueryDslPredicateExecutor<Group>, QuerydslBinderCustomizer<QGroup> {
 
+    @Override
+    default void customize(final QuerydslBindings bindings, final QGroup root) {
+        bindings.bind(String.class).first((final StringPath path, final String value) -> {
+            return path.equalsIgnoreCase(value);
+        });
+    }
 }
