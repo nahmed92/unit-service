@@ -44,6 +44,7 @@ import com.etilize.burraq.unit.group.GroupRepository;
 import com.etilize.burraq.unit.test.AbstractIntegrationTest;
 import com.lordofthejars.nosqlunit.annotation.ShouldMatchDataSet;
 import com.lordofthejars.nosqlunit.annotation.UsingDataSet;
+import com.querydsl.core.types.Predicate;
 import org.springframework.dao.DuplicateKeyException;
 
 @UsingDataSet(locations = "/datasets/groups/groups.bson")
@@ -149,4 +150,15 @@ public class GroupRepositoryIntegrationTest extends AbstractIntegrationTest {
         group.setId(new ObjectId("53e9155b5ed24e4c38d60e3c"));
         groupRepository.save(group);
     }
+
+    @Test
+    public void shouldFindGroupByNameUsingQueryDslPredicate() {
+        QGroup qGroup = new QGroup("name");
+        Predicate predicate = qGroup.name.startsWith("weight");
+        List<Group> group = (List<Group>) groupRepository.findAll(predicate);
+        assertThat(group.size(), is(1));
+        assertThat(group.get(0).getName(), is("weight"));
+        assertThat(group.get(0).getDescription(), is("This is weight unit"));
+    }
+
 }

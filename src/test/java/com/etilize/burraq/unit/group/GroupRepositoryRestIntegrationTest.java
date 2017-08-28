@@ -202,4 +202,33 @@ public class GroupRepositoryRestIntegrationTest extends AbstractRestIntegrationT
                 .andExpect(jsonPath("$.errors[0].message", //
                         is("description is required")));
     }
+
+    @Test
+    public void shouldFindGroupByName() throws Exception {
+        mockMvc.perform(get("/groups?name={name}", "weight")) //
+                .andExpect(status().isOk()) //
+                .andExpect(jsonPath("$._embedded.groups[*]", hasSize(1))) //
+                .andExpect(jsonPath("$._embedded.groups[*]._links.self.href", //
+                        contains(endsWith("/groups/53e9155b5ed24e4c38d60e3c"))))//
+                .andExpect(jsonPath("$.page.size", is(20))) //
+                .andExpect(jsonPath("$.page.totalElements", is(1))) //
+                .andExpect(jsonPath("$._embedded.groups[0].name", is("weight"))) //
+                .andExpect(jsonPath("$._embedded.groups[0].description", //
+                        is("This is weight unit"))); //
+
+    }
+
+    @Test
+    public void shouldFindByNameCaseInSensitively() throws Exception {
+        mockMvc.perform(get("/groups?name={name}", "Weight")) //
+                .andExpect(status().isOk()) //
+                .andExpect(jsonPath("$._embedded.groups[*]", hasSize(1))) //
+                .andExpect(jsonPath("$._embedded.groups[*]._links.self.href", //
+                        contains(endsWith("/groups/53e9155b5ed24e4c38d60e3c"))))//
+                .andExpect(jsonPath("$.page.size", is(20))) //
+                .andExpect(jsonPath("$.page.totalElements", is(1))) //
+                .andExpect(jsonPath("$._embedded.groups[0].name", is("weight"))) //
+                .andExpect(jsonPath("$._embedded.groups[0].description", //
+                        is("This is weight unit"))); //
+    }
 }
