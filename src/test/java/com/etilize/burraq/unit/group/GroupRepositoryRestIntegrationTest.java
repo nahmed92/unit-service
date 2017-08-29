@@ -98,7 +98,17 @@ public class GroupRepositoryRestIntegrationTest extends AbstractRestIntegrationT
 
     @Test
     public void shouldReturnStatusConflictWhenGroupNameAlreadyExists() throws Exception {
-        final Group group = new Group("weight", "this is weight unit");
+        final Group group = new Group("weight", "This is weight unit");
+        mockMvc.perform(post("/groups") //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content(mapper.writeValueAsString(group))) //
+                .andExpect(status().isConflict());
+    }
+
+    @Test
+    public void shouldReturnStatusConflictWhenGroupNameAlreadyExistsCaseInSensitively()
+            throws Exception {
+        final Group group = new Group("WEIGHT", "This is weight unit");
         mockMvc.perform(post("/groups") //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(group))) //
