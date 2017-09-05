@@ -66,7 +66,13 @@ public class GroupRepositoryIntegrationTest extends AbstractIntegrationTest {
 
     @Test(expected = DuplicateKeyException.class)
     public void shouldThrowDuplicateKeyExceptionWhenGroupNameAlreadyExists() {
-        final Group group = new Group("weight", "this is weight unit");
+        final Group group = new Group("weight", "This is weight unit");
+        groupRepository.save(group);
+    }
+
+    @Test(expected = DuplicateKeyException.class)
+    public void shouldThrowDuplicateKeyExceptionWhenGroupNameAlreadyExistsCaseInSensitively() {
+        final Group group = new Group("WEIGHT", "This is weight unit");
         groupRepository.save(group);
     }
 
