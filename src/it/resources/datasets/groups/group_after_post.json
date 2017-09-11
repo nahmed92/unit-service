@@ -1,0 +1,12 @@
+{
+    "name": "speed",
+    "description": "this is speed unit group",
+    "_links": {
+        "self": {
+            "href": "@ignore@"
+        },
+        "group": {
+            "href": "@ignore@"
+        }
+    }
+}

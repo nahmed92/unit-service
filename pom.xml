@@ -14,15 +14,15 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.4.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>1.5.6.RELEASE</version>
+        <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <project.build.itDirectory>src/it/java</project.build.itDirectory>
+        <project.build.itSourceDirectory>src/it/java</project.build.itSourceDirectory>
         <sonar.host.url>http://sonar.etilizepak.com</sonar.host.url>
         <docker.repo.url>repo.etilizepak.com:444</docker.repo.url>
         <docker.image.prefix>etilize</docker.image.prefix>
@@ -132,6 +132,24 @@
             <version>0.8.4</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.consol.citrus</groupId>
+            <artifactId>citrus-core</artifactId>
+            <version>2.7.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.consol.citrus</groupId>
+            <artifactId>citrus-java-dsl</artifactId>
+            <scope>test</scope>
+            <version>2.7.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.consol.citrus</groupId>
+            <artifactId>citrus-http</artifactId>
+            <scope>test</scope>
+            <version>2.7.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -193,8 +211,8 @@
                     <configuration>
                         <compilerId>javac-with-errorprone</compilerId>
                         <forceJavacCompilerUse>true</forceJavacCompilerUse>
-                        <!-- maven-compiler-plugin defaults to targeting Java 5, but our javac
-                        only supports >=6 -->
+                        <!-- maven-compiler-plugin defaults to targeting
+                            Java 5, but our javac only supports >=6 -->
                         <source>${java.version}</source>
                         <target>${java.version}</target>
                         <showWarnings>true</showWarnings>
@@ -205,8 +223,8 @@
                             <artifactId>plexus-compiler-javac-errorprone</artifactId>
                             <version>2.8</version>
                         </dependency>
-                        <!-- override plexus-compiler-javac-errorprone's dependency on
-                        Error Prone with the latest version -->
+                        <!-- override plexus-compiler-javac-errorprone's
+                            dependency on Error Prone with the latest version -->
                         <dependency>
                             <groupId>com.google.errorprone</groupId>
                             <artifactId>error_prone_core</artifactId>
@@ -227,7 +245,7 @@
                         <forkMode>once</forkMode>
                         <failIfNoTests>false</failIfNoTests>
                         <excludes>
-                            <exclude>**/*IT.java</exclude>
+                            <exclude>${project.build.itSourceDirectory}/**/*.java</exclude>
                         </excludes>
                         <workingDirectory>${project.build.directory}</workingDirectory>
                     </configuration>
@@ -275,13 +293,14 @@
                             <addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
                             <excludes>
                                 <exclude>**/*.js</exclude>
+                                <exclude>**/*.json</exclude>
                             </excludes>
                         </configuration>
                         <dependencies>
                             <dependency>
                                 <groupId>com.etilize.build</groupId>
                                 <artifactId>etilize-build-tools</artifactId>
-                                <version>0.0.1-SNAPSHOT</version>
+                                <version>0.0.2-SNAPSHOT</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -304,7 +323,7 @@
                             <directories>
                                 <directory>${project.build.sourceDirectory}</directory>
                                 <directory>${project.build.testSourceDirectory}</directory>
-                                <directory>${project.build.itDirectory}</directory>
+                                <directory>${project.build.itSourceDirectory}</directory>
                                 <directory>${project.build.directory}/generated-sources</directory>
                             </directories>
                         </configuration>
@@ -333,6 +352,7 @@
                             <includes>
                                 <include>${project.build.sourceDirectory}/**/*.java</include>
                                 <include>${project.build.testSourceDirectory}/**/*.java</include>
+                                <include>${project.build.itSourceDirectory}/**/*.java</include>
                             </includes>
                             <!-- not using \s as it removes blank lines as
                                 well -->
@@ -393,7 +413,7 @@
                                 </goals>
                                 <configuration>
                                     <sources>
-                                        <source>src/it/java</source>
+                                        <source>${project.build.itSourceDirectory}</source>
                                     </sources>
                                 </configuration>
                             </execution>

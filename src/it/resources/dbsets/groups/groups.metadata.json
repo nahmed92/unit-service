@@ -1,0 +1,21 @@
+{
+    "indexes": [
+        {
+            "v": 1,
+            "key": {
+                "_id": 1
+            },
+            "name": "id",
+            "ns": "unit-service.groups"
+        },
+        {
+            "v": 1,
+            "unique": true,
+            "key": {
+                "name": 1
+            },
+            "name": "name",
+            "ns": "unit-service.groups"
+        }
+    ]
+}
