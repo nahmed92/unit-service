@@ -28,6 +28,8 @@
 
 package com.etilize.burraq.unit.config;
 
+import org.bson.types.ObjectId;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -38,6 +40,8 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 /**
  * Houses all the rest related configurations
@@ -100,4 +104,16 @@ public class RestConfig extends RepositoryRestConfigurerAdapter {
     public LocalValidatorFactoryBean validator() {
         return new LocalValidatorFactoryBean();
     }
+
+    /**
+     * Configures Jackson2 ObjectMapper to for ObjectId serialization as String
+     *
+     * @return returns Jackson2ObjectMapperBuilderCustomizer
+     */
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer addCustomObjectIdDeserialization() {
+        return jacksonObjectMapperBuilder -> jacksonObjectMapperBuilder.serializerByType(
+                ObjectId.class, new ToStringSerializer());
+    }
+
 }
