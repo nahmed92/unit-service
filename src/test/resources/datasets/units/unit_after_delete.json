@@ -1,0 +1,15 @@
+{
+    "units": [
+        {
+            "_id": {
+                "$oid": "53e9155b5ed24e4c38d60e3c"
+            },
+            "name": "Kilogram",
+            "groupId": "59b63ec8e110b21a936c9eed",
+            "isBaseUnit": false,
+            "metricSystem": "CGS",
+            "formula": "1/1000",
+            "description": "Kilogram Unit"
+        }
+    ]
+}

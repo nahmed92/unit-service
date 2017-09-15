@@ -37,6 +37,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.bson.types.ObjectId;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.etilize.burraq.unit.base.AbstractMongoEntity;
@@ -55,14 +56,15 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
     public static final String COLLECTION_NAME = "units";
 
     @NotBlank(message = "name is required")
+    @Indexed(unique = true)
     private final String name;
 
-    @NotNull
+    @NotNull(message = "groupId is required")
     private final ObjectId groupId;
 
     private final boolean isBaseUnit;
 
-    @NotNull
+    @NotNull(message = "metricSystem is required")
     private final MetricSystem metricSystem;
 
     private final String formula;
@@ -109,8 +111,11 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
     }
 
     /**
+     * @JsonProperty to access field level
+     *  property value
      * @return the isBaseUnit
      */
+    @JsonProperty("isBaseUnit")
     public boolean isBaseUnit() {
         return isBaseUnit;
     }
