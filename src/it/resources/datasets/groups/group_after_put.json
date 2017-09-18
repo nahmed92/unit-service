@@ -3,10 +3,10 @@
     "description": "this is latest resolution unit group",
     "_links": {
         "self": {
-            "href": "@ignore@"
+            "href": "@endsWith(${locationHeaderValue})@"
         },
         "group": {
-            "href": "@ignore@"
+            "href": "@endsWith(${locationHeaderValue})@"
         }
     }
 }

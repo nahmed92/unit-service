@@ -29,6 +29,7 @@ echo "Delete data from unit-service groups collection"
 mongo unit-service
 use unit-service
 db.groups.remove({});
+db.units.remove({});
 exit
 sleep 2
 

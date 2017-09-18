@@ -1,0 +1,16 @@
+{
+    "name": "MHz",
+    "groupId": "59b63ec8e110b21a936c9eed",
+    "isBaseUnit": true,
+    "metricSystem": "NONE",
+    "formula": "[value] / 1000",
+    "description": "Percentage Unit",
+    "_links": {
+        "self": {
+            "href": "@endsWith(${locationHeaderValue})@"
+        },
+        "unit": {
+            "href": "@endsWith(${locationHeaderValue})@"
+        }
+    }
+}

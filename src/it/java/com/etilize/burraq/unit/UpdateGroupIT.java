@@ -28,12 +28,9 @@
 
 package com.etilize.burraq.unit;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
 import org.apache.http.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpHeaders;
 
@@ -47,33 +44,29 @@ import com.consol.citrus.message.MessageType;
 import java.io.IOException;
 import com.etilize.burraq.unit.test.base.*;
 
+/**
+ * This class contains test cases related to Update Group functionality.
+ *
+ * @author Nimra Inam
+ * @see AbstractIT
+ * @since 1.0.0
+ */
 public class UpdateGroupIT extends AbstractIT {
 
     @Test
     @CitrusTest
     public void shouldUpdateGroup() throws Exception {
-        // Variable to hold location header
-        variable("locationHeaderValue", ""); //
-        // Test case metadata
-        author("ninam");
+        author("Nimra Inam");
         description("A group should not be updated");
-        variable("groupId", "5995843b0fcdf874985e399d");
-        // Sends an update request for an existing group
+
+        variable(LOCATION_HEADER_VALUE, "");
+        variable(GROUP_ID, EXISTING_GROUP_ID);
+
         putRequest(GROUPS_URL, "${groupId}",
                 readFile("/datasets/groups/group_to_update.json"));
-        // Extract header location
-        extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
-        action(new AbstractTestAction() {
 
-            @Override
-            public void doExecute(final TestContext context) {
-                final String location = context.getVariable("locationHeaderValue");
-                final String newLocation = location.substring(
-                        location.indexOf(GROUPS_URL));
-                context.setVariable("locationHeaderValue", newLocation);
-            }
-        });
-        // Verify updated group
+        extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
+        parseAndSetVariable(GROUPS_URL, LOCATION_HEADER_VALUE);
         verifyResponse(HttpStatus.OK, readFile("/datasets/groups/group_after_put.json"),
                 "${locationHeaderValue}");
     }
@@ -81,15 +74,14 @@ public class UpdateGroupIT extends AbstractIT {
     @Test
     @CitrusTest
     public void shouldNotUpdateGroupWhenUpdatedNameAlreadyExists() throws Exception {
-        // Variable to hold location header
-        variable("groupId", "5995843b0fcdf874985e399d");
-        // Test case metadata
-        author("ninam");
+        author("Nimra Inam");
         description("An update operation should not produce dupliate unit groups");
-        // Send an update request for an existing group
+
+        variable(GROUP_ID, EXISTING_GROUP_ID);
+
         putRequest(GROUPS_URL, "${groupId}",
                 readFile("/datasets/groups/duplicate/duplicate_group_to_update.json"));
-        // Verify response
+
         verifyResponse(HttpStatus.CONFLICT,
                 readFile("/datasets/groups/errors/duplicate_group_error.json"));
     }
@@ -98,16 +90,15 @@ public class UpdateGroupIT extends AbstractIT {
     @CitrusTest
     public void shouldNotUpdateGroupWhichAlreadyExistsWithSameNameButWithDifferentCase()
             throws Exception {
-        // Variable to hold location header
-        variable("groupId", "5995843b0fcdf874985e399d");
-        // Test case metadata
-        author("ninam");
+        author("Nimra Inam");
         description(
                 "An existing unit group should not be updated by just converting it to a different case");
-        // Send an update request for an existing group
+
+        variable(GROUP_ID, EXISTING_GROUP_ID);
+
         putRequest(GROUPS_URL, "${groupId}", readFile(
                 "/datasets/groups/case_insensitive_matching/case_insensitive_matching_group.json"));
-        // Verify response
+
         verifyResponse(HttpStatus.CONFLICT,
                 readFile("/datasets/groups/errors/duplicate_group_error.json"));
     }
@@ -115,16 +106,15 @@ public class UpdateGroupIT extends AbstractIT {
     @Test
     @CitrusTest
     public void shouldNotUpdateGroupWithMissingNameAndDescription() throws Exception {
-        // Variable to hold location header
-        variable("groupId", "5995843b0fcdf874985e399d");
-        // Test case metadata
-        author("ninam");
+        author("Nimra Inam");
         description(
                 "A unit group with missing name and description should not be updated");
-        // Sends a put request to api and verify response too
+
+        variable(GROUP_ID, EXISTING_GROUP_ID);
+
         putRequest(GROUPS_URL, "${groupId}", readFile(
                 "/datasets/groups/missing_null_groups/group_with_missing_name_and_description_to_update.json"));
-        // Verify response
+
         verifyResponse(HttpStatus.BAD_REQUEST,
                 readFile("/datasets/groups/errors/null_group_error.json"));
     }

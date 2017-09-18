@@ -1,0 +1,16 @@
+{
+     "name": "Meter",
+     "groupId": "59b63ec8e110b21a936c9eed",
+     "isBaseUnit": true,
+     "metricSystem": "MTS",
+     "formula": "[value] / 1000",
+     "description": "Meter Unit",
+     "_links": {
+          "self": {
+               "href": "@endsWith(${locationHeaderValue})@"
+          },
+          "group": {
+               "href": "@endsWith(${locationHeaderValue})@"
+          }
+     }
+}

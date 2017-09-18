@@ -38,19 +38,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.*;
 
+import com.consol.citrus.actions.*;
+import com.consol.citrus.context.*;
 import com.consol.citrus.dsl.junit.JUnit4CitrusTestDesigner;
 import com.consol.citrus.http.client.HttpClient;
 import com.consol.citrus.message.*;
-import com.etilize.burraq.unit.*;
 
 /**
- * This class should be extended to write IT test cases. It provides methods to read file, put, post, remove and verify responses.
+ * This class should be extended to write IT test cases. It provides methods to read file,
+ * put, post, remove and verify responses.
  *
  * @author Nimra Inam
+ * @since 1.0.0
  */
 public abstract class AbstractIT extends JUnit4CitrusTestDesigner {
 
     protected final static String GROUPS_URL = "/groups/";
+
+    protected final static String UNITS_URL = "/units/";
+
+    protected final static String LOCATION_HEADER_VALUE = "locationHeaderValue";
+
+    protected final static String GROUP_ID = "groupId";
+
+    protected final static String EXISTING_GROUP_ID = "5995843b0fcdf874985e399d";
+
+    protected final static String EXISTING_GROUP_ID_TO_REMOVE = "59afe1125846b8762efc30e1";
 
     @Autowired
     protected HttpClient serviceClient;
@@ -186,5 +199,23 @@ public abstract class AbstractIT extends JUnit4CitrusTestDesigner {
                 .response(httpStatus) //
                 .messageType(MessageType.JSON) //
                 .payload(payload);
+    }
+
+    /**
+     * It replaces resource location with resource id and set it to context variable.
+     *
+     * @param url this holds api's URL
+     * @param header_value this holds the rsource's location to parse
+     */
+    protected void parseAndSetVariable(final String url, final String variable) {
+        action(new AbstractTestAction() {
+
+            @Override
+            public void doExecute(final TestContext context) {
+                final String location = context.getVariable(variable);
+                final String newLocation = location.substring(location.indexOf(url));
+                context.setVariable(variable, newLocation);
+            }
+        });
     }
 }
