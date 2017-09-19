@@ -41,6 +41,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.etilize.burraq.unit.base.AbstractMongoEntity;
+import com.etilize.burraq.unit.validator.Formula;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -66,6 +67,7 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
 
     private MetricSystem metricSystem = MetricSystem.NONE;
 
+    @Formula
     private String formula = "[value]";
 
     @NotBlank(message = "description is required")
@@ -105,7 +107,7 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
 
     /**
      * Annotation JsonProperty to access field level
-     *  property value
+     * property value
      * @return the isBaseUnit
      */
     @JsonProperty("isBaseUnit")
@@ -115,7 +117,7 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
 
     /**
     * Metric System (NONE,CGS,MKS,MTS)
-    * @param metricSystem Unit metric system
+    * @param metricSystem unit metic System
     */
     public void setMetricSystem(final MetricSystem metricSystem) {
         this.metricSystem = metricSystem;
@@ -130,8 +132,7 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
 
     /**
      * Set unit formula
-     *
-     * @param formula unit formula
+     * @param formula It's the formula to convert value
      */
     public void setFormula(final String formula) {
         this.formula = formula;

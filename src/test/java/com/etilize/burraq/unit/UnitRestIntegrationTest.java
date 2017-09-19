@@ -97,7 +97,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
                 .andExpect(jsonPath("$._embedded.units[2]._links.self.href", //
                         endsWith("/units/59b63ec8e110b21a936c9eef")))//
                 .andExpect(jsonPath("$._embedded.units[2].isBaseUnit", is(true))) //
-                .andExpect(jsonPath("$._embedded.units[2].formula", is("A*B"))) //
+                .andExpect(jsonPath("$._embedded.units[2].formula", is("[value]*1000"))) //
                 .andExpect(jsonPath("$._embedded.units[2].metricSystem", is("CGS"))) //
                 .andExpect(jsonPath("$._embedded.units[2].description",
                         is("Degree Celcius Unit"))) //
@@ -119,7 +119,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
     public void shouldCreateNewUnit() throws Exception {
         final Unit unit = new Unit("Pound", new ObjectId("53e9155b5ed24e4c38d60e3c"), //
                 false, "Pound Unit");
-        unit.setFormula("ABC");
+        unit.setFormula("1/1000");
         unit.setMetricSystem(MetricSystem.CGS);
         mockMvc.perform(post("/units") //
                 .contentType(MediaType.APPLICATION_JSON) //
@@ -133,7 +133,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
     public void shouldUpdateExistingUnit() throws Exception {
         final Unit unit = new Unit("Gram", new ObjectId("53e9155b5ed24e4c38d60e3c"), true,
                 "Gram Unit");
-        unit.setFormula("ABC");
+        unit.setFormula("[value]*1000");
         unit.setMetricSystem(MetricSystem.CGS);
         final String content = mapper.writeValueAsString(unit);
         mockMvc.perform(put("/units/{id}", new ObjectId("59b63ec8e110b21a936c9eed")) //
@@ -328,4 +328,34 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
                 .andExpect(jsonPath("$.errors[0].message", //
                         is("Group does not exist.")));
     }
+
+    @Test
+    public void shouldReturnBadRequestWhenInvalidArithmeticOperatorsInFormula()
+            throws Exception {
+        Unit unit = new Unit("Kilogram", new ObjectId("53e9155b5ed24e4c38d60e3c"), false,
+                "Kilogram Unit");
+        unit.setFormula("[value]//(10000++23)");
+        // Invalid division operator
+        mockMvc.perform(post("/units") //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content(mapper.writeValueAsString(unit))) //
+                .andExpect(status().isBadRequest()) //
+                .andExpect(jsonPath("$.errors[0].message", //
+                        is("Formula is not valid.")));
+
+    }
+
+    @Test
+    public void shouldReturnBadRequestWhenTextExistInFormula() throws Exception {
+        final Unit unit = new Unit("Kilogram", new ObjectId("53e9155b5ed24e4c38d60e3c"),
+                false, "Kilogram Unit");
+        unit.setFormula("[value]/10000ABC");
+        mockMvc.perform(post("/units") //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content(mapper.writeValueAsString(unit))) //
+                .andExpect(status().isBadRequest()) //
+                .andExpect(jsonPath("$.errors[0].message", //
+                        is("Formula is not valid.")));
+    }
+
 }
