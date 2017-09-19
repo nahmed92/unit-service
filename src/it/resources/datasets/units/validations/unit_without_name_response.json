@@ -1,0 +1,10 @@
+{
+    "errors": [
+        {
+            "entity": "Unit",
+            "property": "name",
+            "invalidValue": null,
+            "message": "name is required"
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "errors": [
+        {
+            "entity": "Unit",
+            "property": "groupId",
+            "invalidValue": null,
+            "message": "groupId is required"
+        }
+    ]
+}
