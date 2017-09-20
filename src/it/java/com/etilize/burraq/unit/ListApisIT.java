@@ -30,6 +30,8 @@ package com.etilize.burraq.unit;
 
 import static org.springframework.http.MediaType.*;
 
+import java.io.*;
+
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 
@@ -37,24 +39,26 @@ import com.consol.citrus.actions.AbstractTestAction;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.context.TestContext;
 import com.consol.citrus.message.MessageType;
-import com.etilize.burraq.unit.test.base.*;
+import com.etilize.burraq.unit.test.base.AbstractIT;
 
+/**
+ * This class contains test case to list and verify exposed API links.
+ *
+ * @author Nimra Inam
+ * @see AbstractIT
+ * @since 1.0.0
+ */
 public class ListApisIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldListApis() {
-        // Test case metadata
-        author("ninam");
+    public void shouldListApis() throws IOException {
+        author("Nimra Inam");
         description("Sends a GET request to base url and expects a list of all the Apis");
-        // Sends a get request to api
         http().client(serviceClient).send().get();
-        // Response verification
         http().client(serviceClient) //
                 .receive().response(HttpStatus.OK) //
                 .messageType(MessageType.JSON) //
-                .payload("{ \"_links\": "
-                        + "{ \"groups\": { \"href\" : \"@endsWith('/groups{?page,size,sort}')@\", \"templated\": true }, "
-                        + "\"profile\": \"@ignore@\" } }");
+                .payload(readFile("/datasets/api_list.json"));
     }
 }

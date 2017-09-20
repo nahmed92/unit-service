@@ -28,8 +28,6 @@
 
 package com.etilize.burraq.unit;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -42,33 +40,38 @@ import com.consol.citrus.http.client.HttpClient;
 import com.consol.citrus.message.MessageType;
 import com.etilize.burraq.unit.test.base.*;
 
+/**
+ * This class contains test cases related to Remove Group functionality.
+ *
+ * @author Nimra Inam
+ * @see AbstractIT
+ * @since 1.0.0
+ */
 public class RemoveGroupIT extends AbstractIT {
 
     @Test
     @CitrusTest
     public void shouldRemoveGroup() throws Exception {
-        // Declare a group Id to delete
-        variable("groupId", "59afe1125846b8762efc30e1");
-        // Test case metadata
         author("ninam");
         description("A group should be removed");
-        // Sends a delete request to service
+
+        variable(GROUP_ID, EXISTING_GROUP_ID_TO_REMOVE);
+
         deleteRequest(GROUPS_URL, "${groupId}");
-        // Response verification
+
         verifyResponse(HttpStatus.NO_CONTENT);
     }
 
     @Test
     @CitrusTest
     public void shouldNotRemoveAGroupWhichDoesNotExist() throws Exception {
-        // Declare a group Id to delete
-        variable("groupId", "599585660fcdf874985e3991");
-        // Test case metadata
         author("ninam");
         description("A group should not get removed if it does not exist");
-        // Sends a delete request to service
+
+        variable(GROUP_ID, "59afe1125846b8762efc30e2");
+
         deleteRequest(GROUPS_URL, "${groupId}");
-        // Response verification
+
         verifyResponse(HttpStatus.NOT_FOUND);
     }
 }

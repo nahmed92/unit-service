@@ -2,15 +2,15 @@
     "errors": [
         {
             "entity": "Group",
-            "property": "description",
-            "invalidValue": "",
-            "message": "description is required"
-        },
-        {
-            "entity": "Group",
             "property": "name",
             "invalidValue": "",
             "message": "name is required"
+        },
+        {
+            "entity": "Group",
+            "property": "description",
+            "invalidValue": "",
+            "message": "description is required"
         }
     ]
 }

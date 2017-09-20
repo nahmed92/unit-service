@@ -1,0 +1,15 @@
+{
+     "_links": {
+          "groups": {
+               "href": "@endsWith('/api/groups{?page,size,sort}')@",
+               "templated": true
+          },
+          "units": {
+               "href": "@endsWith('/api/units{?page,size,sort}')@",
+               "templated": true
+          },
+          "profile": {
+               "href": "@endsWith('/api/profile')@"
+          }
+     }
+}

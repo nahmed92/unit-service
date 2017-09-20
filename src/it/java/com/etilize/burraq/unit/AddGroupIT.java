@@ -45,26 +45,15 @@ public class AddGroupIT extends AbstractIT {
     @Test
     @CitrusTest
     public void shouldAddGroup() throws Exception {
-        // Variable to hold location header
-        variable("locationHeaderValue", ""); //
-        // Test case metadata
-        author("ninam");
+        author("Nimra Inam");
         description("A group should be added");
-        // Sends a post request to service
-        postRequest(GROUPS_URL, readFile("/datasets/groups/group.json"));
-        // Extract header location
-        extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        action(new AbstractTestAction() {
 
-            @Override
-            public void doExecute(final TestContext context) {
-                final String location = context.getVariable("locationHeaderValue");
-                final String newLocation = location.substring(
-                        location.indexOf(GROUPS_URL));
-                context.setVariable("locationHeaderValue", newLocation);
-            }
-        });
-        // Verify response from header location
+        variable(LOCATION_HEADER_VALUE, "");
+
+        postRequest(GROUPS_URL, readFile("/datasets/groups/group.json"));
+
+        extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
+        parseAndSetVariable(GROUPS_URL, LOCATION_HEADER_VALUE);
         verifyResponse(HttpStatus.OK, readFile("/datasets/groups/group_after_post.json"),
                 "${locationHeaderValue}");
     }
@@ -72,13 +61,12 @@ public class AddGroupIT extends AbstractIT {
     @Test
     @CitrusTest
     public void shouldNotAddDuplicateGroup() throws Exception {
-        // Test case metadata
-        author("ninam");
+        author("Nimra Inam");
         description("A duplicate group should not be added");
-        // Sends a post request to service and verify http status
+
         postRequest(GROUPS_URL,
                 readFile("/datasets/groups/duplicate/duplicate_group.json"));
-        // Verify response
+
         verifyResponse(HttpStatus.CONFLICT,
                 readFile("/datasets/groups/errors/duplicate_group_error.json"));
     }
@@ -87,13 +75,12 @@ public class AddGroupIT extends AbstractIT {
     @CitrusTest
     public void shouldNotAddGroupWhichAlreadyExistsWithSameNameButWithDifferentCase()
             throws Exception {
-        // Test case metadata
-        author("ninam");
+        author("Nimra Inam");
         description("A case insensitive matching group should not be added");
-        // Sends a post request to api
+
         postRequest(GROUPS_URL, readFile(
                 "/datasets/groups/case_insensitive_matching/case_insensitive_matching_group.json"));
-        // Verify Response
+
         verifyResponse(HttpStatus.CONFLICT,
                 readFile("/datasets/groups/errors/duplicate_group_error.json"));
     }
@@ -101,13 +88,12 @@ public class AddGroupIT extends AbstractIT {
     @Test
     @CitrusTest
     public void shouldNotAddGroupWithMissingNameAndDescription() throws Exception {
-        // Test case metadata
-        author("ninam");
+        author("Nimra Inam");
         description("A group with missing name and description should not be added");
-        // Sends a post request to api and verify response too
+
         postRequest(GROUPS_URL, readFile(
                 "/datasets/groups/missing_null_groups/group_with_missing_name_and_description.json"));
-        // Verify response
+
         verifyResponse(HttpStatus.BAD_REQUEST,
                 readFile("/datasets/groups/errors/null_group_error.json"));
     }
@@ -115,14 +101,14 @@ public class AddGroupIT extends AbstractIT {
     @Test
     @CitrusTest
     public void shouldNotAddGroupWithNullInNameAndDescription() throws Exception {
-        // Test case metadata
-        author("ninam");
+        author("Nimra Inam");
         description("A group with null in name and description should not be added");
-        // Sends a post request to api and verify response too
+
         postRequest(GROUPS_URL, readFile(
                 "/datasets/groups/missing_null_groups/group_with_null_in_name_and_description.json"));
-        // Verify response
+
         verifyResponse(HttpStatus.BAD_REQUEST,
                 readFile("/datasets/groups/errors/null_group_error.json"));
     }
+
 }
