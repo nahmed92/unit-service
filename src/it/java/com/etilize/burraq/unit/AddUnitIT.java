@@ -57,8 +57,9 @@ public class AddUnitIT extends AbstractIT {
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
-        verifyResponse(HttpStatus.OK, readFile(
-                "/datasets/units/metris_systems/unit/unit_with_mks_metric_system_response.json"),
+        verifyResponse(HttpStatus.OK,
+                readFile(
+                        "/datasets/units/metris_systems/unit/unit_with_mks_metric_system_response.json"),
                 "${locationHeaderValue}");
     }
 
@@ -75,8 +76,9 @@ public class AddUnitIT extends AbstractIT {
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
-        verifyResponse(HttpStatus.OK, readFile(
-                "/datasets/units/metris_systems/unit/unit_with_cgs_metric_system_response.json"),
+        verifyResponse(HttpStatus.OK,
+                readFile(
+                        "/datasets/units/metris_systems/unit/unit_with_cgs_metric_system_response.json"),
                 "${locationHeaderValue}");
     }
 
@@ -93,8 +95,9 @@ public class AddUnitIT extends AbstractIT {
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
-        verifyResponse(HttpStatus.OK, readFile(
-                "/datasets/units/metris_systems/unit/unit_with_mts_metric_system_response.json"),
+        verifyResponse(HttpStatus.OK,
+                readFile(
+                        "/datasets/units/metris_systems/unit/unit_with_mts_metric_system_response.json"),
                 "${locationHeaderValue}");
     }
 
@@ -111,8 +114,9 @@ public class AddUnitIT extends AbstractIT {
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
-        verifyResponse(HttpStatus.OK, readFile(
-                "/datasets/units/metris_systems/unit/unit_with_none_metric_system_response.json"),
+        verifyResponse(HttpStatus.OK,
+                readFile(
+                        "/datasets/units/metris_systems/unit/unit_with_none_metric_system_response.json"),
                 "${locationHeaderValue}");
     }
 
@@ -129,8 +133,9 @@ public class AddUnitIT extends AbstractIT {
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
-        verifyResponse(HttpStatus.OK, readFile(
-                "/datasets/units/metris_systems/base_unit/base_unit_with_cgs_metric_system_response.json"),
+        verifyResponse(HttpStatus.OK,
+                readFile(
+                        "/datasets/units/metris_systems/base_unit/base_unit_with_cgs_metric_system_response.json"),
                 "${locationHeaderValue}");
     }
 
@@ -147,8 +152,9 @@ public class AddUnitIT extends AbstractIT {
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
-        verifyResponse(HttpStatus.OK, readFile(
-                "/datasets/units/metris_systems/base_unit/base_unit_with_mts_metric_system_response.json"),
+        verifyResponse(HttpStatus.OK,
+                readFile(
+                        "/datasets/units/metris_systems/base_unit/base_unit_with_mts_metric_system_response.json"),
                 "${locationHeaderValue}");
     }
 
@@ -165,8 +171,9 @@ public class AddUnitIT extends AbstractIT {
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
-        verifyResponse(HttpStatus.OK, readFile(
-                "/datasets/units/metris_systems/base_unit/base_unit_with_none_metric_system_response.json"),
+        verifyResponse(HttpStatus.OK,
+                readFile(
+                        "/datasets/units/metris_systems/base_unit/base_unit_with_none_metric_system_response.json"),
                 "${locationHeaderValue}");
     }
 
@@ -176,11 +183,11 @@ public class AddUnitIT extends AbstractIT {
         author("Nimra Inam");
         description("A unit without name should not be added");
 
-        postRequest(UNITS_URL,
-                readFile("/datasets/units/validations/unit_without_name.json"));
+        postRequest(UNITS_URL, readFile(
+                "/datasets/units/validations/missing_values/unit_without_name.json"));
 
-        verifyResponse(HttpStatus.BAD_REQUEST,
-                readFile("/datasets/units/validations/unit_without_name_response.json"));
+        verifyResponse(HttpStatus.BAD_REQUEST, readFile(
+                "/datasets/units/validations/missing_values/unit_without_name_response.json"));
     }
 
     @Test
@@ -192,14 +199,14 @@ public class AddUnitIT extends AbstractIT {
 
         variable(LOCATION_HEADER_VALUE, "");
 
-        postRequest(UNITS_URL,
-                readFile("/datasets/units/validations/unit_without_formula.json"));
+        postRequest(UNITS_URL, readFile(
+                "/datasets/units/validations/missing_values/unit_without_formula.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
         verifyResponse(HttpStatus.OK,
                 readFile(
-                        "/datasets/units/validations/unit_without_formula_response.json"),
+                        "/datasets/units/validations/missing_values/unit_without_formula_response.json"),
                 "${locationHeaderValue}");
     }
 
@@ -211,13 +218,14 @@ public class AddUnitIT extends AbstractIT {
 
         variable(LOCATION_HEADER_VALUE, "");
 
-        postRequest(UNITS_URL,
-                readFile("/datasets/units/validations/unit_without_base_unit.json"));
+        postRequest(UNITS_URL, readFile(
+                "/datasets/units/validations/missing_values/unit_without_base_unit.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
-        verifyResponse(HttpStatus.OK, readFile(
-                "/datasets/units/validations/unit_without_base_unit_response.json"),
+        verifyResponse(HttpStatus.OK,
+                readFile(
+                        "/datasets/units/validations/missing_values/unit_without_base_unit_response.json"),
                 "${locationHeaderValue}");
     }
 
@@ -230,13 +238,14 @@ public class AddUnitIT extends AbstractIT {
 
         variable(LOCATION_HEADER_VALUE, "");
 
-        postRequest(UNITS_URL,
-                readFile("/datasets/units/validations/unit_without_metric_system.json"));
+        postRequest(UNITS_URL, readFile(
+                "/datasets/units/validations/missing_values/unit_without_metric_system.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
-        verifyResponse(HttpStatus.OK, readFile(
-                "/datasets/units/validations/unit_without_metric_system_response.json"),
+        verifyResponse(HttpStatus.OK,
+                readFile(
+                        "/datasets/units/validations/missing_values/unit_without_metric_system_response.json"),
                 "${locationHeaderValue}");
     }
 
@@ -246,11 +255,11 @@ public class AddUnitIT extends AbstractIT {
         author("Nimra Inam");
         description("A unit without group id should not be added");
 
-        postRequest(UNITS_URL,
-                readFile("/datasets/units/validations/unit_without_group_id.json"));
+        postRequest(UNITS_URL, readFile(
+                "/datasets/units/validations/missing_values/unit_without_group_id.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, readFile(
-                "/datasets/units/validations/unit_without_group_id_response.json"));
+                "/datasets/units/validations/missing_values/unit_without_group_id_response.json"));
     }
 
     @Test
@@ -262,13 +271,97 @@ public class AddUnitIT extends AbstractIT {
         variable(LOCATION_HEADER_VALUE, "");
 
         postRequest(UNITS_URL, readFile(
-                "/datasets/units/validations/unit_with_non_existing_group.json"));
+                "/datasets/units/validations/missing_values/unit_with_non_existing_group.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
-        verifyResponse(HttpStatus.OK, readFile(
-                "/datasets/units/validations/unit_with_non_existing_group_response.json"),
+        verifyResponse(HttpStatus.OK,
+                readFile(
+                        "/datasets/units/validations/missing_values/unit_with_non_existing_group_response.json"),
                 "${locationHeaderValue}");
     }
 
+    @Test
+    @CitrusTest
+    public void shouldNotAddUnitWithNullInName() throws Exception {
+        author("Nimra Inam");
+        description("A unit should not be added with null in name");
+
+        postRequest(UNITS_URL, readFile(
+                "/datasets/units/validations/null_values/unit_with_null_in_name.json"));
+
+        verifyResponse(HttpStatus.BAD_REQUEST, readFile(
+                "/datasets/units/validations/null_values/unit_with_null_in_name_response.json"));
+
+    }
+
+    @Test
+    @CitrusTest
+    public void shouldAddUnitWithNullInFormula() throws Exception {
+        author("Nimra Inam");
+        description("A unit should not be added with null in formula");
+
+        variable(LOCATION_HEADER_VALUE, "");
+
+        postRequest(UNITS_URL, readFile(
+                "/datasets/units/validations/null_values/unit_with_null_in_formula.json"));
+
+        extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
+        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        verifyResponse(HttpStatus.OK,
+                readFile(
+                        "/datasets/units/validations/null_values/unit_with_null_in_formula_response.json"),
+                "${locationHeaderValue}");
+    }
+
+    @Test
+    @CitrusTest
+    public void shouldAddUnitWithNullInMetricSystem() throws Exception {
+        author("Nimra Inam");
+        description("A unit should not be added with null in metric system");
+
+        variable(LOCATION_HEADER_VALUE, "");
+
+        postRequest(UNITS_URL, readFile(
+                "/datasets/units/validations/null_values/unit_with_null_in_metric_system.json"));
+
+        extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
+        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        verifyResponse(HttpStatus.OK,
+                readFile(
+                        "/datasets/units/validations/null_values/unit_with_null_in_metric_system_response.json"),
+                "${locationHeaderValue}");
+    }
+
+    @Test
+    @CitrusTest
+    public void shouldAddUnitWithNullInBaseUnit() throws Exception {
+        author("Nimra Inam");
+        description("A unit should not be added with null in base unit");
+
+        variable(LOCATION_HEADER_VALUE, "");
+
+        postRequest(UNITS_URL, readFile(
+                "/datasets/units/validations/null_values/unit_with_null_in_base_unit.json"));
+
+        extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
+        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        verifyResponse(HttpStatus.OK,
+                readFile(
+                        "/datasets/units/validations/null_values/unit_with_null_in_base_unit.json"),
+                "${locationHeaderValue}");
+    }
+
+    @Test
+    @CitrusTest
+    public void shouldNotAddUnitWithNullInGroupId() throws Exception {
+        author("Nimra Inam");
+        description("A unit should not be added with null in group id");
+
+        postRequest(UNITS_URL, readFile(
+                "/datasets/units/validations/null_values/unit_with_null_in_group_id.json"));
+
+        verifyResponse(HttpStatus.BAD_REQUEST, readFile(
+                "/datasets/units/validations/null_values/unit_with_null_in_group_id_response.json"));
+    }
 }

@@ -1,0 +1,8 @@
+{
+    "name": "Minute",
+    "groupId": "599585660fcdf874985e399e",
+    "isBaseUnit": null,
+    "metricSystem": "CGS",
+    "formula": "[value] / 1000",
+    "description": "Minute Unit"
+}
