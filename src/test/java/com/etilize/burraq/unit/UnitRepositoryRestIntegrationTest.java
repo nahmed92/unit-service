@@ -96,7 +96,9 @@ public class UnitRepositoryRestIntegrationTest extends AbstractRestIntegrationTe
     @ShouldMatchDataSet(location = "/datasets/units/unit_after_create.json")
     public void shouldCreateNewUnit() throws Exception {
         final Unit unit = new Unit("Pound", new ObjectId("59b63ec8e110b21a936c9eed"), //
-                false, MetricSystem.CGS, "ABC", "Pound Unit");
+                false, "Pound Unit");
+        unit.setFormula("ABC");
+        unit.setMetricSystem(MetricSystem.CGS);
         mockMvc.perform(post("/units") //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(unit))) //
@@ -108,7 +110,9 @@ public class UnitRepositoryRestIntegrationTest extends AbstractRestIntegrationTe
     @ShouldMatchDataSet(location = "/datasets/units/unit_after_update.json")
     public void shouldUpdateExistingUnit() throws Exception {
         final Unit unit = new Unit("Gram", new ObjectId("59b63ec8e110b21a936c9eed"), true,
-                MetricSystem.CGS, "ABC", "Gram Unit");
+                "Gram Unit");
+        unit.setFormula("ABC");
+        unit.setMetricSystem(MetricSystem.CGS);
         final String content = mapper.writeValueAsString(unit);
         mockMvc.perform(put("/units/{id}", new ObjectId("53e9155b5ed24e4c38d60e3c")) //
                 .contentType(MediaType.APPLICATION_JSON) //
@@ -121,7 +125,9 @@ public class UnitRepositoryRestIntegrationTest extends AbstractRestIntegrationTe
     @Test
     public void shouldReturnStatusConflictWhenUnitNameAlreadyExists() throws Exception {
         final Unit unit = new Unit("Kilogram", new ObjectId("59b63ec8e110b21a936c9eef"),
-                false, MetricSystem.CGS, "1/1000", "Kilogram Unit");
+                false, "Kilogram Unit");
+        unit.setFormula("1/1000");
+        unit.setMetricSystem(MetricSystem.CGS);
         mockMvc.perform(post("/units") //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(unit))) //
@@ -150,58 +156,79 @@ public class UnitRepositoryRestIntegrationTest extends AbstractRestIntegrationTe
     @Test
     public void shouldReturnStatusBadRequestWhenRequiredFieldsAreEmptyAtCreation()
             throws Exception {
-        final Unit unit = new Unit("", null, false, null, "1/1000", "");
+        final Unit unit = new Unit("", null, false, "");
         mockMvc.perform(post("/units") //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(unit))) //
                 .andExpect(status().isBadRequest()) //
-                .andExpect(jsonPath("$.errors", hasSize(4))) //
-                .andExpect(jsonPath("$.errors[*].message", //
-                        containsInAnyOrder("name is required", "groupId is required", //
-                                "metricSystem is required", "description is required")));
+                .andExpect(jsonPath("$.errors", hasSize(3))) //
+                .andExpect(
+                        jsonPath("$.errors[*].message", //
+                                containsInAnyOrder("name is required",
+                                        "groupId is required",
+                                        "description is required")));
     }
 
     @Test
     public void shouldReturnStatusBadRequestWhenFieldsAreEmptyAtUpdate()
             throws Exception {
-        final Unit unit = new Unit("", null, false, null, "1/1000", "");
+        final Unit unit = new Unit("", null, false, "");
+        unit.setFormula("1/1000");
         final String content = mapper.writeValueAsString(unit);
         mockMvc.perform(put("/units/{id}", new ObjectId("53e9155b5ed24e4c38d60e3c")) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isBadRequest()) //
-                .andExpect(jsonPath("$.errors", hasSize(4))) //
-                .andExpect(jsonPath("$.errors[*].message", //
-                        containsInAnyOrder("name is required", "groupId is required", //
-                                "metricSystem is required", "description is required")));
+                .andExpect(jsonPath("$.errors", hasSize(3))) //
+                .andExpect(
+                        jsonPath("$.errors[*].message", //
+                                containsInAnyOrder("name is required",
+                                        "groupId is required", //
+                                        "description is required")));
     }
 
     @Test
     public void shouldReturnStatusBadRequestWhenRequiredFieldsAreNullAtCreation()
             throws Exception {
-        final Unit unit = new Unit(null, null, false, null, "1/1000", null);
+        final Unit unit = new Unit(null, null, false, null);
         mockMvc.perform(post("/units") //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(unit))) //
                 .andExpect(status().isBadRequest()) //
-                .andExpect(jsonPath("$.errors", hasSize(4))) //
-                .andExpect(jsonPath("$.errors[*].message", //
-                        containsInAnyOrder("name is required", "groupId is required", //
-                                "metricSystem is required", "description is required")));
+                .andExpect(jsonPath("$.errors", hasSize(3))) //
+                .andExpect(
+                        jsonPath("$.errors[*].message",
+                                containsInAnyOrder("name is required",
+                                        "groupId is required",
+                                        "description is required")));
     }
 
     @Test
     public void shouldReturnStatusBadRequestWhenFieldsAreNullAtUpdate() throws Exception {
-        final Unit unit = new Unit(null, null, false, null, "1/1000", null);
+        final Unit unit = new Unit(null, null, false, null);
         final String content = mapper.writeValueAsString(unit);
         mockMvc.perform(put("/units/{id}", new ObjectId("53e9155b5ed24e4c38d60e3c")) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isBadRequest()) //
-                .andExpect(jsonPath("$.errors", hasSize(4))) //
-                .andExpect(jsonPath("$.errors[*].message", //
-                        containsInAnyOrder("name is required", "groupId is required", //
-                                "metricSystem is required", "description is required")));
+                .andExpect(jsonPath("$.errors", hasSize(3))) //
+                .andExpect(
+                        jsonPath("$.errors[*].message", //
+                                containsInAnyOrder("name is required",
+                                        "groupId is required",
+                                        "description is required")));
+    }
+
+    @Test
+    @ShouldMatchDataSet(location = "/datasets/units/unit_after_create_with_defaultvalues.json")
+    public void shouldCreateNewUnitWithDefaultValues() throws Exception {
+        final Unit unit = new Unit("Pound", new ObjectId("59b63ec8e110b21a936c9eed"), //
+                false, "Pound Unit");
+        mockMvc.perform(post("/units") //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content(mapper.writeValueAsString(unit))) //
+                .andExpect(status().isCreated()) //
+                .andExpect(header().string("Location", containsString("/units")));
     }
 
 }

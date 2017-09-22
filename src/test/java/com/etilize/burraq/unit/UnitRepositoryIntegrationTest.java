@@ -74,7 +74,9 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
     @Test(expected = DuplicateKeyException.class)
     public void shouldThrowDuplicateKeyExceptionWhenUnitNameAlreadyExists() {
         final Unit unit = new Unit("Kilogram", new ObjectId("59b63ec8e110b21a936c9eef"),
-                false, MetricSystem.CGS, "1/1000", "Kilogram Unit");
+                false, "Kilogram Unit");
+        unit.setFormula("1/1000");
+        unit.setMetricSystem(MetricSystem.CGS);
         unitRepository.save(unit);
     }
 
@@ -100,7 +102,9 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
     @ShouldMatchDataSet(location = "/datasets/units/unit_after_create.json")
     public void shouldCreateNewUnit() {
         final Unit unit = new Unit("Pound", new ObjectId("59b63ec8e110b21a936c9eed"), //
-                false, MetricSystem.CGS, "ABC", "Pound Unit");
+                false, "Pound Unit");
+        unit.setFormula("ABC");
+        unit.setMetricSystem(MetricSystem.CGS);
         unitRepository.save(unit);
     }
 
@@ -108,7 +112,9 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
     @ShouldMatchDataSet(location = "/datasets/units/unit_after_update.json")
     public void shouldUpdateExistingUnit() {
         final Unit unit = new Unit("Gram", new ObjectId("59b63ec8e110b21a936c9eed"), //
-                true, MetricSystem.CGS, "ABC", "Gram Unit");
+                true, "Gram Unit");
+        unit.setFormula("ABC");
+        unit.setMetricSystem(MetricSystem.CGS);
         unit.setId(new ObjectId("53e9155b5ed24e4c38d60e3c"));
         unitRepository.save(unit);
     }
@@ -116,15 +122,18 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
     @Test(expected = ConstraintViolationException.class)
     public void shouldThrowExceptionWhenNameIsNullAtCreation() {
         final Unit unit = new Unit(null, new ObjectId("59b63ec8e110b21a936c9eef"), false,
-                MetricSystem.CGS, "1/1000", "Kilogram Unit");
+                "Kilogram Unit");
+        unit.setFormula("1/1000");
+        unit.setMetricSystem(MetricSystem.CGS);
         unitRepository.save(unit);
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void shouldThrowExceptionWhenNameIsNullAtUpdate() {
         final Unit unit = new Unit(null, new ObjectId("59b63ec8e110b21a936c9eef"), false,
-                MetricSystem.CGS, "1/1000", "Kilogram Unit");
-        ;
+                "Kilogram Unit");
+        unit.setFormula("1/1000");
+        unit.setMetricSystem(MetricSystem.CGS);
         unit.setId(new ObjectId("53e9155b5ed24e4c38d60e3c"));
         unitRepository.save(unit);
     }
@@ -132,29 +141,18 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
     @Test(expected = ConstraintViolationException.class)
     public void shouldThrowExceptionWhenNameIsEmptyAtCreation() {
         final Unit unit = new Unit("", new ObjectId("59b63ec8e110b21a936c9eef"), false,
-                MetricSystem.CGS, "1/1000", "Kilogram Unit");
+                "Kilogram Unit");
+        unit.setFormula("1/1000");
+        unit.setMetricSystem(MetricSystem.CGS);
         unitRepository.save(unit);
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void shouldThrowExceptionWhenNameIsEmptyAtUpdate() {
         final Unit unit = new Unit("", new ObjectId("59b63ec8e110b21a936c9eef"), false,
-                MetricSystem.CGS, "1/1000", "Kilogram Unit");
-        unit.setId(new ObjectId("53e9155b5ed24e4c38d60e3c"));
-        unitRepository.save(unit);
-    }
-
-    @Test(expected = ConstraintViolationException.class)
-    public void shouldThrowExceptionWhenMetricSystemIsNullAtCreation() {
-        final Unit unit = new Unit("Kilogram", new ObjectId("59b63ec8e110b21a936c9eef") //
-                , false, null, "1/1000", "Kilogram Unit");
-        unitRepository.save(unit);
-    }
-
-    @Test(expected = ConstraintViolationException.class)
-    public void shouldThrowExceptionWhenMetricSystemIsNullAtUpdate() {
-        final Unit unit = new Unit("Kilogram", new ObjectId("59b63ec8e110b21a936c9eef") //
-                , false, null, "1/1000", "Kilogram Unit");
+                "Kilogram Unit");
+        unit.setFormula("1/1000");
+        unit.setMetricSystem(MetricSystem.CGS);
         unit.setId(new ObjectId("53e9155b5ed24e4c38d60e3c"));
         unitRepository.save(unit);
     }
@@ -162,30 +160,46 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
     @Test(expected = ConstraintViolationException.class)
     public void shouldThrowExceptionWhenDescriptionIsNullAtCreation() {
         final Unit unit = new Unit("Kilogram", new ObjectId("59b63ec8e110b21a936c9eef"),
-                false, MetricSystem.CGS, "1/1000", null);
+                false, null);
+        unit.setFormula("1/1000");
+        unit.setMetricSystem(MetricSystem.CGS);
         unitRepository.save(unit);
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void shouldThrowExceptionWhenDescriptionIsNullAtUpdate() {
         final Unit unit = new Unit("Kilogram", new ObjectId("59b63ec8e110b21a936c9eef"),
-                false, MetricSystem.CGS, "1/1000", null);
+                false, null);
+        unit.setFormula("1/1000");
+        unit.setMetricSystem(MetricSystem.CGS);
         unit.setId(new ObjectId("53e9155b5ed24e4c38d60e3c"));
         unitRepository.save(unit);
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void shouldThrowExceptionWhenDescriptionIsEmptylAtCreation() {
+    public void shouldThrowExceptionWhenDescriptionIsEmptyAtCreation() {
         final Unit unit = new Unit("Kilogram", new ObjectId("59b63ec8e110b21a936c9eef"),
-                false, MetricSystem.CGS, "1/1000", "");
+                false, "");
+        unit.setFormula("1/1000");
+        unit.setMetricSystem(MetricSystem.CGS);
         unitRepository.save(unit);
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void shouldThrowExceptionWhenDescriptionIsEmptyAtUpdate() {
         final Unit unit = new Unit("Kilogram", new ObjectId("59b63ec8e110b21a936c9eef"),
-                false, MetricSystem.CGS, "1/1000", "");
+                false, "");
+        unit.setFormula("1/1000");
+        unit.setMetricSystem(MetricSystem.CGS);
         unit.setId(new ObjectId("53e9155b5ed24e4c38d60e3c"));
+        unitRepository.save(unit);
+    }
+
+    @Test
+    @ShouldMatchDataSet(location = "/datasets/units/unit_after_create_with_defaultvalues.json")
+    public void shouldCreateNewUnitWithDefaultValues() {
+        final Unit unit = new Unit("Pound", new ObjectId("59b63ec8e110b21a936c9eed"), //
+                false, "Pound Unit");
         unitRepository.save(unit);
     }
 }

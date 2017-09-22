@@ -64,10 +64,9 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
 
     private final boolean isBaseUnit;
 
-    @NotNull(message = "metricSystem is required")
-    private final MetricSystem metricSystem;
+    private MetricSystem metricSystem = MetricSystem.NONE;
 
-    private final String formula;
+    private String formula = "[value]";
 
     @NotBlank(message = "description is required")
     private final String description;
@@ -77,22 +76,16 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
      * @param name Name of Unit
      * @param groupId Unit GroupId
      * @param isBaseUnit Base unit of Unit
-     * @param metricSystem Metric System of Unit
-     * @param formula Unit conversion formula
      * @param description Unit description
      */
     @JsonCreator
     public Unit(@JsonProperty("name") final String name,
             @JsonProperty("groupId") final ObjectId groupId,
             @JsonProperty("isBaseUnit") final boolean isBaseUnit,
-            @JsonProperty("metricSystem") final MetricSystem metricSystem,
-            @JsonProperty("formula") final String formula,
             @JsonProperty("description") final String description) {
         this.name = name;
         this.groupId = groupId;
         this.isBaseUnit = isBaseUnit;
-        this.metricSystem = metricSystem;
-        this.formula = formula;
         this.description = description;
     }
 
@@ -121,10 +114,25 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
     }
 
     /**
-     * @return the metricSystem
+    * Metric System (NONE,CGS,MKS,MTS)
+    * @param unit metricSystem
+    */
+    public void setMetricSystem(final MetricSystem metricSystem) {
+        this.metricSystem = metricSystem;
+    }
+
+    /**
+     * @return set metricSystem
      */
     public MetricSystem getMetricSystem() {
         return metricSystem;
+    }
+
+    /**
+     * @param set formula
+     */
+    public void setFormula(final String formula) {
+        this.formula = formula;
     }
 
     /**
