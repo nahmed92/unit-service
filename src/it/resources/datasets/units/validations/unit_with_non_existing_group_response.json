@@ -1,0 +1,16 @@
+{
+    "name": "Micro Second",
+    "groupId": "599585660fcdf874985e396f",
+    "isBaseUnit": true,
+    "metricSystem": "CGS",
+    "formula": "[value] / 1000",
+    "description": "Micro Second Unit",
+    "_links": {
+        "self": {
+            "href": "@endsWith(${locationHeaderValue})@"
+        },
+        "unit": {
+            "href": "@endsWith(${locationHeaderValue})@"
+        }
+    }
+}

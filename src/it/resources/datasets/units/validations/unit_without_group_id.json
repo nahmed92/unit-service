@@ -1,0 +1,7 @@
+{
+    "name": "Gram",
+    "isBaseUnit": true,
+    "metricSystem": "CGS",
+    "formula": "[value] / 1000",
+    "description": "Gram Unit"
+}

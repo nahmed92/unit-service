@@ -169,4 +169,106 @@ public class AddUnitIT extends AbstractIT {
                 "/datasets/units/metris_systems/base_unit/base_unit_with_none_metric_system_response.json"),
                 "${locationHeaderValue}");
     }
+
+    @Test
+    @CitrusTest
+    public void shouldNotAddUnitWithoutName() throws Exception {
+        author("Nimra Inam");
+        description("A unit without name should not be added");
+
+        postRequest(UNITS_URL,
+                readFile("/datasets/units/validations/unit_without_name.json"));
+
+        verifyResponse(HttpStatus.BAD_REQUEST,
+                readFile("/datasets/units/validations/unit_without_name_response.json"));
+    }
+
+    @Test
+    @CitrusTest
+    public void shouldAddUnitWithoutFormulaWithDefaultValue() throws Exception {
+        author("Nimra Inam");
+        description(
+                "A unit without formula should be added with the default value of [value]");
+
+        variable(LOCATION_HEADER_VALUE, "");
+
+        postRequest(UNITS_URL,
+                readFile("/datasets/units/validations/unit_without_formula.json"));
+
+        extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
+        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        verifyResponse(HttpStatus.OK,
+                readFile(
+                        "/datasets/units/validations/unit_without_formula_response.json"),
+                "${locationHeaderValue}");
+    }
+
+    @Test
+    @CitrusTest
+    public void shouldAddUnitWithoutBaseUnit() throws Exception {
+        author("Nimra Inam");
+        description("A unit without base unit field should be added");
+
+        variable(LOCATION_HEADER_VALUE, "");
+
+        postRequest(UNITS_URL,
+                readFile("/datasets/units/validations/unit_without_base_unit.json"));
+
+        extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
+        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        verifyResponse(HttpStatus.OK, readFile(
+                "/datasets/units/validations/unit_without_base_unit_response.json"),
+                "${locationHeaderValue}");
+    }
+
+    @Test
+    @CitrusTest
+    public void shouldAddUnitWithoutMetricSystemAsNone() throws Exception {
+        author("Nimra Inam");
+        description(
+                "A unit without metric system should be added with default value as None");
+
+        variable(LOCATION_HEADER_VALUE, "");
+
+        postRequest(UNITS_URL,
+                readFile("/datasets/units/validations/unit_without_metric_system.json"));
+
+        extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
+        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        verifyResponse(HttpStatus.OK, readFile(
+                "/datasets/units/validations/unit_without_metric_system_response.json"),
+                "${locationHeaderValue}");
+    }
+
+    @Test
+    @CitrusTest
+    public void shouldNotAddUnitWithoutGroupId() throws Exception {
+        author("Nimra Inam");
+        description("A unit without group id should not be added");
+
+        postRequest(UNITS_URL,
+                readFile("/datasets/units/validations/unit_without_group_id.json"));
+
+        verifyResponse(HttpStatus.BAD_REQUEST, readFile(
+                "/datasets/units/validations/unit_without_group_id_response.json"));
+    }
+
+    @Test
+    @CitrusTest
+    public void shouldNotAddUnitWithANonExistingGroup() throws Exception {
+        author("Nimra Inam");
+        description("A unit with a non existing group should not be added");
+
+        variable(LOCATION_HEADER_VALUE, "");
+
+        postRequest(UNITS_URL, readFile(
+                "/datasets/units/validations/unit_with_non_existing_group.json"));
+
+        extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
+        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        verifyResponse(HttpStatus.OK, readFile(
+                "/datasets/units/validations/unit_with_non_existing_group_response.json"),
+                "${locationHeaderValue}");
+    }
+
 }

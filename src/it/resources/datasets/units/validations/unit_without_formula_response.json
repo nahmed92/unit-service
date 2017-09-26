@@ -1,0 +1,16 @@
+{
+    "name": "Milli Second",
+    "groupId": "599585660fcdf874985e399e",
+    "isBaseUnit": true,
+    "metricSystem": "CGS",
+    "formula": "[value]",
+    "description": "Milli Second Unit",
+    "_links": {
+        "self": {
+            "href": "@endsWith(${locationHeaderValue})@"
+        },
+        "unit": {
+            "href": "@endsWith(${locationHeaderValue})@"
+        }
+    }
+}
