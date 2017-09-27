@@ -33,9 +33,9 @@
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
             "isBaseUnit": true,
-            "metricSystem": "CGS",
-            "formula": "A*B",
-            "description": "Degree Celcius Unit"
+            "metricSystem": "NONE",
+            "formula": "1-273.15",
+            "description": "Temperature Unit"
         },
         {
             "_id": {
@@ -49,19 +49,7 @@
             "metricSystem": "CGS",
             "formula": "[value]/1000",
             "description": "Temperature Unit"
-        },
-        {
-            "_id": {
-                "$exists": true
-            },
-            "name": "Pound",
-            "groupId": {
-                "$oid": "53e9155b5ed24e4c38d60e3c"
-            },
-            "isBaseUnit": false,
-            "metricSystem": "NONE",
-            "formula": "[value]",
-            "description": "Pound Unit"
         }
     ]
+}
 }

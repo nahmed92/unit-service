@@ -28,6 +28,7 @@
 
 package com.etilize.burraq.unit.config;
 
+import javax.validation.Validator;
 import org.bson.types.ObjectId;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
