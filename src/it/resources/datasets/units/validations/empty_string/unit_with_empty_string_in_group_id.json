@@ -1,0 +1,8 @@
+{
+    "name": "Micro Second",
+    "groupId": "",
+    "isBaseUnit": true,
+    "metricSystem": "CGS",
+    "formula": "[value] / 1000",
+    "description": "Micro Second Unit"
+}
