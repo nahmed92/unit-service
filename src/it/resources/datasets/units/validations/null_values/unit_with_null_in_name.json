@@ -1,0 +1,8 @@
+{
+    "name": null,
+    "groupId": "599585660fcdf874985e399e",
+    "isBaseUnit": true,
+    "metricSystem": "CGS",
+    "formula": "[value] / 1000",
+    "description": "Gram Unit"
+}
