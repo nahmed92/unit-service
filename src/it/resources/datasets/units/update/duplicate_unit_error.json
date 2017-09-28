@@ -1,0 +1,7 @@
+{
+    "cause": {
+        "cause": null,
+        "message": "Write failed with error code 11000 and error message 'E11000 duplicate key error collection: unit-service.units index: name dup key: { : \"Pound\" }'"
+    },
+    "message": "Write failed with error code 11000 and error message 'E11000 duplicate key error collection: unit-service.units index: name dup key: { : \"Pound\" }'; nested exception is com.mongodb.DuplicateKeyException: Write failed with error code 11000 and error message 'E11000 duplicate key error collection: unit-service.units index: name dup key: { : \"Pound\" }'"
+}

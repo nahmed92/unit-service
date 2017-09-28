@@ -1,0 +1,8 @@
+{
+    "name": "Ounce Unit",
+    "groupId": "59afe1125846b8762efc30e1",
+    "isBaseUnit": false,
+    "metricSystem": "MKS",
+    "formula": "[value] / 1000",
+    "description": "This Ounce unit"
+}

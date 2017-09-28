@@ -67,7 +67,9 @@ public abstract class AbstractIT extends JUnit4CitrusTestDesigner {
 
     protected final static String EXISTING_GROUP_ID_TO_REMOVE = "59afe1125846b8762efc30e1";
 
-    protected final static String EXISTING_UNIT_ID_TO_REMOVE = "59cc8afe2a26200bc964e247";
+    protected final static String EXISTING_UNIT_ID_TO_REMOVE = "59d217150fcdf85577160d58";
+
+    protected final static String EXISTING_UNIT_ID_TO_UPDATE = "59cc914b2a26200bc964e26e";
 
     @Autowired
     protected HttpClient serviceClient;
