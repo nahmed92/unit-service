@@ -426,4 +426,59 @@ public class AddUnitIT extends AbstractIT {
                 "/datasets/units/validations/empty_string/unit_with_empty_string_in_group_id_response.json"));
 
     }
+
+    @Test
+    @CitrusTest
+    public void shouldAddUnitWithMixedLetters() throws Exception {
+        author("Nimra Inam");
+        description("A unit should be added with mixed letters");
+
+        variable(LOCATION_HEADER_VALUE, "");
+
+        postRequest(UNITS_URL, readFile(
+                "/datasets/units/validations/different_types/unit_with_mixed_letters.json"));
+
+        extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
+        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        verifyResponse(HttpStatus.OK, readFile(
+                "/datasets/units/validations/different_types/unit_with_mixed_letters_response.json"),
+                "${locationHeaderValue}");
+    }
+
+    @Test
+    @CitrusTest
+    public void shouldAddUnitWithSpecialCharacters() throws Exception {
+        author("Nimra Inam");
+        description("A unit should be added with special characters");
+
+        variable(LOCATION_HEADER_VALUE, "");
+
+        postRequest(UNITS_URL, readFile(
+                "/datasets/units/validations/different_types/unit_with_special_characters.json"));
+
+        extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
+        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        verifyResponse(HttpStatus.OK, readFile(
+                "/datasets/units/validations/different_types/unit_with_special_characters_response.json"),
+                "${locationHeaderValue}");
+    }
+
+    @Test
+    @CitrusTest
+    public void shouldAddUnitWithAllNumbers() throws Exception {
+        author("Nimra Inam");
+        description("A unit should be added with all numbers");
+
+        variable(LOCATION_HEADER_VALUE, "");
+
+        postRequest(UNITS_URL, readFile(
+                "/datasets/units/validations/different_types/unit_with_all_numbers.json"));
+
+        extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
+        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        verifyResponse(HttpStatus.OK, readFile(
+                "/datasets/units/validations/different_types/unit_with_all_numbers_response.json"),
+                "${locationHeaderValue}");
+    }
+
 }

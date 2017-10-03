@@ -102,7 +102,7 @@ public abstract class AbstractIT extends JUnit4CitrusTestDesigner {
                 .send() //
                 .post(url) //
                 .payload(payload) //
-                .contentType(APPLICATION_JSON_VALUE) //
+                .contentType(APPLICATION_JSON_UTF8_VALUE) //
                 .accept(APPLICATION_JSON_VALUE);
     }
 

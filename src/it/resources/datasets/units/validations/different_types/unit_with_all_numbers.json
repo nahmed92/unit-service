@@ -1,0 +1,8 @@
+{
+    "name": "100",
+    "groupId": "599585660fcdf874985e399e",
+    "isBaseUnit": false,
+    "metricSystem": "CGS",
+    "formula": "[value] / 1000",
+    "description": "percentage Unit"
+}

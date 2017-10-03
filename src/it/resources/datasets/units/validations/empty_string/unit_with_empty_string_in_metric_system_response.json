@@ -1,7 +1,7 @@
 {
     "cause": {
         "cause": null,
-        "message": "Can not deserialize value of type com.etilize.burraq.unit.MetricSystem from String \"\": value not one of declared Enum instance names: [NONE, MTS, MKS, CGS]\n at [Source: org.apache.catalina.connector.CoyoteInputStream@2be42a4e; line: 5, column: 21] (through reference chain: com.etilize.burraq.unit.Unit[\"metricSystem\"])"
+        "message": "Can not deserialize value of type com.etilize.burraq.unit.MetricSystem from String \"\": value not one of declared Enum instance names: [NONE, MTS, MKS, CGS]\n at [Source: org.apache.catalina.connector.CoyoteInputStream@34875b4e; line: 5, column: 21] (through reference chain: com.etilize.burraq.unit.Unit[\"metricSystem\"])"
     },
-    "message": "JSON parse error: Can not deserialize value of type com.etilize.burraq.unit.MetricSystem from String \"\": value not one of declared Enum instance names: [NONE, MTS, MKS, CGS]; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Can not deserialize value of type com.etilize.burraq.unit.MetricSystem from String \"\": value not one of declared Enum instance names: [NONE, MTS, MKS, CGS]\n at [Source: org.apache.catalina.connector.CoyoteInputStream@2be42a4e; line: 5, column: 21] (through reference chain: com.etilize.burraq.unit.Unit[\"metricSystem\"])"
+    "message": "JSON parse error: Can not deserialize value of type com.etilize.burraq.unit.MetricSystem from String \"\": value not one of declared Enum instance names: [NONE, MTS, MKS, CGS]; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Can not deserialize value of type com.etilize.burraq.unit.MetricSystem from String \"\": value not one of declared Enum instance names: [NONE, MTS, MKS, CGS]\n at [Source: org.apache.catalina.connector.CoyoteInputStream@34875b4e; line: 5, column: 21] (through reference chain: com.etilize.burraq.unit.Unit[\"metricSystem\"])"
 }
