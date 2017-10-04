@@ -1,0 +1,10 @@
+{
+    "cause": {
+        "cause": {
+            "cause": null,
+            "message": "Can not deserialize value of type com.etilize.burraq.unit.MetricSystem from String \"\": value not one of declared Enum instance names: [NONE, MTS, MKS, CGS]\n at [Source: N/A; line: -1, column: -1] (through reference chain: com.etilize.burraq.unit.Unit[\"metricSystem\"])"
+        },
+        "message": "Could not read payload!; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Can not deserialize value of type com.etilize.burraq.unit.MetricSystem from String \"\": value not one of declared Enum instance names: [NONE, MTS, MKS, CGS]\n at [Source: N/A; line: -1, column: -1] (through reference chain: com.etilize.burraq.unit.Unit[\"metricSystem\"])"
+    },
+    "message": "Could not read an object of type class com.etilize.burraq.unit.Unit from the request!; nested exception is org.springframework.http.converter.HttpMessageNotReadableException: Could not read payload!; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Can not deserialize value of type com.etilize.burraq.unit.MetricSystem from String \"\": value not one of declared Enum instance names: [NONE, MTS, MKS, CGS]\n at [Source: N/A; line: -1, column: -1] (through reference chain: com.etilize.burraq.unit.Unit[\"metricSystem\"])"
+}

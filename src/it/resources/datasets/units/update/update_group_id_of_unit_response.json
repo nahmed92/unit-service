@@ -1,0 +1,16 @@
+{
+    "name": "Ounce Unit",
+    "groupId": "59afe1125846b8762efc30e1",
+    "isBaseUnit": false,
+    "description": "This Ounce unit",
+    "metricSystem": "MKS",
+    "formula": "[value] / 1000",
+    "_links": {
+        "self": {
+            "href": "@endsWith(${locationHeaderValue})@"
+        },
+        "unit": {
+            "href": "@endsWith(${locationHeaderValue})@"
+        }
+    }
+}
