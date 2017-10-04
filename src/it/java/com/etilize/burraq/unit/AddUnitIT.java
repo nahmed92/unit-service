@@ -388,6 +388,8 @@ public class AddUnitIT extends AbstractIT {
         author("Nimra Inam");
         description("A unit should be added with empty string in formula");
 
+        variable("error", "value not one of declared Enum instance names: [NONE, MTS, MKS, CGS]");
+
         postRequest(UNITS_URL, readFile(
                 "/datasets/units/validations/empty_string/unit_with_empty_string_in_metric_system.json"));
 
@@ -418,6 +420,8 @@ public class AddUnitIT extends AbstractIT {
     public void shouldNotAddUnitWithEmptyStringInGroupId() throws Exception {
         author("Nimra Inam");
         description("A unit should not be added with empty string in group id");
+
+        variable("error", "invalid hexadecimal representation");
 
         postRequest(UNITS_URL, readFile(
                 "/datasets/units/validations/empty_string/unit_with_empty_string_in_group_id.json"));

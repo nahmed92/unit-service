@@ -2,9 +2,9 @@
     "cause": {
         "cause": {
             "cause": null,
-            "message": "invalid hexadecimal representation of an ObjectId: []"
+            "message": "@contains(${error})@"
         },
-        "message": "Can not construct instance of org.bson.types.ObjectId, problem: invalid hexadecimal representation of an ObjectId: []\n at [Source: org.apache.catalina.connector.CoyoteInputStream@34875b4e; line: 3, column: 16] (through reference chain: com.etilize.burraq.unit.Unit[\"groupId\"])"
+        "message": "@contains(${error})@"
     },
-    "message": "JSON parse error: Can not construct instance of org.bson.types.ObjectId, problem: invalid hexadecimal representation of an ObjectId: []; nested exception is com.fasterxml.jackson.databind.JsonMappingException: Can not construct instance of org.bson.types.ObjectId, problem: invalid hexadecimal representation of an ObjectId: []\n at [Source: org.apache.catalina.connector.CoyoteInputStream@34875b4e; line: 3, column: 16] (through reference chain: com.etilize.burraq.unit.Unit[\"groupId\"])"
+    "message": "@contains(${error})@"
 }

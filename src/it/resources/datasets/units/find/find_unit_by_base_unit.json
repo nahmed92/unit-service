@@ -1,0 +1,165 @@
+{
+    "_embedded": {
+        "units": [
+            {
+                "name": "kg/h",
+                "groupId": "5995843b0fcdf874985e399d",
+                "isBaseUnit": "@contains(${baseUnit})@",
+                "description": "Kilogram Per Hour",
+                "metricSystem": "CGS",
+                "formula": "[value] * 1000",
+                "_links": {
+                    "self": {
+                        "href": "@contains(/units)@"
+                    },
+                    "unit": {
+                        "href": "@contains(/units)@"
+                    }
+                }
+            },
+            {
+                "name": "Micro Second",
+                "groupId": "599585660fcdf874985e3938",
+                "isBaseUnit": "@contains(${baseUnit})@",
+                "description": "Micro Second Unit",
+                "metricSystem": "CGS",
+                "formula": "[value] / 1000",
+                "_links": {
+                    "self": {
+                        "href": "@contains(/units)@"
+                    },
+                    "unit": {
+                        "href": "@contains(/units)@"
+                    }
+                }
+            },
+            {
+                "name": "Nano Second",
+                "groupId": "599585660fcdf874985e399e",
+                "isBaseUnit": "@contains(${baseUnit})@",
+                "description": "Nano Second Unit",
+                "metricSystem": "NONE",
+                "formula": "[value] / 1000",
+                "_links": {
+                    "self": {
+                        "href": "@contains(/units)@"
+                    },
+                    "unit": {
+                        "href": "@contains(/units)@"
+                    }
+                }
+            },
+            {
+                "name": "Milli Second",
+                "groupId": "599585660fcdf874985e399e",
+                "isBaseUnit": "@contains(${baseUnit})@",
+                "description": "Milli Second Unit",
+                "metricSystem": "CGS",
+                "formula": "[value]",
+                "_links": {
+                    "self": {
+                        "href": "@contains(/units)@"
+                    },
+                    "unit": {
+                        "href": "@contains(/units)@"
+                    }
+                }
+            },
+            {
+                "name": "Mb/s",
+                "groupId": "59b63ec8e110b21a936c9eed",
+                "isBaseUnit": "@contains(${baseUnit})@",
+                "description": "Mb/s Unit",
+                "metricSystem": "NONE",
+                "formula": "[value] / 1000",
+                "_links": {
+                    "self": {
+                        "href": "@contains(/units)@"
+                    },
+                    "unit": {
+                        "href": "@contains(/units)@"
+                    }
+                }
+            },
+            {
+                "name": "Hour",
+                "groupId": "599585660fcdf874985e399e",
+                "isBaseUnit": "@contains(${baseUnit})@",
+                "description": "Hour Unit",
+                "metricSystem": "CGS",
+                "formula": "[value]",
+                "_links": {
+                    "self": {
+                        "href": "@contains(/units)@"
+                    },
+                    "unit": {
+                        "href": "@contains(/units)@"
+                    }
+                }
+            },
+            {
+                "name": "Processor Speed",
+                "groupId": "599585660fcdf874985e399e",
+                "isBaseUnit": "@contains(${baseUnit})@",
+                "description": "Processor Speed Unit",
+                "metricSystem": "CGS",
+                "formula": "",
+                "_links": {
+                    "self": {
+                        "href": "@contains(/units)@"
+                    },
+                    "unit": {
+                        "href": "@contains(/units)@"
+                    }
+                }
+            },
+            {
+                "name": "Meter",
+                "groupId": "59b63ec8e110b21a936c9eed",
+                "isBaseUnit": "@contains(${baseUnit})@",
+                "description": "Meter Unit",
+                "metricSystem": "MTS",
+                "formula": "[value] / 1000",
+                "_links": {
+                    "self": {
+                        "href": "@contains(/units)@"
+                    },
+                    "unit": {
+                        "href": "@contains(/units)@"
+                    }
+                }
+            },
+            {
+                "name": "Gram",
+                "groupId": "599585660fcdf874985e399e",
+                "isBaseUnit": "@contains(${baseUnit})@",
+                "description": "Gram Unit",
+                "metricSystem": "CGS",
+                "formula": "[value] / 1000",
+                "_links": {
+                    "self": {
+                        "href": "@contains(/units)@"
+                    },
+                    "unit": {
+                        "href": "@contains(/units)@"
+                    }
+                }
+            }
+        ]
+    },
+    "_links": {
+        "self": {
+            "href": "@endsWith(/units{?page,size,sort})@",
+            "templated": true
+        },
+        "profile": {
+            "href": "@endsWith(/profile/units)@"
+        }
+    },
+    "page": {
+        "size": 20,
+        "totalElements": 9,
+        "totalPages": 1,
+        "number": 0
+    }
+}

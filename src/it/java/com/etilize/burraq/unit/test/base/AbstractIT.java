@@ -94,6 +94,18 @@ public abstract class AbstractIT extends JUnit4CitrusTestDesigner {
     }
 
     /**
+     * It sends get request to service
+     *
+     * @param url Url to get request
+     */
+    public void getRequest(final String url) {
+        http().client(serviceClient) //
+                .send() //
+                .get(url) //
+                .contentType(APPLICATION_JSON_VALUE);
+    }
+
+    /**
      * It sends post request to service
      *
      * @param url Url to use to send request
