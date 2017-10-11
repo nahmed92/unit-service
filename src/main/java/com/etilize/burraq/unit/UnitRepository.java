@@ -52,4 +52,13 @@ public interface UnitRepository extends MongoRepository<Unit, ObjectId>,
         });
     }
 
+    /**
+     * Return count by groupId and baseUnit
+     *
+     * @param groupId groupId of unit
+     * @param isBaseUnit base unit
+     * @return count of unit
+     */
+    int countByGroupIdAndIsBaseUnit(ObjectId groupId, boolean isBaseUnit);
+
 }

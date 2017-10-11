@@ -104,7 +104,7 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
     }
 
     /**
-     * @JsonProperty to access field level
+     * Annotation JsonProperty to access field level
      *  property value
      * @return the isBaseUnit
      */
@@ -115,28 +115,30 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
 
     /**
     * Metric System (NONE,CGS,MKS,MTS)
-    * @param unit metricSystem
+    * @param metricSystem Unit metric system
     */
     public void setMetricSystem(final MetricSystem metricSystem) {
         this.metricSystem = metricSystem;
     }
 
     /**
-     * @return set metricSystem
+     * @return metricSystem
      */
     public MetricSystem getMetricSystem() {
         return metricSystem;
     }
 
     /**
-     * @param set formula
+     * Set unit formula
+     *
+     * @param formula unit formula
      */
     public void setFormula(final String formula) {
         this.formula = formula;
     }
 
     /**
-     * @return the formula
+     * @return formula
      */
     public String getFormula() {
         return formula;

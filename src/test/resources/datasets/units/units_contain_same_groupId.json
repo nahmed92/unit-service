@@ -1,0 +1,28 @@
+{
+    "units": [
+        {
+            "_id": {
+                "$oid": "59b63ec8e110b21a936c9eed"
+            },
+            "name": "gram",
+            "groupId": "53e9155b5ed24e4c38d60e3c",
+            "isBaseUnit": true,
+            "metricSystem": "CGS",
+            "formula": "1/1000",
+            "description": "weight Unit"
+        },
+        {
+            "_id": {
+                "$exists": true
+            },
+            "name": "Pound",
+            "groupId": {
+                "$oid": "53e9155b5ed24e4c38d60e3c"
+            },
+            "isBaseUnit": true,
+            "metricSystem": "CGS",
+            "formula": "ABC",
+            "description": "weight Unit"
+        }
+    ]
+}

@@ -17,10 +17,10 @@
         "data": [
             {
                 "_id": {
-                    "$oid": "53e9155b5ed24e4c38d60e3c"
+                    "$oid": "59b63ec8e110b21a936c9eed"
                 },
                 "name": "Kilogram",
-                "groupId": "59b63ec8e110b21a936c9eed",
+                "groupId": "53e9155b5ed24e4c38d60e3c",
                 "isBaseUnit": false,
                 "metricSystem": "CGS",
                 "formula": "1/1000",
@@ -28,15 +28,44 @@
             },
             {
                 "_id": {
+                    "$oid": "74e9155b5ed24e4c38d60e5e"
+                },
+                "name": "fahrenheit",
+                "groupId": {
                     "$oid": "74e9155b5ed24e4c38d60e3c"
                 },
+                "isBaseUnit": true,
+                "metricSystem": "CGS",
+                "formula": "1/1000",
+                "description": "Temperature Unit"
+            },
+            {
+                "_id": {
+                    "$oid": "59b63ec8e110b21a936c9eef"
+                },
                 "name": "Degree Celcius",
-                "groupId": "59b63ec8e110b21a936c9eef",
+                "groupId": {
+                    "$oid": "74e9155b5ed24e4c38d60e3c"
+                },
                 "isBaseUnit": true,
                 "metricSystem": "CGS",
                 "formula": "A*B",
                 "description": "Degree Celcius Unit"
+            },
+            {
+                "_id": {
+                    "$oid": "59c8da92e110b26284265711"
+                },
+                "name": "Kelvin",
+                "groupId": {
+                    "$oid": "74e9155b5ed24e4c38d60e3c"
+                },
+                "isBaseUnit": false,
+                "metricSystem": "CGS",
+                "formula": "[value]/1000",
+                "description": "Temperature Unit"
             }
         ]
     }
+}
 }
