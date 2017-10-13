@@ -31,8 +31,11 @@ package com.etilize.burraq.unit.config;
 import javax.validation.Validator;
 import org.bson.types.ObjectId;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
 import org.springframework.data.rest.core.event.ValidatingRepositoryEventListener;
@@ -115,6 +118,26 @@ public class RestConfig extends RepositoryRestConfigurerAdapter {
     public Jackson2ObjectMapperBuilderCustomizer addCustomObjectIdDeserialization() {
         return jacksonObjectMapperBuilder -> jacksonObjectMapperBuilder.serializerByType(
                 ObjectId.class, new ToStringSerializer());
+    }
+
+    /**
+     * Returns message source
+     *
+     * @return MessageSource message source
+     */
+    @Bean
+    public MessageSource messageSource() {
+        return new ResourceBundleMessageSource();
+    }
+
+    /**
+     * Return message source accessor
+     *
+     * @return MessageSourceAccessor message source accessor
+     */
+    @Bean
+    public MessageSourceAccessor messageSourceAccessor() {
+        return new MessageSourceAccessor(messageSource());
     }
 
 }

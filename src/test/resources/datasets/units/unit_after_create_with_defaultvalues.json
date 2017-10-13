@@ -34,7 +34,7 @@
             },
             "isBaseUnit": true,
             "metricSystem": "CGS",
-            "formula": "A*B",
+            "formula": "[value]*1000",
             "description": "Degree Celcius Unit"
         },
         {

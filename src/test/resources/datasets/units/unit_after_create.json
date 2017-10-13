@@ -34,7 +34,7 @@
             },
             "isBaseUnit": true,
             "metricSystem": "CGS",
-            "formula": "A*B",
+            "formula": "[value]*1000",
             "description": "Degree Celcius Unit"
         },
         {
@@ -60,7 +60,7 @@
             },
             "isBaseUnit": false,
             "metricSystem": "CGS",
-            "formula": "ABC",
+            "formula": "1/1000",
             "description": "Pound Unit"
         }
     ]

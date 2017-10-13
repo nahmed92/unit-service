@@ -34,6 +34,7 @@ import static org.hamcrest.Matchers.*;
 import java.util.List;
 
 import javax.validation.ConstraintViolationException;
+import javax.validation.ValidationException;
 
 import org.bson.types.ObjectId;
 import org.junit.Test;
@@ -73,7 +74,7 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
         assertThat(units.get(2).getGroupId(),
                 is(new ObjectId("74e9155b5ed24e4c38d60e3c")));
         assertThat(units.get(2).isBaseUnit(), is(true));
-        assertThat(units.get(2).getFormula(), is("A*B"));
+        assertThat(units.get(2).getFormula(), is("[value]*1000"));
         assertThat(units.get(2).getMetricSystem(), is(MetricSystem.CGS));
         assertThat(units.get(2).getDescription(), is("Degree Celcius Unit"));
         assertThat(units.get(3).getName(), is("Kelvin"));
@@ -124,8 +125,8 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
     public void shouldCreateNewUnit() {
         final Unit unit = new Unit("Pound", new ObjectId("53e9155b5ed24e4c38d60e3c"), //
                 false, "Pound Unit");
-        unit.setFormula("ABC");
         unit.setMetricSystem(MetricSystem.CGS);
+        unit.setFormula("1/1000");
         unitRepository.save(unit);
     }
 
@@ -134,8 +135,8 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
     public void shouldUpdateExistingUnit() {
         final Unit unit = new Unit("Gram", new ObjectId("53e9155b5ed24e4c38d60e3c"), //
                 true, "Gram Unit");
-        unit.setFormula("ABC");
         unit.setMetricSystem(MetricSystem.CGS);
+        unit.setFormula("[value]*1000");
         unit.setId(new ObjectId("59b63ec8e110b21a936c9eed"));
         unitRepository.save(unit);
     }
@@ -144,8 +145,8 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
     public void shouldThrowExceptionWhenNameIsNullAtCreation() {
         final Unit unit = new Unit(null, new ObjectId("53e9155b5ed24e4c38d60e3c"), false,
                 "Kilogram Unit");
-        unit.setFormula("1/1000");
         unit.setMetricSystem(MetricSystem.CGS);
+        unit.setFormula("1/1000");
         unitRepository.save(unit);
     }
 
@@ -153,7 +154,6 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
     public void shouldThrowExceptionWhenNameIsNullAtUpdate() {
         final Unit unit = new Unit(null, new ObjectId("53e9155b5ed24e4c38d60e3c"), false,
                 "Kilogram Unit");
-        unit.setFormula("1/1000");
         unit.setMetricSystem(MetricSystem.CGS);
         unit.setId(new ObjectId("59b63ec8e110b21a936c9eed"));
         unitRepository.save(unit);
@@ -182,8 +182,8 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
     public void shouldThrowExceptionWhenDescriptionIsNullAtCreation() {
         final Unit unit = new Unit("Kilogram", new ObjectId("53e9155b5ed24e4c38d60e3c"),
                 false, null);
-        unit.setFormula("1/1000");
         unit.setMetricSystem(MetricSystem.CGS);
+        unit.setFormula("1/1000");
         unitRepository.save(unit);
     }
 
@@ -191,7 +191,6 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
     public void shouldThrowExceptionWhenDescriptionIsNullAtUpdate() {
         final Unit unit = new Unit("Kilogram", new ObjectId("53e9155b5ed24e4c38d60e3c"),
                 false, null);
-        unit.setFormula("1/1000");
         unit.setMetricSystem(MetricSystem.CGS);
         unit.setId(new ObjectId("59b63ec8e110b21a936c9eed"));
         unitRepository.save(unit);
@@ -213,6 +212,22 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
         unit.setFormula("1/1000");
         unit.setMetricSystem(MetricSystem.CGS);
         unit.setId(new ObjectId("59b63ec8e110b21a936c9eed"));
+        unitRepository.save(unit);
+    }
+
+    @Test(expected = ConstraintViolationException.class)
+    public void shouldThrowExceptionWhenInvalidArithmeticOperatorsExistInFormula() {
+        final Unit unit = new Unit("Kilogram", new ObjectId("59b63ec8e110b21a936c9eef"),
+                false, "Kilogram Unit");
+        unit.setFormula("[value]//1000");
+        unitRepository.save(unit);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void shouldThrowExceptionWhenInvalidTextInFormula() {
+        final Unit unit = new Unit("Kilogram", new ObjectId("59b63ec8e110b21a936c9eef"),
+                false, "Kilogram Unit");
+        unit.setFormula("[value]/1000ABC");
         unitRepository.save(unit);
     }
 
