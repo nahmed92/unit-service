@@ -153,7 +153,9 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
         mockMvc.perform(post("/units") //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(unit))) //
-                .andExpect(status().isConflict());
+                .andExpect(status().isConflict()) //
+                .andExpect(jsonPath("$.message", is("name already exists."))) //
+                .andExpect(jsonPath("$.code", is(11000)));
     }
 
     @Test

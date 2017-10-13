@@ -114,10 +114,12 @@ public class UnitRepositoryEventHandler {
      * @param unit unit associated with group
      */
     private void validateGroup(final Unit unit) {
-        final Group group = groupRepository.findOne(unit.getGroupId());
-        if (group == null) {
-            throw new RepositoryConstraintViolationException(new ValidationErrors("unit",
-                    unit.getName(), "Group does not exist."));
+        if (unit.getGroupId() != null) {
+            final Group group = groupRepository.findOne(unit.getGroupId());
+            if (group == null) {
+                throw new RepositoryConstraintViolationException(new ValidationErrors(
+                        "unit", unit.getName(), "Group does not exist."));
+            }
         }
     }
 

@@ -102,7 +102,9 @@ public class GroupRepositoryRestIntegrationTest extends AbstractRestIntegrationT
         mockMvc.perform(post("/groups") //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(group))) //
-                .andExpect(status().isConflict());
+                .andExpect(status().isConflict()) //
+                .andExpect(jsonPath("$.message", is("name already exists."))) //
+                .andExpect(jsonPath("$.code", is(11000)));
     }
 
     @Test
