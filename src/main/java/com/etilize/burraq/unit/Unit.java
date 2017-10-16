@@ -32,6 +32,7 @@ import static com.etilize.burraq.unit.Unit.*;
 
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -120,7 +121,7 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
     * @param metricSystem unit metic System
     */
     public void setMetricSystem(final MetricSystem metricSystem) {
-        this.metricSystem = metricSystem;
+        this.metricSystem = metricSystem == null ? MetricSystem.NONE : metricSystem;
     }
 
     /**
@@ -135,7 +136,7 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
      * @param formula It's the formula to convert value
      */
     public void setFormula(final String formula) {
-        this.formula = formula;
+        this.formula = StringUtils.isBlank(formula) ? "[value]" : formula;
     }
 
     /**

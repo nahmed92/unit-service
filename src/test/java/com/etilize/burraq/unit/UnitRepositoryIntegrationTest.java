@@ -239,4 +239,44 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
         unitRepository.save(unit);
     }
 
+    @Test
+    @ShouldMatchDataSet(location = "/datasets/units/unit_after_create_when_formula_and_metricSystem_is_null_or_empty.json")
+    public void shouldCreateUnitWithDefaultValueWhenMetircSystemAndFormulaAreNull() {
+        final Unit unit = new Unit("Ounce", new ObjectId("53e9155b5ed24e4c38d60e3c"),
+                false, "Ounce Unit");
+        unit.setFormula(null);
+        unit.setMetricSystem(null);
+        unitRepository.save(unit);
+    }
+
+    @Test
+    @ShouldMatchDataSet(location = "/datasets/units/unit_after_create_when_formula_and_metricSystem_is_null_or_empty.json")
+    public void shouldCreateUnitFormulaWithDefaultValueWhenFormulaIsEmpty() {
+        final Unit unit = new Unit("Ounce", new ObjectId("53e9155b5ed24e4c38d60e3c"),
+                false, "Ounce Unit");
+        unit.setFormula("");
+        unitRepository.save(unit);
+    }
+
+    @Test
+    @ShouldMatchDataSet(location = "/datasets/units/unit_after_update_when_formula_and_metricSystem_is_null_or_empty.json")
+    public void shouldUpdateUnitFormulaAndMetricSystemWithDefaultValueWhenMetricSystemAndFormulaAreNull() {
+        final Unit unit = new Unit("Kilogram", new ObjectId("53e9155b5ed24e4c38d60e3c"), //
+                false, "Kilogram Unit");
+        unit.setId(new ObjectId("59b63ec8e110b21a936c9eed"));
+        unit.setFormula(null);
+        unit.setMetricSystem(null);
+        unitRepository.save(unit);
+    }
+
+    @Test
+    @ShouldMatchDataSet(location = "/datasets/units/unit_after_update_when_formula_and_metricSystem_is_null_or_empty.json")
+    public void shouldUpdateUnitFormulaWithDefaultValueWhenFormulaIsEmpty() {
+        final Unit unit = new Unit("Kilogram", new ObjectId("53e9155b5ed24e4c38d60e3c"), //
+                false, "Kilogram Unit");
+        unit.setFormula("");
+        unit.setId(new ObjectId("59b63ec8e110b21a936c9eed"));
+        unitRepository.save(unit);
+    }
+
 }
