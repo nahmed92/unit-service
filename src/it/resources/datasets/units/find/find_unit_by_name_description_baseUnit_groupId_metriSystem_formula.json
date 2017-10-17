@@ -1,0 +1,37 @@
+{
+    "_embedded": {
+        "units": [
+            {
+                "name": "${name}",
+                "groupId": "${groupId}",
+                "isBaseUnit": "@contains(${baseUnit})@",
+                "description": "${description}",
+                "metricSystem": "${metricSystem}",
+                "formula": "${formula}",
+                "_links": {
+                    "self": {
+                        "href": "@contains(/units)@"
+                    },
+                    "unit": {
+                        "href": "@contains(/units)@"
+                    }
+                }
+            }
+        ]
+    },
+    "_links": {
+        "self": {
+            "href": "@endsWith(/units{?page,size,sort})@",
+            "templated": true
+        },
+        "profile": {
+            "href": "@endsWith(/profile/units)@"
+        }
+    },
+    "page": {
+        "size": 20,
+        "totalElements": 1,
+        "totalPages": 1,
+        "number": 0
+    }
+}

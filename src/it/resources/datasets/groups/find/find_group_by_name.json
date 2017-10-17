@@ -1,0 +1,33 @@
+{
+    "_embedded": {
+        "groups": [
+            {
+                "name": "${name}",
+                "description": "this is weight unit group",
+                "_links": {
+                    "self": {
+                        "href": "@endsWith(${groupId})@"
+                    },
+                    "group": {
+                        "href": "@endsWith(${groupId})@"
+                    }
+                }
+            }
+        ]
+    },
+    "_links": {
+        "self": {
+            "href": "@endsWith(/groups{?page,size,sort})@",
+            "templated": true
+        },
+        "profile": {
+            "href": "@endsWith(/profile/groups)@"
+        }
+    },
+    "page": {
+        "size": 20,
+        "totalElements": 1,
+        "totalPages": 1,
+        "number": 0
+    }
+}

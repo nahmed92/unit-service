@@ -1,0 +1,21 @@
+{
+    "_embedded": {
+        "groups": [
+        ]
+    },
+    "_links": {
+        "self": {
+            "href": "@endsWith(/groups{?page,size,sort})@",
+            "templated": true
+        },
+        "profile": {
+            "href": "@endsWith(/profile/groups)@"
+        }
+    },
+    "page": {
+        "size": 20,
+        "totalElements": 0,
+        "totalPages": 0,
+        "number": 0
+    }
+}

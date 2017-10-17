@@ -1,0 +1,21 @@
+{
+    "_embedded": {
+        "units": [
+        ]
+    },
+    "_links": {
+        "self": {
+            "href": "@endsWith(/units{?page,size,sort})@",
+            "templated": true
+        },
+        "profile": {
+            "href": "@endsWith(/profile/units)@"
+        }
+    },
+    "page": {
+        "size": 20,
+        "totalElements": 0,
+        "totalPages": 0,
+        "number": 0
+    }
+}
