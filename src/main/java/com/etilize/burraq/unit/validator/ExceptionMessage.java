@@ -46,7 +46,7 @@ public class ExceptionMessage {
      * Constructor to build exception message
      *
      * @param message exception message
-     * @param throwable
+     * @param cause throwable
      * @param code exception code
      */
     public ExceptionMessage(final String message, final Throwable cause, final int code) {
