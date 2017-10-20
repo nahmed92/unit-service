@@ -4,7 +4,7 @@
     "isBaseUnit": true,
     "description": "Hour Unit",
     "metricSystem": "CGS",
-    "formula": null,
+    "formula": "[value]",
     "_links": {
         "self": {
             "href": "@endsWith(${locationHeaderValue})@"

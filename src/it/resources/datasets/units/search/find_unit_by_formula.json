@@ -2,18 +2,18 @@
     "_embedded": {
         "units": [
             {
-                "name": "${name}",
-                "groupId": "599585660fcdf874985e399e",
-                "isBaseUnit": false,
-                "description": "This Ounce unit",
-                "metricSystem": "MKS",
-                "formula": "[value] * 100",
+                "name": "kg/h",
+                "groupId": "5995843b0fcdf874985e399d",
+                "isBaseUnit": true,
+                "description": "Kilogram Per Hour",
+                "metricSystem": "CGS",
+                "formula": "${formula}",
                 "_links": {
                     "self": {
-                        "href": "@endsWith(${unitId})@"
+                        "href": "@contains(/units)@"
                     },
                     "unit": {
-                        "href": "@endsWith(${unitId})@"
+                        "href": "@contains(/units)@"
                     }
                 }
             }
@@ -26,6 +26,9 @@
         },
         "profile": {
             "href": "@endsWith(/profile/units)@"
+        },
+        "search": {
+            "href": "@endsWith(/units/search)@"
         }
     },
     "page": {

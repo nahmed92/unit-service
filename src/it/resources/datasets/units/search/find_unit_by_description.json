@@ -2,12 +2,12 @@
     "_embedded": {
         "units": [
             {
-                "name": "kg/h",
-                "groupId": "5995843b0fcdf874985e399d",
-                "isBaseUnit": true,
-                "description": "Kilogram Per Hour",
-                "metricSystem": "CGS",
-                "formula": "${formula}",
+                "name": "bit",
+                "groupId": "59df33dc0fcdf86d872acd27",
+                "isBaseUnit": false,
+                "description": "${description}",
+                "metricSystem": "NONE",
+                "formula": "[value] / 1000",
                 "_links": {
                     "self": {
                         "href": "@contains(/units)@"
@@ -26,6 +26,9 @@
         },
         "profile": {
             "href": "@endsWith(/profile/units)@"
+        },
+        "search": {
+            "href": "@endsWith(/units/search)@"
         }
     },
     "page": {

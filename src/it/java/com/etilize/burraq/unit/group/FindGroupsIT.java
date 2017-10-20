@@ -25,7 +25,7 @@
  * #endregion
  */
 
-package com.etilize.burraq.unit;
+package com.etilize.burraq.unit.group;
 
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -127,8 +127,8 @@ public class FindGroupsIT extends AbstractIT {
 
         getRequest(GROUPS_URL + "?name=weight");
 
-        verifyResponse(HttpStatus.OK,
-                readFile("/datasets/groups/find/find_group_by_name.json"));
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/groups/search/find_group_by_name.json"));
     }
 
     @Test
@@ -142,8 +142,8 @@ public class FindGroupsIT extends AbstractIT {
 
         getRequest(GROUPS_URL + "?description=" + "${description}");
 
-        verifyResponse(HttpStatus.OK,
-                readFile("/datasets/groups/find/find_group_by_description.json"));
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/groups/search/find_group_by_description.json"));
     }
 
     @Test
@@ -158,8 +158,8 @@ public class FindGroupsIT extends AbstractIT {
 
         getRequest(GROUPS_URL + "?name=weight&description=this is weight unit group");
 
-        verifyResponse(HttpStatus.OK, readFile(
-                "/datasets/groups/find/find_group_by_name_and_description.json"));
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/groups/search/find_group_by_name_and_description.json"));
     }
 
     @Test
@@ -170,8 +170,8 @@ public class FindGroupsIT extends AbstractIT {
 
         getRequest(GROUPS_URL + "?name=groupNoFound");
 
-        verifyResponse(HttpStatus.OK,
-                readFile("/datasets/groups/find/find_group_which_does_not_exist.json"));
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/groups/search/find_group_which_does_not_exist.json"));
     }
 
     @Test
@@ -184,8 +184,8 @@ public class FindGroupsIT extends AbstractIT {
 
         getRequest(GROUPS_URL + "?description=groupNoFound");
 
-        verifyResponse(HttpStatus.OK,
-                readFile("/datasets/groups/find/find_group_which_does_not_exist.json"));
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/groups/search/find_group_which_does_not_exist.json"));
     }
 
 }

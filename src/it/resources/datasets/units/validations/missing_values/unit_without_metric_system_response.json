@@ -1,8 +1,8 @@
 {
-    "name": "MB",
+    "name": "Gb/s",
     "groupId": "5995843b0fcdf874985e399d",
     "isBaseUnit": false,
-    "description": "MB Unit",
+    "description": "Gb/s Unit",
     "metricSystem": "NONE",
     "formula": "[value] / 1000",
     "_links": {
