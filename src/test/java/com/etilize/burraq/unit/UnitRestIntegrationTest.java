@@ -182,6 +182,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
             throws Exception {
         final Unit unit = new Unit("", new ObjectId("53e9155b5ed24e4c38d60e3c"), false,
                 "");
+        unit.setFormula("");
         mockMvc.perform(post("/units") //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(unit))) //
@@ -197,7 +198,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
             throws Exception {
         final Unit unit = new Unit("", new ObjectId("53e9155b5ed24e4c38d60e3c"), false,
                 "");
-        unit.setFormula("1/1000");
+        unit.setFormula("");
         final String content = mapper.writeValueAsString(unit);
         mockMvc.perform(put("/units/{id}", new ObjectId("59b63ec8e110b21a936c9eed")) //
                 .contentType(MediaType.APPLICATION_JSON) //
@@ -214,6 +215,8 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
             throws Exception {
         final Unit unit = new Unit(null, new ObjectId("53e9155b5ed24e4c38d60e3c"), //
                 false, null);
+        unit.setFormula(null);
+        unit.setMetricSystem(null);
         mockMvc.perform(post("/units") //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(unit))) //
@@ -224,9 +227,12 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
     }
 
     @Test
-    public void shouldReturnStatusBadRequestWhenFieldsAreNullAtUpdate() throws Exception {
+    public void shouldReturnStatusBadRequestWhenNameAndDescriptionAreNullAtUpdate()
+            throws Exception {
         final Unit unit = new Unit(null, new ObjectId("53e9155b5ed24e4c38d60e3c"), false,
                 null);
+        unit.setFormula(null);
+        unit.setMetricSystem(null);
         final String content = mapper.writeValueAsString(unit);
         mockMvc.perform(put("/units/{id}", new ObjectId("59b63ec8e110b21a936c9eed")) //
                 .contentType(MediaType.APPLICATION_JSON) //
