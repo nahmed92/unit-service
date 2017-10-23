@@ -55,6 +55,8 @@ public class Group extends AbstractMongoEntity<ObjectId> {
     @NotBlank(message = "name is required")
     private final String name;
 
+    private ObjectId baseUnitId;
+
     @NotBlank(message = "description is required")
     private final String description;
 
@@ -72,6 +74,22 @@ public class Group extends AbstractMongoEntity<ObjectId> {
 
     public String getName() {
         return name;
+    }
+
+    /**
+     * get Id of baseUnit
+     * @return the baseUnitId
+     */
+    public ObjectId getBaseUnitId() {
+        return baseUnitId;
+    }
+
+    /**
+     * set Id of baseUnit
+     * @param baseUnitId the baseUnitId to set
+     */
+    public void setBaseUnitId(final ObjectId baseUnitId) {
+        this.baseUnitId = baseUnitId;
     }
 
     public String getDescription() {
@@ -107,6 +125,8 @@ public class Group extends AbstractMongoEntity<ObjectId> {
         return new ToStringBuilder(this) //
                 .append("Id", getId()) //
                 .append("Name", name) //
+                .append("BaseUnitId", baseUnitId) //
+                .append("Description", description) //
                 .toString();
     }
 

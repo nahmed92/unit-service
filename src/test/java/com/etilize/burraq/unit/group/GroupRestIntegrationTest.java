@@ -39,11 +39,15 @@ import org.springframework.http.MediaType;
 
 import com.etilize.burraq.unit.test.AbstractRestIntegrationTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lordofthejars.nosqlunit.annotation.CustomComparisonStrategy;
 import com.lordofthejars.nosqlunit.annotation.ShouldMatchDataSet;
 import com.lordofthejars.nosqlunit.annotation.UsingDataSet;
+import com.lordofthejars.nosqlunit.mongodb.MongoFlexibleComparisonStrategy;
 
-@UsingDataSet(locations = "/datasets/groups/groups.bson")
-public class GroupRepositoryRestIntegrationTest extends AbstractRestIntegrationTest {
+@UsingDataSet(locations = { "/datasets/groups/groups.bson",
+    "/datasets/units/units.json" })
+@CustomComparisonStrategy(comparisonStrategy = MongoFlexibleComparisonStrategy.class)
+public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
 
     @Autowired
     private ObjectMapper mapper;
@@ -64,10 +68,10 @@ public class GroupRepositoryRestIntegrationTest extends AbstractRestIntegrationT
                 .andExpect(jsonPath("$.page.size", is(20))) //
                 .andExpect(jsonPath("$.page.totalElements", is(2))) //
                 .andExpect(jsonPath("$._embedded.groups[0].name", is("weight"))) //
-                .andExpect(jsonPath("$._embedded.groups[0].description", //
+                .andExpect(jsonPath("$._embedded.groups[0].description",
                         is("This is weight unit"))) //
                 .andExpect(jsonPath("$._embedded.groups[1].name", is("temperature"))) //
-                .andExpect(jsonPath("$._embedded.groups[1].description", //
+                .andExpect(jsonPath("$._embedded.groups[1].description",
                         is("This is Temperature unit")));
 
     }
@@ -173,8 +177,8 @@ public class GroupRepositoryRestIntegrationTest extends AbstractRestIntegrationT
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(group))) //
                 .andExpect(status().isBadRequest()) //
-                .andExpect(jsonPath("$.errors[0].message", //
-                        is("description is required")));
+                .andExpect(
+                        jsonPath("$.errors[0].message", is("description is required")));
     }
 
     @Test
@@ -186,8 +190,8 @@ public class GroupRepositoryRestIntegrationTest extends AbstractRestIntegrationT
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isBadRequest()) //
-                .andExpect(jsonPath("$.errors[0].message", //
-                        is("description is required")));
+                .andExpect(
+                        jsonPath("$.errors[0].message", is("description is required")));
     }
 
     @Test
@@ -198,8 +202,8 @@ public class GroupRepositoryRestIntegrationTest extends AbstractRestIntegrationT
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(group))) //
                 .andExpect(status().isBadRequest()) //
-                .andExpect(jsonPath("$.errors[0].message", //
-                        is("description is required")));
+                .andExpect(
+                        jsonPath("$.errors[0].message", is("description is required")));
     }
 
     @Test
@@ -211,8 +215,8 @@ public class GroupRepositoryRestIntegrationTest extends AbstractRestIntegrationT
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isBadRequest()) //
-                .andExpect(jsonPath("$.errors[0].message", //
-                        is("description is required")));
+                .andExpect(
+                        jsonPath("$.errors[0].message", is("description is required")));
     }
 
     @Test
@@ -225,7 +229,7 @@ public class GroupRepositoryRestIntegrationTest extends AbstractRestIntegrationT
                 .andExpect(jsonPath("$.page.size", is(20))) //
                 .andExpect(jsonPath("$.page.totalElements", is(1))) //
                 .andExpect(jsonPath("$._embedded.groups[0].name", is("weight"))) //
-                .andExpect(jsonPath("$._embedded.groups[0].description", //
+                .andExpect(jsonPath("$._embedded.groups[0].description",
                         is("This is weight unit"))); //
 
     }
@@ -235,12 +239,39 @@ public class GroupRepositoryRestIntegrationTest extends AbstractRestIntegrationT
         mockMvc.perform(get("/groups?name={name}", "Weight")) //
                 .andExpect(status().isOk()) //
                 .andExpect(jsonPath("$._embedded.groups[*]", hasSize(1))) //
-                .andExpect(jsonPath("$._embedded.groups[*]._links.self.href", //
+                .andExpect(jsonPath("$._embedded.groups[*]._links.self.href",
                         contains(endsWith("/groups/53e9155b5ed24e4c38d60e3c"))))//
                 .andExpect(jsonPath("$.page.size", is(20))) //
                 .andExpect(jsonPath("$.page.totalElements", is(1))) //
                 .andExpect(jsonPath("$._embedded.groups[0].name", is("weight"))) //
-                .andExpect(jsonPath("$._embedded.groups[0].description", //
-                        is("This is weight unit"))); //
+                .andExpect(jsonPath("$._embedded.groups[0].description",
+                        is("This is weight unit")));
     }
+
+    @Test
+    @ShouldMatchDataSet(location = "/datasets/groups/group_after_update_with_baseUnitId_also_update_unit_isbaseUnit.json")
+    public void shouldUpdateGroupIsBaseUnitIdAndRestAssociatedUnitIsBaseUnitToTrueAndPreviousUnitIsBaseUnitToFalseWhenGroupBaseUnitIdIsNotNull()
+            throws Exception {
+        final Group group = new Group("temperature", "Temperature unit");
+        group.setBaseUnitId(new ObjectId("59c8da92e110b26284265711"));
+        final String content = mapper.writeValueAsString(group);
+        mockMvc.perform(put("/groups/{id}", new ObjectId("74e9155b5ed24e4c38d60e3c")) //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content(content)) //
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    @ShouldMatchDataSet(location = "/datasets/groups/group_after_update_baseUnitId_also_update_unit_isbaseUnit_when_group_baseunitid_null.json")
+    public void shouldUpdateGroupBaseUnitIdWithUnitAssociatedWithGroupWhenExistingGroupBaseUnitIdIsNull()
+            throws Exception {
+        final Group group = new Group("weight", "This is weight unit");
+        group.setBaseUnitId(new ObjectId("59b63ec8e110b21a936c9eed"));
+        final String content = mapper.writeValueAsString(group);
+        mockMvc.perform(put("/groups/{id}", new ObjectId("53e9155b5ed24e4c38d60e3c")) //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content(content)) //
+                .andExpect(status().isNoContent());
+    }
+
 }

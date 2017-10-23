@@ -37,7 +37,6 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.etilize.burraq.unit.Unit;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.mongodb.DuplicateKeyException;
 
@@ -50,7 +49,8 @@ import com.mongodb.DuplicateKeyException;
 @ControllerAdvice
 public class UnitRepositoryExceptionHandler {
 
-    private final Logger logger = LoggerFactory.getLogger(UnitRepositoryExceptionHandler.class);
+    private final Logger logger = LoggerFactory.getLogger(
+            UnitRepositoryExceptionHandler.class);
 
     /**
      * Handle repository duplicate key exception.

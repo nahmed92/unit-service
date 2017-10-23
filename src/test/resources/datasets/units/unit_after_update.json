@@ -34,7 +34,7 @@
             "groupId": {
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
-            "isBaseUnit": true,
+            "isBaseUnit": false,
             "measuringSystem":"METRIC",
             "formula": "[value]*1000",
             "description": "Degree Celcius Unit"

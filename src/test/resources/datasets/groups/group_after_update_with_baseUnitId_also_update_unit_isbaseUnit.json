@@ -1,16 +1,24 @@
 {
-    "units": [
+    "groups": [
         {
             "_id": {
-                "$oid": "59b63ec8e110b21a936c9eed"
+                "$oid": "53e9155b5ed24e4c38d60e3c"
             },
-            "name": "Kilogram",
-            "groupId": "53e9155b5ed24e4c38d60e3c",
-            "isBaseUnit": false,
-            "measuringSystem":"METRIC",
-            "formula": "1/1000",
-            "description": "Kilogram Unit"
+            "name": "weight",
+            "description": "This is weight unit"
         },
+        {
+            "_id": {
+                "$oid": "74e9155b5ed24e4c38d60e3c"
+            },
+            "name": "temperature",
+            "baseUnitId": {
+                "$oid": "59c8da92e110b26284265711"
+            },
+            "description": "Temperature unit"
+        }
+    ],
+        "units": [
         {
             "_id": {
                 "$oid": "74e9155b5ed24e4c38d60e5e"
@@ -19,7 +27,7 @@
             "groupId": {
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
-            "isBaseUnit": true,
+            "isBaseUnit": false,
             "measuringSystem":"METRIC",
             "formula": "1/1000",
             "description": "Temperature Unit"
@@ -45,23 +53,10 @@
             "groupId": {
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
-            "isBaseUnit": false,
+            "isBaseUnit": true,
             "measuringSystem":"METRIC",
             "formula": "[value]/1000",
             "description": "Temperature Unit"
-        },
-        {
-            "_id": {
-                "$exists": true
-            },
-            "name": "Pound",
-            "groupId": {
-                "$oid": "53e9155b5ed24e4c38d60e3c"
-            },
-            "isBaseUnit": false,
-            "measuringSystem": "NONE",
-            "formula": "[value]",
-            "description": "Pound Unit"
         }
     ]
 }

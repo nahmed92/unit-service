@@ -64,7 +64,7 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
     @NotNull(message = "groupId is required")
     private final ObjectId groupId;
 
-    private final boolean isBaseUnit;
+    private boolean isBaseUnit;
 
     private MeasuringSystem measuringSystem = MeasuringSystem.NONE;
 
@@ -78,17 +78,14 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
      * Unit Constructor
      * @param name Name of Unit
      * @param groupId Unit GroupId
-     * @param isBaseUnit Base unit of Unit
      * @param description Unit description
      */
     @JsonCreator
     public Unit(@JsonProperty("name") final String name,
             @JsonProperty("groupId") final ObjectId groupId,
-            @JsonProperty("isBaseUnit") final boolean isBaseUnit,
             @JsonProperty("description") final String description) {
         this.name = name;
         this.groupId = groupId;
-        this.isBaseUnit = isBaseUnit;
         this.description = description;
     }
 
@@ -104,6 +101,16 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
      */
     public ObjectId getGroupId() {
         return groupId;
+    }
+
+    /**
+     * Annotation JsonProperty, used to set value at field level
+     * Set unit baseUnit
+     * @param isBaseUnit identify baseUnit
+     */
+    @JsonProperty("isBaseUnit")
+    public void setBaseUnit(final boolean isBaseUnit) {
+        this.isBaseUnit = isBaseUnit;
     }
 
     /**

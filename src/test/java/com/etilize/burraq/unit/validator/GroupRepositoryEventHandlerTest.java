@@ -31,36 +31,37 @@ package com.etilize.burraq.unit.validator;
 import org.bson.types.ObjectId;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.core.RepositoryConstraintViolationException;
 
-import com.etilize.burraq.unit.Unit;
+import com.etilize.burraq.unit.group.Group;
 import com.etilize.burraq.unit.test.AbstractIntegrationTest;
 import com.lordofthejars.nosqlunit.annotation.CustomComparisonStrategy;
+import com.lordofthejars.nosqlunit.annotation.ShouldMatchDataSet;
 import com.lordofthejars.nosqlunit.annotation.UsingDataSet;
 import com.lordofthejars.nosqlunit.mongodb.MongoFlexibleComparisonStrategy;
 
-@UsingDataSet(locations = { "/datasets/units/units.json",
+@UsingDataSet(locations = { "/datasets/units/units_update_baseUnit.json",
     "/datasets/groups/groups.bson" })
 @CustomComparisonStrategy(comparisonStrategy = MongoFlexibleComparisonStrategy.class)
-
-public class UnitRepositoryEventHandlerTest extends AbstractIntegrationTest {
+public class GroupRepositoryEventHandlerTest extends AbstractIntegrationTest {
 
     @Autowired
-    private UnitRepositoryEventHandler unitEventHandler;
+    private GroupRepositoryEventHandler groupEventHandler;
 
-    @Test(expected = RepositoryConstraintViolationException.class)
-    public void shouldThrowExceptionWhenGroupDoesNotExistAtCreate() {
-        final Unit centigradeUnit = new Unit("Centigrade",
-                new ObjectId("74e9155b5ed24e4c38d60e3e"), "temperature Unit");
-        centigradeUnit.setBaseUnit(true);
-        unitEventHandler.handleBeforeUnitSave(centigradeUnit);
+    @Test
+    @ShouldMatchDataSet(location = "/datasets/groups/group_after_update_baseUnitId_reset_isBaseUnit_flag_of_unit.json")
+    public void shouldUpdateUnitIsBaseUnitToTrueAndFalseTopreviousUnitIsBaseUnitWhenGroupBaseUnitIdUpdated() {
+        final Group group = new Group("temperature", "Temperature unit");
+        group.setBaseUnitId(new ObjectId("59c8da92e110b26284265711"));
+        group.setId(new ObjectId("74e9155b5ed24e4c38d60e3c"));
+        groupEventHandler.handleBeforeSave(group);
     }
 
-    @Test(expected = RepositoryConstraintViolationException.class)
-    public void shouldThrowExceptionWhenGroupDoesNotExistAtUpdate() {
-        final Unit kevlinUnit = new Unit("Kelvin",
-                new ObjectId("74e9155b5ed24e4c38d60e3a"), "Temperature Unit");
-        kevlinUnit.setBaseUnit(true);
-        unitEventHandler.handleBeforeUnitSave(kevlinUnit);
+    @Test
+    @ShouldMatchDataSet(location = "/datasets/groups/group_after_update_baseUnitId_when_null_also_reset_unit_isBaseUnit_flag_true.json")
+    public void shouldUpdateUnitIsBaseUnitToTrueWhenGroupHavingBaseUnitIDNullBeforeUpdate() {
+        final Group group = new Group("Kilogram", "Kilogram Unit");
+        group.setBaseUnitId(new ObjectId("59b63ec8e110b21a936c9eed"));
+        group.setId(new ObjectId("53e9155b5ed24e4c38d60e3c"));
+        groupEventHandler.handleBeforeSave(group);
     }
 }

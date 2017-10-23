@@ -19,7 +19,7 @@
             "groupId": {
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
-            "isBaseUnit": true,
+            "isBaseUnit": false,
             "measuringSystem":"METRIC",
             "formula": "1/1000",
             "description": "Temperature Unit"
@@ -32,10 +32,10 @@
             "groupId": {
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
-            "isBaseUnit": true,
-            "measuringSystem": "NONE",
-            "formula": "1-273.15",
-            "description": "Temperature Unit"
+            "isBaseUnit": false,
+            "measuringSystem":"METRIC",
+            "formula": "[value]*1000",
+            "description": "Degree Celcius Unit"
         },
         {
             "_id": {
@@ -45,11 +45,10 @@
             "groupId": {
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
-            "isBaseUnit": false,
+            "isBaseUnit": true,
             "measuringSystem":"METRIC",
             "formula": "[value]/1000",
             "description": "Temperature Unit"
         }
     ]
-}
 }

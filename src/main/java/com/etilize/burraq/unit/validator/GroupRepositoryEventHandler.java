@@ -28,67 +28,75 @@
 
 package com.etilize.burraq.unit.validator;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.core.RepositoryConstraintViolationException;
-import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import com.etilize.burraq.unit.Unit;
+import com.etilize.burraq.unit.UnitRepository;
 import com.etilize.burraq.unit.group.Group;
 import com.etilize.burraq.unit.group.GroupRepository;
 
 /**
- * Unit Event Handler
+ * Group Repository Event Handler
  *
  * @author Nasir Ahmed
  *
  */
 @Component
 @RepositoryEventHandler
-public class UnitRepositoryEventHandler {
+public class GroupRepositoryEventHandler {
+
+    private final UnitRepository unitRepository;
 
     private final GroupRepository groupRepository;
 
     /**
-     * Contructor to initialize UnitRepositoryEventHandler
+     * Contructor to initialize GroupRepositoryEventHandler
      *
+     * @param unitRepository Unit Repository
      * @param groupRepository Group Repository
      */
     @Autowired
-    public UnitRepositoryEventHandler(final GroupRepository groupRepository) {
+    public GroupRepositoryEventHandler(final UnitRepository unitRepository,
+            final GroupRepository groupRepository) {
+        Assert.notNull(unitRepository, "unitRepository can not be null");
         Assert.notNull(groupRepository, "groupRepository can not be null");
+        this.unitRepository = unitRepository;
         this.groupRepository = groupRepository;
     }
 
     /**
-     * Handle create and update request to validate.
+     * Handle update request. Updating baseUnitId in group
+     * will update related units flag isBaseUnit
      *
-     * validate group exist for associated unit.
-     *
-     * @param unit entity
+     * @param updatedGroup entity
      */
-    @HandleBeforeCreate(Unit.class)
-    @HandleBeforeSave(Unit.class)
-    public void handleBeforeUnitSave(final Unit unit) {
-        // validate group exist for associated unit
-        validateGroup(unit);
+    @HandleBeforeSave(Group.class)
+    public void handleBeforeSave(final Group updatedGroup) {
+        if (updatedGroup.getBaseUnitId() != null) {
+            final Group group = groupRepository.findOne(updatedGroup.getId());
+            if (group.getBaseUnitId() == null) {
+                updateBaseUnit(updatedGroup.getBaseUnitId(), true);
+            } else if (!group.getBaseUnitId().equals(updatedGroup.getBaseUnitId())) {
+                updateBaseUnit(group.getBaseUnitId(), false);
+                updateBaseUnit(updatedGroup.getBaseUnitId(), true);
+            }
+        }
     }
 
     /**
-     * Method to validate Group Exists
+     * Update isBaseUnit flag of unit associated with group
      *
-     * @param unit unit associated with group
+     * @param unitId Id of group associated unit
+     * @param isBaseUnit flag indicate BaseUnit
      */
-    private void validateGroup(final Unit unit) {
-        if (unit.getGroupId() != null) {
-            final Group group = groupRepository.findOne(unit.getGroupId());
-            if (group == null) {
-                throw new RepositoryConstraintViolationException(
-                        new ValidationErrors("unit", "groupId", "Group does not exist."));
-            }
-        }
+    private void updateBaseUnit(final ObjectId unitId, final Boolean isBaseUnit) {
+        final Unit unit = unitRepository.findOne(unitId);
+        unit.setBaseUnit(isBaseUnit);
+        unitRepository.save(unit);
     }
 }
