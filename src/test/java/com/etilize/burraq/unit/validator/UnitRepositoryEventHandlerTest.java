@@ -33,7 +33,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.RepositoryConstraintViolationException;
 
-import com.etilize.burraq.unit.MetricSystem;
+import com.etilize.burraq.unit.MeasuringSystem;
 import com.etilize.burraq.unit.Unit;
 import com.etilize.burraq.unit.test.AbstractIntegrationTest;
 import com.lordofthejars.nosqlunit.annotation.CustomComparisonStrategy;
@@ -94,7 +94,7 @@ public class UnitRepositoryEventHandlerTest extends AbstractIntegrationTest {
         final Unit unit = new Unit("Gram", new ObjectId("53e9155b5ed24e4c38d60e3c"), //
                 true, "Gram Unit");
         unit.setFormula("ABC");
-        unit.setMetricSystem(MetricSystem.CGS);
+        unit.setMeasuringSystem(MeasuringSystem.METRIC);
         unit.setId(new ObjectId("59b63ec8e110b21a936c9eed"));
         unitEventHandler.handleBeforeUnitUpdate(unit);
     }

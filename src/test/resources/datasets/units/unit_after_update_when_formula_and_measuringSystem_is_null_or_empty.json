@@ -9,7 +9,7 @@
                 "$oid": "53e9155b5ed24e4c38d60e3c"
             },
             "isBaseUnit": false,
-            "metricSystem": "NONE",
+            "measuringSystem": "NONE",
             "formula": "[value]",
             "description": "Kilogram Unit"
         },
@@ -22,7 +22,7 @@
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
             "isBaseUnit": true,
-            "metricSystem": "CGS",
+            "measuringSystem":"METRIC",
             "formula": "1/1000",
             "description": "Temperature Unit"
         },
@@ -35,7 +35,7 @@
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
             "isBaseUnit": true,
-            "metricSystem": "CGS",
+            "measuringSystem":"METRIC",
             "formula": "[value]*1000",
             "description": "Degree Celcius Unit"
         },
@@ -48,7 +48,7 @@
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
             "isBaseUnit": false,
-            "metricSystem": "CGS",
+            "measuringSystem":"METRIC",
             "formula": "[value]/1000",
             "description": "Temperature Unit"
         }

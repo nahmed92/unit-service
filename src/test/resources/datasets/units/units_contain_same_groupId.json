@@ -7,7 +7,7 @@
             "name": "gram",
             "groupId": "53e9155b5ed24e4c38d60e3c",
             "isBaseUnit": true,
-            "metricSystem": "CGS",
+            "measuringSystem":"METRIC",
             "formula": "1/1000",
             "description": "weight Unit"
         },
@@ -20,7 +20,7 @@
                 "$oid": "53e9155b5ed24e4c38d60e3c"
             },
             "isBaseUnit": true,
-            "metricSystem": "CGS",
+            "measuringSystem":"METRIC",
             "formula": "ABC",
             "description": "weight Unit"
         }

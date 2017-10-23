@@ -34,9 +34,8 @@ package com.etilize.burraq.unit;
  * @author Nasir Ahmed
  * @since 1.0
  */
-public enum MetricSystem {
+public enum MeasuringSystem {
     NONE, //
-    MKS, //
-    CGS, //
-    MTS
+    METRIC, //
+    IMPERIAL
 }

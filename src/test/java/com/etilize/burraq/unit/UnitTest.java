@@ -78,7 +78,7 @@ public class UnitTest {
         final Unit unit = new Unit("KG", new ObjectId("53e9155b5ed24e4c38d60e3c"), false,
                 "Kilogram Unit");
         unit.setFormula("1/1000");
-        unit.setMetricSystem(MetricSystem.MKS);
+        unit.setMeasuringSystem(MeasuringSystem.METRIC);
         assertThat(ObjectUtils.identityToString(unit), not(unit.toString()));
     }
 
