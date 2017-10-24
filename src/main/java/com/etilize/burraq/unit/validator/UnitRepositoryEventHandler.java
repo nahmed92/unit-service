@@ -117,8 +117,8 @@ public class UnitRepositoryEventHandler {
         if (unit.getGroupId() != null) {
             final Group group = groupRepository.findOne(unit.getGroupId());
             if (group == null) {
-                throw new RepositoryConstraintViolationException(new ValidationErrors(
-                        "unit", unit.getName(), "Group does not exist."));
+                throw new RepositoryConstraintViolationException(
+                        new ValidationErrors("unit", "groupId", "Group does not exist."));
             }
         }
     }
@@ -133,7 +133,7 @@ public class UnitRepositoryEventHandler {
                 unit.isBaseUnit());
         if (count >= MAX_NUMBER_OF_BASE_UNITS_ALLOWED_IN_GROUP) {
             throw new RepositoryConstraintViolationException(new ValidationErrors("unit",
-                    unit.getName(), "Maximum " + MAX_NUMBER_OF_BASE_UNITS_ALLOWED_IN_GROUP
+                    "groupId", "Maximum " + MAX_NUMBER_OF_BASE_UNITS_ALLOWED_IN_GROUP
                             + " base unit(s) allowed in one group."));
         }
     }
