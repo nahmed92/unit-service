@@ -8,8 +8,8 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Unit Service</name>
-    <description>Unit service provide services to store units and value conversion across units</description>
+    <name>unit-service</name>
+    <description>Unit Service provide services to store units and value conversion across units</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

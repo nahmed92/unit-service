@@ -1,6 +1,6 @@
 # Etilize Unit
 
-Unit service provide services to store units and value conversion across units.
+unit-service provide services to store units and value conversion across units.
 
 # How to get the code
 
