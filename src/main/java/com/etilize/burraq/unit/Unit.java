@@ -66,7 +66,7 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
 
     private final boolean isBaseUnit;
 
-    private MetricSystem metricSystem = MetricSystem.NONE;
+    private MeasuringSystem measuringSystem = MeasuringSystem.NONE;
 
     @Formula
     private String formula = "[value]";
@@ -117,18 +117,19 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
     }
 
     /**
-    * Metric System (NONE,CGS,MKS,MTS)
-    * @param metricSystem unit metic System
+    * MeasuringSystem values (NONE, METRIC, IMPERIAL)
+    * @param measuringSystem unit measuring system
     */
-    public void setMetricSystem(final MetricSystem metricSystem) {
-        this.metricSystem = metricSystem == null ? MetricSystem.NONE : metricSystem;
+    public void setMeasuringSystem(final MeasuringSystem measuringSystem) {
+        this.measuringSystem = measuringSystem == null ? MeasuringSystem.NONE
+                : measuringSystem;
     }
 
     /**
-     * @return metricSystem
+     * @return measuringSystem
      */
-    public MetricSystem getMetricSystem() {
-        return metricSystem;
+    public MeasuringSystem getMeasuringSystem() {
+        return measuringSystem;
     }
 
     /**
@@ -190,7 +191,7 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
                 .append("Name", name) //
                 .append("GroupId", groupId) //
                 .append("IsBaseUnit", isBaseUnit) //
-                .append("MetricSystem", metricSystem) //
+                .append("MeasuringSystem", measuringSystem) //
                 .append("Description", description) //
                 .toString();
     }
