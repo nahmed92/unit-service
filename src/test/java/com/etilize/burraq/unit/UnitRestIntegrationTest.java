@@ -1,6 +1,6 @@
 /*
  * #region
- * Unit Service
+ * unit-service
  * %%
  * Copyright (C) 2017 Etilize
  * %%
