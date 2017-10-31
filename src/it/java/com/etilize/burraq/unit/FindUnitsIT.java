@@ -88,13 +88,13 @@ public class FindUnitsIT extends AbstractIT {
         author("Nimra Inam");
         description("Should return unit with matching unit id");
 
-        variable("unitId", "59cc914b2a26200bc964e26e");
-        variable("name", "Ounce Unit");
-        variable("description", "This Ounce unit");
-        variable("groupId", "599585660fcdf874985e399e");
+        variable("unitId", "59df4d4f0fcdf86d872acdfc");
+        variable("name", "bit");
+        variable("description", "bit Unit");
+        variable("groupId", "59df33dc0fcdf86d872acd27");
         variable("baseUnit", "false");
-        variable("metricSystem", "MKS");
-        variable("formula", "[value] * 100");
+        variable("metricSystem", "NONE");
+        variable("formula", "[value] / 1000");
 
         getRequest(UNITS_URL + "${unitId}");
 
@@ -134,13 +134,13 @@ public class FindUnitsIT extends AbstractIT {
         author("Nimra Inam");
         description("Validate response by finding unit by name");
 
-        variable("unitId", "59cc914b2a26200bc964e26e");
-        variable("name", "Ounce Unit");
+        variable("unitId", "59df4d4f0fcdf86d872acdfc");
+        variable("name", "bit");
 
-        getRequest(UNITS_URL + "?name=Ounce Unit");
+        getRequest(UNITS_URL + "?name=bit");
 
-        verifyResponse(HttpStatus.OK,
-                readFile("/datasets/units/find/find_unit_by_name.json"));
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/units/search/find_unit_by_name.json"));
 
     }
 
@@ -150,12 +150,12 @@ public class FindUnitsIT extends AbstractIT {
         author("Nimra Inam");
         description("Validate response by finding unit by description");
 
-        variable("description", "This Ounce unit");
+        variable("description", "bit Unit");
 
-        getRequest(UNITS_URL + "?description=This Ounce unit");
+        getRequest(UNITS_URL + "?description=bit Unit");
 
-        verifyResponse(HttpStatus.OK,
-                readFile("/datasets/units/find/find_unit_by_description.json"));
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/units/search/find_unit_by_description.json"));
 
     }
 
@@ -169,8 +169,8 @@ public class FindUnitsIT extends AbstractIT {
 
         getRequest(UNITS_URL + "?isBaseUnit=true");
 
-        verifyResponse(HttpStatus.OK,
-                readFile("/datasets/units/find/find_unit_by_base_unit.json"));
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/units/search/find_unit_by_base_unit.json"));
 
     }
 
@@ -180,12 +180,12 @@ public class FindUnitsIT extends AbstractIT {
         author("Nimra Inam");
         description("Validate response by finding unit by group id");
 
-        variable("groupId", "599585660fcdf874985e3938");
+        variable("groupId", "59df33dc0fcdf86d872acd27");
 
-        getRequest(UNITS_URL + "?groupId=599585660fcdf874985e3938");
+        getRequest(UNITS_URL + "?groupId=59df33dc0fcdf86d872acd27");
 
-        verifyResponse(HttpStatus.OK,
-                readFile("/datasets/units/find/find_unit_by_group_id.json"));
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/units/search/find_unit_by_group_id.json"));
 
     }
 
@@ -197,10 +197,10 @@ public class FindUnitsIT extends AbstractIT {
 
         variable("metricSystem", "NONE");
 
-        getRequest(UNITS_URL + "?metricSystem=NONE");
+        getRequest(UNITS_URL + "?metricSystem=MKS");
 
-        verifyResponse(HttpStatus.OK,
-                readFile("/datasets/units/find/find_unit_by_metric_system.json"));
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/units/search/find_unit_by_metric_system.json"));
 
     }
 
@@ -214,8 +214,8 @@ public class FindUnitsIT extends AbstractIT {
 
         getRequest(UNITS_URL + "?formula=[value] * 1000");
 
-        verifyResponse(HttpStatus.OK,
-                readFile("/datasets/units/find/find_unit_by_formula.json"));
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/units/search/find_unit_by_formula.json"));
     }
 
     @Test
@@ -226,18 +226,18 @@ public class FindUnitsIT extends AbstractIT {
         description(
                 "Validate response by finding unit by name, description, base unit, group id, metric system and formula");
 
-        variable("name", "Ounce Unit");
-        variable("description", "This Ounce unit");
+        variable("name", "bit");
+        variable("description", "bit Unit");
         variable("baseUnit", "false");
-        variable("groupId", "599585660fcdf874985e399e");
-        variable("metricSystem", "MKS");
-        variable("formula", "[value] * 100");
+        variable("groupId", "59df33dc0fcdf86d872acd27");
+        variable("metricSystem", "NONE");
+        variable("formula", "[value] / 1000");
 
         getRequest(UNITS_URL
-                + "?name=Ounce Unit&groupId=599585660fcdf874985e399e&isBaseUnit=false&description=This Ounce unit&metricSystem=MKS&formula=[value] * 100");
+                + "?name=bit&groupId=59df33dc0fcdf86d872acd27&isBaseUnit=false&description=bit Unit&metricSystem=NONE&formula=[value] / 1000");
 
-        verifyResponse(HttpStatus.OK, readFile(
-                "/datasets/units/find/find_unit_by_name_description_baseUnit_groupId_metriSystem_formula.json"));
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/units/search/find_unit_by_name_description_baseUnit_groupId_metriSystem_formula.json"));
 
     }
 
@@ -250,8 +250,8 @@ public class FindUnitsIT extends AbstractIT {
 
         getRequest(UNITS_URL + "?name=UnitNoFound");
 
-        verifyResponse(HttpStatus.OK,
-                readFile("/datasets/units/find/find_unit_which_does_not_exist.json"));
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/units/search/find_unit_which_does_not_exist.json"));
     }
 
     @Test
@@ -264,8 +264,8 @@ public class FindUnitsIT extends AbstractIT {
 
         getRequest(UNITS_URL + "?description=UnitNoFound");
 
-        verifyResponse(HttpStatus.OK,
-                readFile("/datasets/units/find/find_unit_which_does_not_exist.json"));
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/units/search/find_unit_which_does_not_exist.json"));
     }
 
     @Test
@@ -277,8 +277,8 @@ public class FindUnitsIT extends AbstractIT {
 
         getRequest(UNITS_URL + "?formula=UnitNoFound");
 
-        verifyResponse(HttpStatus.OK,
-                readFile("/datasets/units/find/find_unit_which_does_not_exist.json"));
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/units/search/find_unit_which_does_not_exist.json"));
     }
 
 }

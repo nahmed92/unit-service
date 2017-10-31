@@ -13,7 +13,7 @@
  * is hereby forbidden to anyone except current ETILIZE employees, managers or
  * contractors who have executed Confidentiality and Non-disclosure agreements
  * explicitly covering such access.
- * 
+ *
  * The copyright notice above does not evidence any actual or intended publication
  * or disclosure of this source code, which includes information that is confidential
  * and/or proprietary, and is a trade secret, of ETILIZE. ANY REPRODUCTION, MODIFICATION,
@@ -26,7 +26,7 @@
  * #endregion
  */
 
-package com.etilize.burraq.unit;
+package com.etilize.burraq.unit.group;
 
 import static org.springframework.http.MediaType.*;
 
@@ -34,9 +34,7 @@ import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpHeaders;
 
-import com.consol.citrus.actions.AbstractTestAction;
 import com.consol.citrus.annotations.CitrusTest;
-import com.consol.citrus.context.TestContext;
 import com.consol.citrus.message.MessageType;
 import com.etilize.burraq.unit.test.base.*;
 
@@ -50,11 +48,13 @@ public class AddGroupIT extends AbstractIT {
 
         variable(LOCATION_HEADER_VALUE, "");
 
-        postRequest(GROUPS_URL, readFile("/datasets/groups/group.json"));
+        postRequest(GROUPS_URL, //
+                readFile("/datasets/groups/group.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(GROUPS_URL, LOCATION_HEADER_VALUE);
-        verifyResponse(HttpStatus.OK, readFile("/datasets/groups/group_after_post.json"),
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/groups/group_after_post.json"), //
                 "${locationHeaderValue}");
     }
 
@@ -64,10 +64,10 @@ public class AddGroupIT extends AbstractIT {
         author("Nimra Inam");
         description("A duplicate group should not be added");
 
-        postRequest(GROUPS_URL,
+        postRequest(GROUPS_URL, //
                 readFile("/datasets/groups/duplicate/duplicate_group.json"));
 
-        verifyResponse(HttpStatus.CONFLICT,
+        verifyResponse(HttpStatus.CONFLICT, //
                 readFile("/datasets/groups/errors/duplicate_group_error.json"));
     }
 
@@ -78,11 +78,39 @@ public class AddGroupIT extends AbstractIT {
         author("Nimra Inam");
         description("A case insensitive matching group should not be added");
 
-        postRequest(GROUPS_URL, readFile(
-                "/datasets/groups/case_insensitive_matching/case_insensitive_matching_group.json"));
+        postRequest(GROUPS_URL, //
+                readFile("/datasets/groups/case_insensitive_matching/case_insensitive_matching_group.json"));
 
-        verifyResponse(HttpStatus.CONFLICT,
+        verifyResponse(HttpStatus.CONFLICT, //
                 readFile("/datasets/groups/errors/duplicate_group_error.json"));
+    }
+
+    @Test
+    @CitrusTest
+    public void shouldNotAddGroupWithEmptyNameAndDescription() throws Exception {
+        author("Nimra Inam");
+        description("A group with empty name and description should not be added");
+
+        variable("jsonForEmptyUnitNameAndDescription",
+                "{\"name\": \"\",\"description\": \"\"}");
+        variable("nameProperty", "name");
+        variable("descriptionProperty", "description");
+        variable("nameMessage", "name is required");
+        variable("descriptionMessage", "description is required");
+        variable("invalidValue", "");
+
+        postRequest(GROUPS_URL, "${jsonForEmptyUnitNameAndDescription}");
+
+        http().client(serviceClient) //
+                .receive() //
+                .response(HttpStatus.BAD_REQUEST) //
+                .messageType(MessageType.JSON) //
+                .validate("$.errors[*].property",
+                        "@assertThat(allOf(containsString(${nameProperty}),containsString(${descriptionProperty})))@") //
+                .validate("$.errors[*].message",
+                        "@assertThat(allOf(containsString(${nameMessage}), containsString(${descriptionMessage})))@") //
+                .validate("$.errors[*].invalidValue",
+                        "@assertThat(allOf(containsString(${invalidValue})))@");
     }
 
     @Test
@@ -91,24 +119,26 @@ public class AddGroupIT extends AbstractIT {
         author("Nimra Inam");
         description("A group with missing name and description should not be added");
 
-        postRequest(GROUPS_URL, readFile(
-                "/datasets/groups/missing_null_groups/group_with_missing_name_and_description.json"));
+        variable("jsonForNullUnitNameAndDescription",
+                "{\"name\": null,\"description\": null}");
+        variable("nameProperty", "name");
+        variable("descriptionProperty", "description");
+        variable("nameMessage", "name is required");
+        variable("descriptionMessage", "description is required");
+        variable("invalidValue", "null");
 
-        verifyResponse(HttpStatus.BAD_REQUEST,
-                readFile("/datasets/groups/errors/null_group_error.json"));
-    }
+        postRequest(GROUPS_URL, "${jsonForNullUnitNameAndDescription}");
 
-    @Test
-    @CitrusTest
-    public void shouldNotAddGroupWithNullInNameAndDescription() throws Exception {
-        author("Nimra Inam");
-        description("A group with null in name and description should not be added");
-
-        postRequest(GROUPS_URL, readFile(
-                "/datasets/groups/missing_null_groups/group_with_null_in_name_and_description.json"));
-
-        verifyResponse(HttpStatus.BAD_REQUEST,
-                readFile("/datasets/groups/errors/null_group_error.json"));
+        http().client(serviceClient) //
+                .receive() //
+                .response(HttpStatus.BAD_REQUEST) //
+                .messageType(MessageType.JSON) //
+                .validate("$.errors[*].property",
+                        "@assertThat(allOf(containsString(${nameProperty}),containsString(${descriptionProperty})))@") //
+                .validate("$.errors[*].message",
+                        "@assertThat(allOf(containsString(${nameMessage}), containsString(${descriptionMessage})))@") //
+                .validate("$.errors[*].invalidValue",
+                        "@assertThat(allOf(containsString(${invalidValue})))@");
     }
 
 }

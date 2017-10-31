@@ -4,7 +4,7 @@
             "entity": "unit",
             "property": "groupId",
             "invalidValue": null,
-            "message": "Group does not exist."
+            "message": "Maximum 2 base unit(s) allowed in one group."
         }
     ]
 }

@@ -2,18 +2,18 @@
     "_embedded": {
         "units": [
             {
-                "name": "Ounce Unit",
-                "groupId": "599585660fcdf874985e399e",
+                "name": "${name}",
+                "groupId": "59df33dc0fcdf86d872acd27",
                 "isBaseUnit": false,
-                "description": "${description}",
-                "metricSystem": "MKS",
-                "formula": "[value] * 100",
+                "description": "bit Unit",
+                "metricSystem": "NONE",
+                "formula": "[value] / 1000",
                 "_links": {
                     "self": {
-                        "href": "@contains(/units)@"
+                        "href": "@endsWith(${unitId})@"
                     },
                     "unit": {
-                        "href": "@contains(/units)@"
+                        "href": "@endsWith(${unitId})@"
                     }
                 }
             }
@@ -26,6 +26,9 @@
         },
         "profile": {
             "href": "@endsWith(/profile/units)@"
+        },
+        "search": {
+            "href": "@endsWith(/units/search)@"
         }
     },
     "page": {

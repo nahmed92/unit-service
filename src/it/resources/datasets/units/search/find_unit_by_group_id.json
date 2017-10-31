@@ -2,27 +2,11 @@
     "_embedded": {
         "units": [
             {
-                "name": "MHz",
-                "groupId": "59b63ec8e110b21a936c9eed",
-                "isBaseUnit": false,
-                "description": "MHz Unit",
-                "metricSystem": "${metricSystem}",
-                "formula": "[value] / 1000",
-                "_links": {
-                    "self": {
-                        "href": "@contains(/units)@"
-                    },
-                    "unit": {
-                        "href": "@contains(/units)@"
-                    }
-                }
-            },
-            {
-                "name": "Mb/s",
-                "groupId": "59b63ec8e110b21a936c9eed",
+                "name": "Gb",
+                "groupId": "59df33dc0fcdf86d872acd27",
                 "isBaseUnit": true,
-                "description": "Mb/s Unit",
-                "metricSystem": "${metricSystem}",
+                "description": "Gb Unit",
+                "metricSystem": "NONE",
                 "formula": "[value] / 1000",
                 "_links": {
                     "self": {
@@ -34,11 +18,11 @@
                 }
             },
             {
-                "name": "GHz",
-                "groupId": "5995843b0fcdf874985e399d",
+                "name": "bit",
+                "groupId": "59df33dc0fcdf86d872acd27",
                 "isBaseUnit": false,
-                "description": "GHz unit",
-                "metricSystem": "${metricSystem}",
+                "description": "bit Unit",
+                "metricSystem": "NONE",
                 "formula": "[value] / 1000",
                 "_links": {
                     "self": {
@@ -50,11 +34,11 @@
                 }
             },
             {
-                "name": "Gb/s",
-                "groupId": "5995843b0fcdf874985e399d",
-                "isBaseUnit": false,
-                "description": "Gb/s Unit",
-                "metricSystem": "${metricSystem}",
+                "name": "PB",
+                "groupId": "59df33dc0fcdf86d872acd27",
+                "isBaseUnit": true,
+                "description": "Gb Unit",
+                "metricSystem": "NONE",
                 "formula": "[value] / 1000",
                 "_links": {
                     "self": {
@@ -74,11 +58,14 @@
         },
         "profile": {
             "href": "@endsWith(/profile/units)@"
+        },
+        "search": {
+            "href": "@endsWith(/units/search)@"
         }
     },
     "page": {
         "size": 20,
-        "totalElements": 4,
+        "totalElements": 3,
         "totalPages": 1,
         "number": 0
     }

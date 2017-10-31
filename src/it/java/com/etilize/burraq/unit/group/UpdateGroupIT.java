@@ -13,7 +13,7 @@
  * is hereby forbidden to anyone except current ETILIZE employees, managers or
  * contractors who have executed Confidentiality and Non-disclosure agreements
  * explicitly covering such access.
- * 
+ *
  * The copyright notice above does not evidence any actual or intended publication
  * or disclosure of this source code, which includes information that is confidential
  * and/or proprietary, and is a trade secret, of ETILIZE. ANY REPRODUCTION, MODIFICATION,
@@ -26,22 +26,13 @@
  * #endregion
  */
 
-package com.etilize.burraq.unit;
+package com.etilize.burraq.unit.group;
 
-import org.apache.http.*;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpHeaders;
+import org.junit.*;
+import org.springframework.http.*;
 
-import com.consol.citrus.TestCaseMetaInfo.Status;
-import com.consol.citrus.actions.*;
-import com.consol.citrus.annotations.CitrusTest;
-import com.consol.citrus.context.*;
-import com.consol.citrus.dsl.junit.JUnit4CitrusTestDesigner;
-import com.consol.citrus.http.client.HttpClient;
-import com.consol.citrus.message.MessageType;
-import java.io.IOException;
+import com.consol.citrus.annotations.*;
+import com.consol.citrus.message.*;
 import com.etilize.burraq.unit.test.base.*;
 
 /**
@@ -62,12 +53,14 @@ public class UpdateGroupIT extends AbstractIT {
         variable(LOCATION_HEADER_VALUE, "");
         variable(GROUP_ID, EXISTING_GROUP_ID);
 
-        putRequest(GROUPS_URL, "${groupId}",
+        putRequest(GROUPS_URL, //
+                "${groupId}", //
                 readFile("/datasets/groups/group_to_update.json"));
 
         extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
         parseAndSetVariable(GROUPS_URL, LOCATION_HEADER_VALUE);
-        verifyResponse(HttpStatus.OK, readFile("/datasets/groups/group_after_put.json"),
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/groups/group_after_put.json"), //
                 "${locationHeaderValue}");
     }
 
@@ -79,10 +72,11 @@ public class UpdateGroupIT extends AbstractIT {
 
         variable(GROUP_ID, EXISTING_GROUP_ID);
 
-        putRequest(GROUPS_URL, "${groupId}",
+        putRequest(GROUPS_URL, //
+                "${groupId}", //
                 readFile("/datasets/groups/duplicate/duplicate_group_to_update.json"));
 
-        verifyResponse(HttpStatus.CONFLICT,
+        verifyResponse(HttpStatus.CONFLICT, //
                 readFile("/datasets/groups/errors/duplicate_group_error.json"));
     }
 
@@ -96,10 +90,11 @@ public class UpdateGroupIT extends AbstractIT {
 
         variable(GROUP_ID, EXISTING_GROUP_ID);
 
-        putRequest(GROUPS_URL, "${groupId}", readFile(
-                "/datasets/groups/case_insensitive_matching/case_insensitive_matching_group.json"));
+        putRequest(GROUPS_URL, //
+                "${groupId}", //
+                readFile("/datasets/groups/case_insensitive_matching/case_insensitive_matching_group.json"));
 
-        verifyResponse(HttpStatus.CONFLICT,
+        verifyResponse(HttpStatus.CONFLICT, //
                 readFile("/datasets/groups/errors/duplicate_group_error.json"));
     }
 
@@ -111,12 +106,23 @@ public class UpdateGroupIT extends AbstractIT {
                 "A unit group with missing name and description should not be updated");
 
         variable(GROUP_ID, EXISTING_GROUP_ID);
+        variable("nameProperty", "name");
+        variable("descriptionProperty", "description");
+        variable("nameMessage", "name is required");
+        variable("descriptionMessage", "description is required");
+        variable("jsonForEmptyUnitNameAndDescription",
+                "{\"name\": \"\",\"description\": \"\"}");
 
-        putRequest(GROUPS_URL, "${groupId}", readFile(
-                "/datasets/groups/missing_null_groups/group_with_missing_name_and_description_to_update.json"));
+        putRequest(GROUPS_URL, "${groupId}", "${jsonForEmptyUnitNameAndDescription}");
 
-        verifyResponse(HttpStatus.BAD_REQUEST,
-                readFile("/datasets/groups/errors/null_group_error.json"));
+        http().client(serviceClient) //
+                .receive() //
+                .response(HttpStatus.BAD_REQUEST) //
+                .messageType(MessageType.JSON) //
+                .validate("$.errors[*].property",
+                        "@assertThat(allOf(containsString(${nameProperty}), containsString(${descriptionProperty})))@") //
+                .validate("$.errors[*].message",
+                        "@assertThat(allOf(containsString(${nameMessage}), containsString(${descriptionMessage})))@");
     }
 
 }

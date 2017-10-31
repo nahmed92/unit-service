@@ -1,0 +1,56 @@
+{
+    "_embedded": {
+        "units": [
+            {
+                "name": "Pound",
+                "groupId": "599585660fcdf874985e399e",
+                "isBaseUnit": false,
+                "description": "Pound unit",
+                "metricSystem": "MKS",
+                "formula": "[value] / 1000",
+                "_links": {
+                    "self": {
+                        "href": "@contains(/units)@"
+                    },
+                    "unit": {
+                        "href": "@contains(/units)@"
+                    }
+                }
+            },
+            {
+                "name": "Kilogram",
+                "groupId": "599585660fcdf874985e399e",
+                "isBaseUnit": false,
+                "description": "Kilogram Unit",
+                "metricSystem": "MKS",
+                "formula": "[value] / 1000",
+                "_links": {
+                    "self": {
+                        "href": "@contains(/units)@"
+                    },
+                    "unit": {
+                        "href": "@contains(/units)@"
+                    }
+                }
+            }
+        ]
+    },
+    "_links": {
+        "self": {
+            "href": "@endsWith(/units{?page,size,sort})@",
+            "templated": true
+        },
+        "profile": {
+            "href": "@endsWith(/profile/units)@"
+        },
+        "search": {
+            "href": "@endsWith(/units/search)@"
+        }
+    },
+    "page": {
+        "size": 20,
+        "totalElements": 2,
+        "totalPages": 1,
+        "number": 0
+    }
+}
