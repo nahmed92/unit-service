@@ -47,127 +47,110 @@ public class AddUnitIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithMKSMetricSystem() throws Exception {
+    public void shouldAddUnitWithMetricMeasuringSystem() throws Exception {
         author("Nimra Inam");
-        description("A unit should be added with MKS metric system");
+        description("A unit should be added with METRIC measuring system");
 
         variable(LOCATION_HEADER_VALUE, "");
 
         postRequest(UNITS_URL, readFile( //
-                "/datasets/units/metris_systems/unit/unit_with_mks_metric_system.json"));
+                "/datasets/units/measuring_system/unit/unit_with_metric_measuring_system.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/metris_systems/unit/unit_with_mks_metric_system_response.json"), //
+                readFile("/datasets/units/measuring_system/unit/unit_with_metric_measuring_system_response.json"), //
                 "${locationHeaderValue}");
     }
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithCGSMetricSystem() throws Exception {
+    public void shouldAddUnitWithImperialMeasuringSystem() throws Exception {
         author("Nimra Inam");
-        description("A unit should be added with CGS metric system");
+        description("A unit should be added with IMPERIAL measuring system");
 
         variable(LOCATION_HEADER_VALUE, "");
 
         postRequest(UNITS_URL, //
-                readFile("/datasets/units/metris_systems/unit/unit_with_cgs_metric_system.json"));
+                readFile("/datasets/units/measuring_system/unit/unit_with_imperial_measuring_system.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/metris_systems/unit/unit_with_cgs_metric_system_response.json"), //
+                readFile("/datasets/units/measuring_system/unit/unit_with_imperial_measuring_system_response.json"), //
                 "${locationHeaderValue}");
     }
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithMTSMetricSystem() throws Exception {
+    public void shouldAddUnitWithNoneMeasuringSystem() throws Exception {
         author("Nimra Inam");
-        description("A unit should be added with MTS metric system");
+        description("A unit should be added with None measuring system");
 
         variable(LOCATION_HEADER_VALUE, "");
 
         postRequest(UNITS_URL, //
-                readFile("/datasets/units/metris_systems/unit/unit_with_mts_metric_system.json"));
-
-        extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
-        verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/metris_systems/unit/unit_with_mts_metric_system_response.json"), //
-                "${locationHeaderValue}");
-    }
-
-    @Test
-    @CitrusTest
-    public void shouldAddUnitWithNoneMetricSystem() throws Exception {
-        author("Nimra Inam");
-        description("A unit should be added with CGS metric system");
-
-        variable(LOCATION_HEADER_VALUE, "");
-
-        postRequest(UNITS_URL, //
-                readFile("/datasets/units/metris_systems/unit/unit_with_none_metric_system.json"));
+                readFile("/datasets/units/measuring_system/unit/unit_with_none_measuring_system.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
         verifyResponse(HttpStatus.OK, readFile( //
-                "/datasets/units/metris_systems/unit/unit_with_none_metric_system_response.json"), //
+                "/datasets/units/measuring_system/unit/unit_with_none_measuring_system_response.json"), //
                 "${locationHeaderValue}");
     }
 
     @Test
     @CitrusTest
-    public void shouldAddBaseUnitWithCGSMetricSystem() throws Exception {
+    public void shouldAddBaseUnitWithMetricMeasuringSystem() throws Exception {
         author("Nimra Inam");
-        description("A base unit with CGS metric system should be added");
+        description("A base unit with measuring measuring system should be added");
 
         variable(LOCATION_HEADER_VALUE, "");
 
         postRequest(UNITS_URL, //
-                readFile("/datasets/units/metris_systems/base_unit/base_unit_with_cgs_metric_system.json"));
+                readFile("/datasets/units/measuring_system/base_unit/base_unit_with_metric_measuring_system.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/metris_systems/base_unit/base_unit_with_cgs_metric_system_response.json"), //
+                readFile("/datasets/units/measuring_system/base_unit/base_unit_with_metric_measuring_system_response.json"), //
                 "${locationHeaderValue}");
     }
 
     @Test
     @CitrusTest
-    public void shouldAddBaseUnitWithMTSMetricSystem() throws Exception {
+    public void shouldAddBaseUnitWithImperialMetricSystem() throws Exception {
         author("Nimra Inam");
-        description("A base unit with MTS metric system should be added");
+        description("A base unit with Imperial measuring system should be added");
 
         variable(LOCATION_HEADER_VALUE, "");
 
         postRequest(UNITS_URL, //
-                readFile("/datasets/units/metris_systems/base_unit/base_unit_with_mts_metric_system.json"));
+                readFile(
+                        "/datasets/units/measuring_system/base_unit/base_unit_with_imperial_measuring_system.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/metris_systems/base_unit/base_unit_with_mts_metric_system_response.json"), //
+                readFile("/datasets/units/measuring_system/base_unit/base_unit_with_imperial_measuring_system_response.json"), //
                 "${locationHeaderValue}");
     }
 
     @Test
     @CitrusTest
-    public void shouldAddBaseUnitWithNoneMetricSystem() throws Exception {
+    public void shouldAddBaseUnitWithNoneMeasuringSystem() throws Exception {
         author("Nimra Inam");
-        description("A base unit with None metric system should be added");
+        description("A base unit with None measuring system should be added");
 
         variable(LOCATION_HEADER_VALUE, "");
 
         postRequest(UNITS_URL, //
-                readFile("/datasets/units/metris_systems/base_unit/base_unit_with_none_metric_system.json"));
+                readFile("/datasets/units/measuring_system/base_unit/base_unit_with_none_measuring_system.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/metris_systems/base_unit/base_unit_with_none_metric_system_response.json"), //
+                readFile("/datasets/units/measuring_system/base_unit/base_unit_with_none_measuring_system_response.json"), //
                 "${locationHeaderValue}");
     }
 

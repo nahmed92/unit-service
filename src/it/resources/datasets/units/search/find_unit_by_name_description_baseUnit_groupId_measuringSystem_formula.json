@@ -6,7 +6,7 @@
                 "groupId": "${groupId}",
                 "isBaseUnit": "@contains(${baseUnit})@",
                 "description": "${description}",
-                "metricSystem": "${metricSystem}",
+                "measuringSystem": "${metricSystem}",
                 "formula": "${formula}",
                 "_links": {
                     "self": {

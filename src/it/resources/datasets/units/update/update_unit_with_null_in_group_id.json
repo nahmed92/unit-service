@@ -2,7 +2,7 @@
     "name": "Ounce Unit",
     "groupId": null,
     "isBaseUnit": false,
-    "metricSystem": "MKS",
+    "measuringSystem": "METRIC",
     "formula": "[value] / 1000",
     "description": "This Ounce unit"
 }

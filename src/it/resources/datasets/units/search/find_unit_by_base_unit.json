@@ -6,7 +6,7 @@
                 "groupId": "59df33dc0fcdf86d872acd27",
                 "isBaseUnit": true,
                 "description": "Gb Unit",
-                "metricSystem": "NONE",
+                "measuringSystem": "NONE",
                 "formula": "[value] / 1000",
                 "_links": {
                     "self": {
@@ -22,7 +22,7 @@
                 "groupId": "59df33dc0fcdf86d872acd27",
                 "isBaseUnit": true,
                 "description": "Gb Unit",
-                "metricSystem": "NONE",
+                "measuringSystem": "NONE",
                 "formula": "[value] / 1000",
                 "_links": {
                     "self": {
@@ -38,7 +38,7 @@
                 "groupId": "5995843b0fcdf874985e399d",
                 "isBaseUnit": true,
                 "description": "Kilogram Per Hour",
-                "metricSystem": "CGS",
+                "measuringSystem": "IMPERIAL",
                 "formula": "[value] * 1000",
                 "_links": {
                     "self": {
@@ -54,7 +54,7 @@
                 "groupId": "599585660fcdf874985e399e",
                 "isBaseUnit": true,
                 "description": "Nano Second Unit",
-                "metricSystem": "NONE",
+                "measuringSystem": "NONE",
                 "formula": "[value] / 1000",
                 "_links": {
                     "self": {
@@ -70,7 +70,7 @@
                 "groupId": "599585660fcdf874985e399e",
                 "isBaseUnit": true,
                 "description": "Milli Second Unit",
-                "metricSystem": "CGS",
+                "measuringSystem": "METRIC",
                 "formula": "[value]",
                 "_links": {
                     "self": {

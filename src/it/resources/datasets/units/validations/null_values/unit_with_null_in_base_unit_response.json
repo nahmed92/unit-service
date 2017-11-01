@@ -1,10 +1,10 @@
 {
-    "name": "Micro Second",
+    "name": "Minute",
     "groupId": "599585660fcdf874985e399e",
     "isBaseUnit": false,
-    "metricSystem": "CGS",
+    "description": "Minute Unit",
+    "measuringSystem": "NONE",
     "formula": "[value] / 1000",
-    "description": "Micro Second Unit",
     "_links": {
         "self": {
             "href": "@endsWith(${locationHeaderValue})@"

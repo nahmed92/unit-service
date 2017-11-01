@@ -1,8 +1,0 @@
-{
-     "name": "second",
-     "groupId": "599585660fcdf874985e399e",
-     "isBaseUnit": true,
-     "metricSystem": "MKS",
-     "formula": "[value] / 1000",
-     "description": "second Unit"
-}

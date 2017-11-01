@@ -1,15 +1,16 @@
-  "name" : "Processor Speed",
-  "groupId" : "599585660fcdf874985e399e",
-  "isBaseUnit" : false,
-  "description" : "Processor Speed Unit",
-  "metricSystem" : "CGS",
-  "formula" : "[value]",
-  "_links" : {
-    "self" : {
-      "href" : "@endsWith(${locationHeaderValue})@"
-    },
-    "unit" : {
-      "href" : "@endsWith(${locationHeaderValue})@"
+{
+    "name": "Processor Speed",
+    "groupId": "599585660fcdf874985e399e",
+    "isBaseUnit": false,
+    "description": "Processor Speed Unit",
+    "measuringSystem": "METRIC",
+    "formula": "[value]",
+    "_links": {
+        "self": {
+            "href": "@endsWith(${locationHeaderValue})@"
+        },
+        "unit": {
+            "href": "@endsWith(${locationHeaderValue})@"
+        }
     }
-  }
 }

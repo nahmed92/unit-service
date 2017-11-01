@@ -2,7 +2,7 @@
     "name": "Pound",
     "groupId": "599585660fcdf874985e399e",
     "isBaseUnit": false,
-    "metricSystem": "MKS",
+    "measuringSystem": "METRIC",
     "formula": "[value] / 1000",
     "description": "Pound unit"
 }

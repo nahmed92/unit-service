@@ -1,9 +1,9 @@
 {
     "name": "Ounce Unit",
-    "groupId": "5995843b0fcdf874985e399d",
+    "groupId": "599585660fcdf874985e399e",
     "isBaseUnit": false,
     "description": "This Ounce unit",
-    "measuringSystem": "METRIC",
+    "measuringSystem": "NONE",
     "formula": "[value] / 1000",
     "_links": {
         "self": {

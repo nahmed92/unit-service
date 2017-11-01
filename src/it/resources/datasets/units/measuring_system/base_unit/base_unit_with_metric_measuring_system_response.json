@@ -1,10 +1,10 @@
 {
-    "name": "GHz",
-    "groupId": "5995843b0fcdf874985e399d",
+    "name": "Gram",
+    "groupId": "599585660fcdf874985e399e",
     "isBaseUnit": false,
-    "metricSystem": "NONE",
+    "description": "Gram Unit",
+    "measuringSystem": "METRIC",
     "formula": "[value] / 1000",
-    "description": "GHz unit",
     "_links": {
         "self": {
             "href": "@endsWith(${locationHeaderValue})@"

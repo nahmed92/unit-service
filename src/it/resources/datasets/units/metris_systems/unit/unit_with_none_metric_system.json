@@ -1,8 +1,0 @@
-{
-     "name": "GHz",
-     "groupId": "5995843b0fcdf874985e399d",
-     "isBaseUnit": false,
-     "metricSystem": "NONE",
-     "formula": "[value] / 1000",
-     "description": "GHz unit"
-}

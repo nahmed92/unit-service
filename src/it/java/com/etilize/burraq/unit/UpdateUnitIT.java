@@ -102,21 +102,21 @@ public class UpdateUnitIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldUpdateMetricSystemOfUnit() throws Exception {
+    public void shouldUpdateMeasuringSystemOfUnit() throws Exception {
         author("Nimra Inam");
-        description("An update operation should update metric system field of unit");
+        description("An update operation should update measuring system field of unit");
 
         variable(LOCATION_HEADER_VALUE, "");
         variable(UNIT_ID, EXISTING_UNIT_ID_TO_UPDATE);
 
         putRequest(UNITS_URL, //
                 "${" + UNIT_ID + "}", //
-                readFile("/datasets/units/update/update_metric_system_of_unit.json"));
+                readFile("/datasets/units/update/update_measuring_system_of_unit.json"));
 
         extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/update/update_metric_system_of_unit_response.json"), //
+                readFile("/datasets/units/update/update_measuring_system_of_unit_response.json"), //
                 "${locationHeaderValue}");
     }
 
@@ -182,21 +182,21 @@ public class UpdateUnitIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldUpdateUnitWithDefaultWhenNullInMetricSystem() throws Exception {
+    public void shouldUpdateUnitWithDefaultWhenNullInMeasuringSystem() throws Exception {
         author("Nimra Inam");
-        description("An update operation should update unit with default value in metric system when null is added");
+        description("An update operation should update unit with default value in measuring system when null is added");
 
         variable(LOCATION_HEADER_VALUE, "");
         variable(UNIT_ID, EXISTING_UNIT_ID_TO_UPDATE);
 
         putRequest(UNITS_URL, //
                 "${" + UNIT_ID + "}", //
-                readFile("/datasets/units/update/update_unit_with_null_in_metric_system.json"));
+                readFile("/datasets/units/update/update_unit_with_null_in_measuring_system.json"));
 
         extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
         parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/update/update_unit_with_null_in_metric_system_response.json"), //
+                readFile("/datasets/units/update/update_unit_with_null_in_measuring_system_response.json"), //
                 "${locationHeaderValue}");
     }
 
@@ -297,19 +297,19 @@ public class UpdateUnitIT extends AbstractIT {
     @Test
     @CitrusTest
     @Ignore
-    public void shouldNotUpdateUnitWithEmptyStringInMetricSystem() throws Exception {
+    public void shouldNotUpdateUnitWithEmptyStringInMeasuringSystem() throws Exception {
         author("Nimra Inam");
         description(
-                "An update operation should not update unit with empty string in Metric System");
+                "An update operation should not update unit with empty string in Measuring System");
 
         variable(LOCATION_HEADER_VALUE, "");
         variable(UNIT_ID, EXISTING_UNIT_ID_TO_UPDATE);
 
         putRequest(UNITS_URL, //
                 "${" + UNIT_ID + "}", //
-                readFile("/datasets/units/update/update_unit_with_empty_string_in_metric_system.json"));
+                readFile("/datasets/units/update/update_unit_with_empty_string_in_measuring_system.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/update/update_unit_with_empty_string_in_metric_system_error.json"));
+                readFile("/datasets/units/update/update_unit_with_empty_string_in_measuring_system_error.json"));
     }
 }
