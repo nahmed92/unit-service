@@ -1,8 +1,8 @@
 {
-    "name": "Ounce Unit",
+    "name": "Gram",
     "groupId": "599585660fcdf874985e399e",
     "isBaseUnit": false,
-    "metricSystem": null,
+    "measuringSystem": "METRIC",
     "formula": "[value] / 1000",
-    "description": "This Ounce unit"
+    "description": "Gram Unit"
 }

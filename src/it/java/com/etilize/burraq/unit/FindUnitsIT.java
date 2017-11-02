@@ -27,7 +27,7 @@
 
 package com.etilize.burraq.unit;
 
-import org.junit.Test;
+import org.junit.*;
 import org.springframework.http.HttpStatus;
 
 import com.consol.citrus.annotations.CitrusTest;
@@ -93,7 +93,7 @@ public class FindUnitsIT extends AbstractIT {
         variable("description", "bit Unit");
         variable("groupId", "59df33dc0fcdf86d872acd27");
         variable("baseUnit", "false");
-        variable("metricSystem", "NONE");
+        variable("measuringSystem", "NONE");
         variable("formula", "[value] / 1000");
 
         getRequest(UNITS_URL + "${unitId}");
@@ -106,7 +106,7 @@ public class FindUnitsIT extends AbstractIT {
                 .validate("$.description", "${description}") //
                 .validate("$.groupId", "${groupId}") //
                 .validate("$.isBaseUnit", "${baseUnit}") //
-                .validate("$.metricSystem", "${metricSystem}") //
+                .validate("$.measuringSystem", "${measuringSystem}") //
                 .validate("$.formula", "${formula}") //
                 .validate("$._links.self.href", "@endsWith(${unitId})@") //
                 .validate("$._links.unit.href", "@endsWith(${unitId})@");
@@ -191,16 +191,16 @@ public class FindUnitsIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldFindUnitsByMetricSystem() throws Exception {
+    public void shouldFindUnitsByMeasuringSystem() throws Exception {
         author("Nimra Inam");
         description("Validate response by finding unit by metric system");
 
-        variable("metricSystem", "NONE");
+        variable("measuringSystem", "NONE");
 
-        getRequest(UNITS_URL + "?metricSystem=MKS");
+        getRequest(UNITS_URL + "?measuringSystem=IMPERIAL");
 
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/search/find_unit_by_metric_system.json"));
+                readFile("/datasets/units/search/find_unit_by_measuring_system.json"));
 
     }
 
@@ -220,11 +220,11 @@ public class FindUnitsIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldFindByNameDescriptionBaseUnitGroupIdMetricSystemAndFormulaDoesNotExist()
+    public void shouldFindByNameDescriptionBaseUnitGroupIdMeasuringSystemAndFormulaDoesNotExist()
             throws Exception {
         author("Nimra Inam");
         description(
-                "Validate response by finding unit by name, description, base unit, group id, metric system and formula");
+                "Validate response by finding unit by name, description, base unit, group id, measuring system and formula");
 
         variable("name", "bit");
         variable("description", "bit Unit");
@@ -234,10 +234,11 @@ public class FindUnitsIT extends AbstractIT {
         variable("formula", "[value] / 1000");
 
         getRequest(UNITS_URL
-                + "?name=bit&groupId=59df33dc0fcdf86d872acd27&isBaseUnit=false&description=bit Unit&metricSystem=NONE&formula=[value] / 1000");
+                + "?name=bit&groupId=59df33dc0fcdf86d872acd27&isBaseUnit=false&description=bit Unit&measuringSystem=NONE&formula=[value] / 1000");
 
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/search/find_unit_by_name_description_baseUnit_groupId_metriSystem_formula.json"));
+                readFile(
+                        "/datasets/units/search/find_unit_by_name_description_baseUnit_groupId_measuringSystem_formula.json"));
 
     }
 
@@ -280,5 +281,4 @@ public class FindUnitsIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/search/find_unit_which_does_not_exist.json"));
     }
-
 }

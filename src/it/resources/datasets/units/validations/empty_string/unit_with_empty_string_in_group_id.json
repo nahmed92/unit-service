@@ -2,7 +2,7 @@
     "name": "Micro Second",
     "groupId": "",
     "isBaseUnit": false,
-    "metricSystem": "CGS",
+    "measuringSystem": "METRIC",
     "formula": "[value] / 1000",
     "description": "Micro Second Unit"
 }

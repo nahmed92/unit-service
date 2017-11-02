@@ -6,7 +6,7 @@
                 "groupId": "59df33dc0fcdf86d872acd27",
                 "isBaseUnit": false,
                 "description": "bit Unit",
-                "metricSystem": "NONE",
+                "measuringSystem": "NONE",
                 "formula": "[value] / 1000",
                 "_links": {
                     "self": {

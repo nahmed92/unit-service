@@ -2,11 +2,27 @@
     "_embedded": {
         "units": [
             {
-                "name": "Pound",
+                "name": "kg/h",
+                "groupId": "5995843b0fcdf874985e399d",
+                "isBaseUnit": true,
+                "description": "Kilogram Per Hour",
+                "measuringSystem": "IMPERIAL",
+                "formula": "[value] * 1000",
+                "_links": {
+                    "self": {
+                        "href": "@contains(/units)@"
+                    },
+                    "unit": {
+                        "href": "@contains(/units)@"
+                    }
+                }
+            },
+            {
+                "name": "Milli Gram",
                 "groupId": "599585660fcdf874985e399e",
                 "isBaseUnit": false,
-                "description": "Pound unit",
-                "metricSystem": "MKS",
+                "description": "Milli Gram Unit",
+                "measuringSystem": "IMPERIAL",
                 "formula": "[value] / 1000",
                 "_links": {
                     "self": {
@@ -18,11 +34,11 @@
                 }
             },
             {
-                "name": "Kilogram",
+                "name": "Meter",
                 "groupId": "599585660fcdf874985e399e",
                 "isBaseUnit": false,
-                "description": "Kilogram Unit",
-                "metricSystem": "MKS",
+                "description": "Meter Unit",
+                "measuringSystem": "IMPERIAL",
                 "formula": "[value] / 1000",
                 "_links": {
                     "self": {
@@ -49,7 +65,7 @@
     },
     "page": {
         "size": 20,
-        "totalElements": 2,
+        "totalElements": 3,
         "totalPages": 1,
         "number": 0
     }

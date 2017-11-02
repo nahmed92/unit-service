@@ -1,10 +1,10 @@
 {
     "name": "MHz",
-    "groupId": "59b63ec8e110b21a936c9eed",
+    "groupId": "599585660fcdf874985e399e",
     "isBaseUnit": false,
-    "metricSystem": "NONE",
-    "formula": "[value] / 1000",
     "description": "MHz Unit",
+    "measuringSystem": "NONE",
+    "formula": "[value] / 1000",
     "_links": {
         "self": {
             "href": "@endsWith(${locationHeaderValue})@"

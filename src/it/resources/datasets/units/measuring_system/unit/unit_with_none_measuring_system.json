@@ -1,8 +1,8 @@
 {
-    "name": "bit",
-    "groupId": "59df33dc0fcdf86d872acd27",
+    "name": "GHz",
+    "groupId": "5995843b0fcdf874985e399d",
     "isBaseUnit": false,
     "measuringSystem": "NONE",
     "formula": "[value] / 1000",
-    "description": "bit Unit"
+    "description": "GHz unit"
 }

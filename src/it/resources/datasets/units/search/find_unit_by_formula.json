@@ -6,7 +6,7 @@
                 "groupId": "5995843b0fcdf874985e399d",
                 "isBaseUnit": true,
                 "description": "Kilogram Per Hour",
-                "metricSystem": "CGS",
+                "measuringSystem": "IMPERIAL",
                 "formula": "${formula}",
                 "_links": {
                     "self": {

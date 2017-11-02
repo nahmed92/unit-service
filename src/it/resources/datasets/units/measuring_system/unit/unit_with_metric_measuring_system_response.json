@@ -1,8 +1,8 @@
 {
-    "name": "Ounce Unit",
-    "groupId": "5995843b0fcdf874985e399d",
+    "name": "Kilogram",
+    "groupId": "599585660fcdf874985e399e",
     "isBaseUnit": false,
-    "description": "This Ounce unit",
+    "description": "Kilogram Unit",
     "measuringSystem": "METRIC",
     "formula": "[value] / 1000",
     "_links": {

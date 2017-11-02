@@ -1,8 +1,8 @@
 {
-    "name": "Ounce Unit",
+    "name": "Meter",
     "groupId": "599585660fcdf874985e399e",
     "isBaseUnit": false,
-    "metricSystem": "NONE",
+    "measuringSystem": "IMPERIAL",
     "formula": "[value] / 1000",
-    "description": "This Ounce unit"
+    "description": "Meter Unit"
 }

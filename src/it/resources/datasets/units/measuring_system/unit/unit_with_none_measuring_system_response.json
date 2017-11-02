@@ -1,9 +1,9 @@
 {
-    "name": "Ounce Unit",
+    "name": "GHz",
     "groupId": "5995843b0fcdf874985e399d",
     "isBaseUnit": false,
-    "description": "This Ounce unit",
-    "measuringSystem": "METRIC",
+    "description": "GHz unit",
+    "measuringSystem": "NONE",
     "formula": "[value] / 1000",
     "_links": {
         "self": {

@@ -1,7 +1,7 @@
 {
     "groupId": "599585660fcdf874985e399e",
     "isBaseUnit": false,
-    "metricSystem": "CGS",
+    "measuringSystem": "METRIC",
     "formula": "[value] / 1000",
     "description": "Nano Gram Unit"
 }

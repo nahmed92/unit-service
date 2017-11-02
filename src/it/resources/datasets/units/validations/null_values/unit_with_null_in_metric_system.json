@@ -2,7 +2,7 @@
     "name": "Nano Second",
     "groupId": "599585660fcdf874985e399e",
     "isBaseUnit": true,
-    "metricSystem": null,
+    "measuringSystem": null,
     "formula": "[value] / 1000",
     "description": "Nano Second Unit"
 }
