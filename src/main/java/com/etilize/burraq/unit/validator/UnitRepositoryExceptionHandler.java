@@ -37,7 +37,6 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.etilize.burraq.unit.Unit;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.mongodb.DuplicateKeyException;
 
@@ -55,7 +54,7 @@ public class UnitRepositoryExceptionHandler {
     /**
      * Handle repository duplicate key exception.
      *
-     * @param ex  This is repository {@link DuplicateKeyException}
+     * @param ex Excetion {@link DuplicateKeyException}
      * @return {@link ResponseEntity} Response for given entity.
      */
     @ExceptionHandler(value = { DuplicateKeyException.class })
@@ -69,7 +68,7 @@ public class UnitRepositoryExceptionHandler {
     /**
      * Handle InvalidFormatException exception.
      *
-     * @param ex  This is repository {@link InvalidFormatException}
+     * @param ex Exception {@link InvalidFormatException}
      * @return {@link ResponseEntity} Response for given entity.
      */
     @ExceptionHandler(value = { InvalidFormatException.class })
@@ -86,7 +85,7 @@ public class UnitRepositoryExceptionHandler {
     /**
      * Handle IllegalArgumentException exception.
      *
-     * @param ex  This is repository {@link IllegalArgumentExcUnitRestIntegrationTest.javaeption}
+     * @param ex Exception {@link HttpMessageNotReadableException}
      * @return {@link ResponseEntity} Response for given entity.
      */
     @ExceptionHandler(value = { HttpMessageNotReadableException.class })
