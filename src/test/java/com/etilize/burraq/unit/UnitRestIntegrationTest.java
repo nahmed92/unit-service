@@ -366,4 +366,34 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
                         is("Formula is not valid.")));
     }
 
+    @Test
+    public void shouldThrowBadRequestWhenMeasuringSystemIsEmpty() throws Exception {
+        mockMvc.perform(post("/units") //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content("{" + "\"name\":\"Kilogram\","
+                        + "\"groupId\": \"53e9155b5ed24e4c38d60e3c\","
+                        + "\"description\": \"Kilogram Unit " + "\"measuringSystem\":\""
+                        + "}")) //
+                .andExpect(status().isBadRequest()) //
+                .andExpect(jsonPath("$.message",
+                        startsWith(
+                                "JSON parse error: Unexpected character ('m' (code 109)): was expecting "
+                                        + "comma to separate Object entries;")));
+
+    }
+
+    @Test
+    public void shouldThrowBadRequestWhenGroupIdIsEmpty() throws Exception {
+        mockMvc.perform(post("/units") //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content("{" + "\"name\":\"Kilogram\"," + "\"groupId\": \"\","
+                        + "\"description\": \"Kilogram Unit " + "}")) //
+                .andExpect(status().isBadRequest()) //
+                .andExpect(jsonPath("$.message", startsWith(
+                        "JSON parse error: Can not construct instance of org.bson.types.ObjectId, "
+                                + "problem: invalid hexadecimal representation of an ObjectId: []; nested exception "
+                                + "is com.fasterxml.jackson.databind.JsonMappingException: Can not construct instance of "
+                                + "org.bson.types.ObjectId, problem: invalid hexadecimal representation of an ObjectId:")));
+    }
+
 }

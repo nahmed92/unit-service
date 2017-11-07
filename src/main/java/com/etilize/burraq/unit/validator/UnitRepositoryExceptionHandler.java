@@ -28,14 +28,17 @@
 
 package com.etilize.burraq.unit.validator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.etilize.burraq.unit.Unit;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.mongodb.DuplicateKeyException;
 
 /**
@@ -45,22 +48,55 @@ import com.mongodb.DuplicateKeyException;
  *
  */
 @ControllerAdvice
-public class DuplicateKeyExceptionHandler extends ResponseEntityExceptionHandler {
+public class UnitRepositoryExceptionHandler {
+
+    private final Logger logger = LoggerFactory.getLogger(UnitRepositoryExceptionHandler.class);
 
     /**
      * Handle repository duplicate key exception.
      *
      * @param ex  This is repository {@link DuplicateKeyException}
-     * @param request This is {@link WebRequest}
      * @return {@link ResponseEntity} Response for given entity.
      */
     @ExceptionHandler(value = { DuplicateKeyException.class })
-    protected ResponseEntity<Object> handleDuplicateKeyException(DuplicateKeyException ex,
-            WebRequest request) {
-        final ExceptionMessage errorMessage = new ExceptionMessage("name already exists.", //
+    protected ResponseEntity<Object> handleDuplicateKeyException(
+            final DuplicateKeyException ex) {
+        final ExceptionMessage errorMessage = new ExceptionMessage("name already exists.",
                 ex.getCause(), ex.getCode());
+        return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.CONFLICT);
+    }
 
-        return handleExceptionInternal(ex, errorMessage, new HttpHeaders(),
-                HttpStatus.CONFLICT, request);
+    /**
+     * Handle InvalidFormatException exception.
+     *
+     * @param ex  This is repository {@link InvalidFormatException}
+     * @return {@link ResponseEntity} Response for given entity.
+     */
+    @ExceptionHandler(value = { InvalidFormatException.class })
+    protected ResponseEntity<Object> handleInvalidFormatException(
+            final InvalidFormatException ex) {
+        final ExceptionMessage errorMessage = new ExceptionMessage(ex.getMessage(),
+                ex.getCause(), 0);
+        // logging error message
+        logger.error("Error during request processing: " + ex.getMessage());
+        return new ResponseEntity<>(errorMessage, new HttpHeaders(),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Handle IllegalArgumentException exception.
+     *
+     * @param ex  This is repository {@link IllegalArgumentExcUnitRestIntegrationTest.javaeption}
+     * @return {@link ResponseEntity} Response for given entity.
+     */
+    @ExceptionHandler(value = { HttpMessageNotReadableException.class })
+    protected ResponseEntity<Object> handleHttpMessageNotReadableException(
+            final HttpMessageNotReadableException ex) {
+        final ExceptionMessage errorMessage = new ExceptionMessage(ex.getMessage(), null,
+                0);
+        // logging error message
+        logger.error("Error during request processing: " + ex.getMessage());
+        return new ResponseEntity<>(errorMessage, new HttpHeaders(),
+                HttpStatus.BAD_REQUEST);
     }
 }
