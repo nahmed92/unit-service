@@ -4,7 +4,6 @@
             {
                 "name": "${name}",
                 "groupId": "${groupId}",
-                "isBaseUnit": "@contains(${baseUnit})@",
                 "description": "${description}",
                 "measuringSystem": "${metricSystem}",
                 "formula": "${formula}",

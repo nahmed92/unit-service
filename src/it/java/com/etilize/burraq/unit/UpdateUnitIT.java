@@ -142,22 +142,18 @@ public class UpdateUnitIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldUpdateGroupIdOfUnit() throws Exception {
+    public void shouldReturnBadRequestOnUpdatingGroupIdOfUnit() throws Exception {
         author("Nimra Inam");
-        description("An update operation should update group id field of unit");
+        description("An update operation should not update group id of a unit");
 
-        variable(LOCATION_HEADER_VALUE, "");
         variable(UNIT_ID, EXISTING_UNIT_ID_TO_UPDATE);
 
         putRequest(UNITS_URL, //
                 "${" + UNIT_ID + "}", //
                 readFile("/datasets/units/update/update_group_id_of_unit.json"));
 
-        extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
-        verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/update/update_group_id_of_unit_response.json"), //
-                "${locationHeaderValue}");
+        verifyResponse(HttpStatus.BAD_REQUEST, //
+                readFile("/datasets/units/update/update_group_id_of_unit_response.json"));
     }
 
     @Test

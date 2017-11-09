@@ -31,6 +31,7 @@ package com.etilize.burraq.unit.validator;
 import org.bson.types.ObjectId;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.core.RepositoryConstraintViolationException;
 
 import com.etilize.burraq.unit.group.Group;
 import com.etilize.burraq.unit.test.AbstractIntegrationTest;
@@ -59,9 +60,32 @@ public class GroupRepositoryEventHandlerTest extends AbstractIntegrationTest {
     @Test
     @ShouldMatchDataSet(location = "/datasets/groups/group_after_update_baseUnitId_when_null_also_reset_unit_isBaseUnit_flag_true.json")
     public void shouldUpdateUnitIsBaseUnitToTrueWhenGroupHavingBaseUnitIDNullBeforeUpdate() {
-        final Group group = new Group("Kilogram", "Kilogram Unit");
+        final Group group = new Group("Weight", "Weight Unit");
         group.setBaseUnitId(new ObjectId("59b63ec8e110b21a936c9eed"));
         group.setId(new ObjectId("53e9155b5ed24e4c38d60e3c"));
+        groupEventHandler.handleBeforeSave(group);
+    }
+
+    @Test(expected = RepositoryConstraintViolationException.class)
+    public void shouldThrowExceptionWhenBaseUnitIdIsEnteredAtGroupCreation() {
+        final Group group = new Group("Sound", "Sound Unit");
+        group.setBaseUnitId(new ObjectId("59b63ec8e110b21a936c9eed"));
+        groupEventHandler.handleBeforeCreate(group);
+    }
+
+    @Test(expected = RepositoryConstraintViolationException.class)
+    public void shouldThrowExceptionWhenBaseUnitIdIsUpdatedToNullAtGroupUpdate() {
+        final Group group = new Group("temperature", "temperature Unit");
+        group.setBaseUnitId(null);
+        group.setId(new ObjectId("74e9155b5ed24e4c38d60e3c"));
+        groupEventHandler.handleBeforeSave(group);
+    }
+
+    @Test(expected = RepositoryConstraintViolationException.class)
+    public void shouldThrowExceptionWhenBaseUnitDoesNotExistAtGroupUpdate() {
+        final Group group = new Group("temperature", "temperature Unit");
+        group.setBaseUnitId(new ObjectId("53e9155b5ed24e4c38d60e3c"));
+        group.setId(new ObjectId("74e9155b5ed24e4c38d60e3c"));
         groupEventHandler.handleBeforeSave(group);
     }
 }

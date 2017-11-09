@@ -4,7 +4,6 @@
             {
                 "name": "Gb",
                 "groupId": "59df33dc0fcdf86d872acd27",
-                "isBaseUnit": true,
                 "description": "Gb Unit",
                 "measuringSystem": "NONE",
                 "formula": "[value] / 1000",
@@ -20,7 +19,6 @@
             {
                 "name": "PB",
                 "groupId": "59df33dc0fcdf86d872acd27",
-                "isBaseUnit": true,
                 "description": "Gb Unit",
                 "measuringSystem": "NONE",
                 "formula": "[value] / 1000",
@@ -36,7 +34,6 @@
             {
                 "name": "kg/h",
                 "groupId": "5995843b0fcdf874985e399d",
-                "isBaseUnit": true,
                 "description": "Kilogram Per Hour",
                 "measuringSystem": "IMPERIAL",
                 "formula": "[value] * 1000",
@@ -50,11 +47,10 @@
                 }
             },
             {
-                "name": "Nano Second",
+                "name": "Gram",
                 "groupId": "599585660fcdf874985e399e",
-                "isBaseUnit": true,
-                "description": "Nano Second Unit",
-                "measuringSystem": "NONE",
+                "description": "Gram Unit",
+                "measuringSystem": "METRIC",
                 "formula": "[value] / 1000",
                 "_links": {
                     "self": {
@@ -66,12 +62,11 @@
                 }
             },
             {
-                "name": "Milli Second",
-                "groupId": "599585660fcdf874985e399e",
-                "isBaseUnit": true,
-                "description": "Milli Second Unit",
-                "measuringSystem": "METRIC",
-                "formula": "[value]",
+                "name": "GHz",
+                "groupId": "5995843b0fcdf874985e399d",
+                "description": "GHz unit",
+                "measuringSystem": "NONE",
+                "formula": "[value] / 1000",
                 "_links": {
                     "self": {
                         "href": "@contains(/units)@"

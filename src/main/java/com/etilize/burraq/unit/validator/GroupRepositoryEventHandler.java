@@ -30,6 +30,8 @@ package com.etilize.burraq.unit.validator;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.core.RepositoryConstraintViolationException;
+import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.stereotype.Component;
@@ -49,6 +51,10 @@ import com.etilize.burraq.unit.group.GroupRepository;
 @Component
 @RepositoryEventHandler
 public class GroupRepositoryEventHandler {
+
+    private static final String ENTITY = "group";
+
+    private static final String FIELD_NAME = "baseUnitId";
 
     private final UnitRepository unitRepository;
 
@@ -70,33 +76,75 @@ public class GroupRepositoryEventHandler {
     }
 
     /**
-     * Handle update request. Updating baseUnitId in group
-     * will update related units flag isBaseUnit
+     * Handle create request.
+     * Validate baseUnitId not entered at time of group creation
+     *
+     * @param group group entity
+     */
+    @HandleBeforeCreate(Group.class)
+    public void handleBeforeCreate(final Group group) {
+        if (group.getBaseUnitId() != null) {
+            throw new RepositoryConstraintViolationException(validationError(ENTITY,
+                    FIELD_NAME, "baseUnitId is not allowed at group creation."));
+        }
+    }
+
+    /**
+     * Handle update request.when updating baseUnitId in group
+     * Scenario 1: if group baseUnitId set first time, unit isbaseUnit
+     * also set to true
+     * Scenario 2 : if group baseUnitId get updated then existing unit
+     * isbaseUnit set to false and new unit isbaseUnit set to true(new base unit)
+     * Scenario 3 : if baseUnitId set to null at update then throw Exception
      *
      * @param updatedGroup entity
      */
     @HandleBeforeSave(Group.class)
     public void handleBeforeSave(final Group updatedGroup) {
+        final Group existingGroup = groupRepository.findOne(updatedGroup.getId());
         if (updatedGroup.getBaseUnitId() != null) {
-            final Group group = groupRepository.findOne(updatedGroup.getId());
-            if (group.getBaseUnitId() == null) {
+            if (existingGroup.getBaseUnitId() == null) {
                 updateBaseUnit(updatedGroup.getBaseUnitId(), true);
-            } else if (!group.getBaseUnitId().equals(updatedGroup.getBaseUnitId())) {
-                updateBaseUnit(group.getBaseUnitId(), false);
+            } else if (!existingGroup.getBaseUnitId().equals(
+                    updatedGroup.getBaseUnitId())) {
+                updateBaseUnit(existingGroup.getBaseUnitId(), false);
                 updateBaseUnit(updatedGroup.getBaseUnitId(), true);
+            }
+        } else {
+            if (existingGroup.getBaseUnitId() != null) {
+                throw new RepositoryConstraintViolationException(validationError(ENTITY,
+                        FIELD_NAME, "baseUnitId can't be null at update."));
             }
         }
     }
 
     /**
      * Update isBaseUnit flag of unit associated with group
+     * If unit not exist it will throw Exception
      *
      * @param unitId Id of group associated unit
      * @param isBaseUnit flag indicate BaseUnit
      */
     private void updateBaseUnit(final ObjectId unitId, final Boolean isBaseUnit) {
         final Unit unit = unitRepository.findOne(unitId);
+        if (unit == null) {
+            throw new RepositoryConstraintViolationException(
+                    validationError(ENTITY, FIELD_NAME, "Unit does not exist."));
+        }
         unit.setBaseUnit(isBaseUnit);
         unitRepository.save(unit);
+    }
+
+    /**
+     * Build error message
+     * @param name Entity name
+     * @param field Name of Field
+     * @param message Error message
+     *
+     * @return validationErrors Object
+     */
+    private ValidationErrors validationError(final String name, final String field,
+            final String message) {
+        return new ValidationErrors(name, field, message);
     }
 }

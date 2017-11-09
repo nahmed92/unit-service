@@ -4,7 +4,6 @@
             {
                 "name": "kg/h",
                 "groupId": "5995843b0fcdf874985e399d",
-                "isBaseUnit": true,
                 "description": "Kilogram Per Hour",
                 "measuringSystem": "IMPERIAL",
                 "formula": "[value] * 1000",
@@ -20,7 +19,6 @@
             {
                 "name": "Milli Gram",
                 "groupId": "599585660fcdf874985e399e",
-                "isBaseUnit": false,
                 "description": "Milli Gram Unit",
                 "measuringSystem": "IMPERIAL",
                 "formula": "[value] / 1000",
@@ -36,7 +34,6 @@
             {
                 "name": "Meter",
                 "groupId": "599585660fcdf874985e399e",
-                "isBaseUnit": false,
                 "description": "Meter Unit",
                 "measuringSystem": "IMPERIAL",
                 "formula": "[value] / 1000",

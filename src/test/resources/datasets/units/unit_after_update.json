@@ -8,7 +8,7 @@
             "groupId": {
                 "$oid": "53e9155b5ed24e4c38d60e3c"
             },
-            "isBaseUnit": true,
+            "isBaseUnit": false,
             "measuringSystem":"IMPERIAL",
             "formula": "[value]*1000",
             "description": "Gram Unit"

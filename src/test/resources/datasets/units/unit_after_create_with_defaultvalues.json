@@ -58,7 +58,7 @@
             "groupId": {
                 "$oid": "53e9155b5ed24e4c38d60e3c"
             },
-            "isBaseUnit": false,
+            "isBaseUnit": true,
             "measuringSystem": "NONE",
             "formula": "[value]",
             "description": "Pound Unit"
