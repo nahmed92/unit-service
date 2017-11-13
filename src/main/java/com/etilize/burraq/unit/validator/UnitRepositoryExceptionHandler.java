@@ -49,7 +49,8 @@ import com.mongodb.DuplicateKeyException;
 @ControllerAdvice
 public class UnitRepositoryExceptionHandler {
 
-    private final Logger logger = LoggerFactory.getLogger(UnitRepositoryExceptionHandler.class);
+    private final Logger logger = LoggerFactory.getLogger(
+            UnitRepositoryExceptionHandler.class);
 
     /**
      * Handle repository duplicate key exception.
