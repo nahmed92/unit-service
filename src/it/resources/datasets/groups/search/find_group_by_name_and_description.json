@@ -4,6 +4,7 @@
             {
                 "name": "${name}",
                 "description": "${description}",
+                "baseUnitId": null,
                 "_links": {
                     "self": {
                         "href": "@endsWith(${groupId})@"

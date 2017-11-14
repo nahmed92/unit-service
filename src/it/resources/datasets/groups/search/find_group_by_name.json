@@ -4,6 +4,7 @@
             {
                 "name": "${name}",
                 "description": "this is weight unit group",
+                "baseUnitId": null,
                 "_links": {
                     "self": {
                         "href": "@endsWith(${groupId})@"

@@ -74,41 +74,6 @@ public class ValidateUnitIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldNotAddMoreThanTwoBaseUnitsInOneGroupOnAdd() throws Exception {
-        author("Nimra Inam");
-        description(
-                "More than two base units should not be added in the same group on add");
-
-        postRequest(UNITS_URL, //
-                readFile(
-                        "/datasets/units/validations/third_base_unit_in_same_group_to_add.json"));
-
-        verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile(
-                        "/datasets/units/validations/more_than_two_base_units_error.json"));
-    }
-
-    @Test
-    @CitrusTest
-    public void shouldNotAddMoreThanTwoBaseUnitsInOneGroupOnUpdate() throws Exception {
-        author("Nimra Inam");
-        description(
-                "More than two base units should not be added in the same group on update");
-
-        variable(UNIT_ID, "59df4d4f0fcdf86d872acdfc");
-
-        putRequest(UNITS_URL, //
-                "${" + UNIT_ID + "}", //
-                readFile(
-                        "/datasets/units/validations/third_base_unit_in_same_group_to_update.json"));
-
-        verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile(
-                        "/datasets/units/validations/more_than_two_base_units_after_update_error.json"));
-    }
-
-    @Test
-    @CitrusTest
     public void shouldNotAddSameUnitInADifferentGroupOnAdd() throws Exception {
         author("Nimra Inam");
         description("Same Unit should not be added in a different group on add");
