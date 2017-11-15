@@ -10,3 +10,7 @@ db.units.updateMany({"metricSystem": { $exists: true } }, { $rename: {"metricSys
 db.units.updateMany({"measuringSystem":"MKS"}, { $set : {"measuringSystem": "METRIC" }});
 db.units.updateMany({"measuringSystem":"MTS"}, { $set : {"measuringSystem": "METRIC" }});
 db.units.updateMany({"measuringSystem":"CGS"}, { $set : {"measuringSystem": "IMPERIAL" }});
+
+// changeset nasahmed:US-64
+db.groups.updateMany({"baseUnitId": {$exists: false}}, { $set : {"baseUnitId":null}});
+db.units.updateMany({"isBaseUnit":true}, { $set : {"isBaseUnit": false }});
