@@ -10,9 +10,6 @@
         },
         "profile": {
             "href": "@endsWith(/profile/units)@"
-        },
-        "search": {
-            "href": "@endsWith(/units/search)@"
         }
     },
     "page": {
