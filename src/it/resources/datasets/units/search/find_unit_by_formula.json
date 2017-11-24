@@ -4,7 +4,6 @@
             {
                 "name": "kg/h",
                 "groupId": "5995843b0fcdf874985e399d",
-                "isBaseUnit": true,
                 "description": "Kilogram Per Hour",
                 "measuringSystem": "IMPERIAL",
                 "formula": "${formula}",

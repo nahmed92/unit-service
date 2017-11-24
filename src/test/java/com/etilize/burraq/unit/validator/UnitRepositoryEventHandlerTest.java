@@ -33,9 +33,11 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.RepositoryConstraintViolationException;
 
+import com.etilize.burraq.unit.MeasuringSystem;
 import com.etilize.burraq.unit.Unit;
 import com.etilize.burraq.unit.test.AbstractIntegrationTest;
 import com.lordofthejars.nosqlunit.annotation.CustomComparisonStrategy;
+import com.lordofthejars.nosqlunit.annotation.ShouldMatchDataSet;
 import com.lordofthejars.nosqlunit.annotation.UsingDataSet;
 import com.lordofthejars.nosqlunit.mongodb.MongoFlexibleComparisonStrategy;
 
@@ -53,7 +55,7 @@ public class UnitRepositoryEventHandlerTest extends AbstractIntegrationTest {
         final Unit centigradeUnit = new Unit("Centigrade",
                 new ObjectId("74e9155b5ed24e4c38d60e3e"), "temperature Unit");
         centigradeUnit.setBaseUnit(true);
-        unitEventHandler.handleBeforeUnitSave(centigradeUnit);
+        unitEventHandler.handleBeforeUnitCreate(centigradeUnit);
     }
 
     @Test(expected = RepositoryConstraintViolationException.class)
@@ -61,6 +63,26 @@ public class UnitRepositoryEventHandlerTest extends AbstractIntegrationTest {
         final Unit kevlinUnit = new Unit("Kelvin",
                 new ObjectId("74e9155b5ed24e4c38d60e3a"), "Temperature Unit");
         kevlinUnit.setBaseUnit(true);
-        unitEventHandler.handleBeforeUnitSave(kevlinUnit);
+        unitEventHandler.handleBeforeUnitCreate(kevlinUnit);
+    }
+
+    @Test
+    @ShouldMatchDataSet(location = "/datasets/units/unit_after_create_also_update_group_baseUnitId_when_it_is_null.json")
+    public void shouldUpdateBaseUnitIdOfAssociatedGroupWhenItIsNullAtUnitCreation() {
+        final Unit unit = new Unit("Gram", new ObjectId("53e9155b5ed24e4c38d60e3c"),
+                "Gram Unit");
+        unit.setId(new ObjectId("59c8da92e110b26284265711"));
+        unit.setFormula("1/1000");
+        unit.setMeasuringSystem(MeasuringSystem.METRIC);
+        unitEventHandler.handleAfterUnitCreate(unit);
+    }
+
+    @Test(expected = RepositoryConstraintViolationException.class)
+    public void shouldThrowExceptionWhenGroupIdUpdate() {
+        final Unit unit = new Unit("Kelvin", new ObjectId("53e9155b5ed24e4c38d60e3c"),
+                "Temperature Unit");
+        unit.setId(new ObjectId("59c8da92e110b26284265711"));
+        unit.setBaseUnit(true);
+        unitEventHandler.handleBeforeUnitSave(unit);
     }
 }

@@ -92,7 +92,6 @@ public class FindUnitsIT extends AbstractIT {
         variable("name", "bit");
         variable("description", "bit Unit");
         variable("groupId", "59df33dc0fcdf86d872acd27");
-        variable("baseUnit", "false");
         variable("measuringSystem", "NONE");
         variable("formula", "[value] / 1000");
 
@@ -105,7 +104,6 @@ public class FindUnitsIT extends AbstractIT {
                 .validate("$.name", "${name}") //
                 .validate("$.description", "${description}") //
                 .validate("$.groupId", "${groupId}") //
-                .validate("$.isBaseUnit", "${baseUnit}") //
                 .validate("$.measuringSystem", "${measuringSystem}") //
                 .validate("$.formula", "${formula}") //
                 .validate("$._links.self.href", "@endsWith(${unitId})@") //

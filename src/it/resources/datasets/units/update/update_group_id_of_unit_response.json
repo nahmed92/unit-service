@@ -1,16 +1,10 @@
 {
-    "name": "Ounce Unit",
-    "groupId": "5995843b0fcdf874985e399d",
-    "isBaseUnit": false,
-    "description": "This Ounce unit",
-    "measuringSystem": "METRIC",
-    "formula": "[value] / 1000",
-    "_links": {
-        "self": {
-            "href": "@endsWith(${locationHeaderValue})@"
-        },
-        "unit": {
-            "href": "@endsWith(${locationHeaderValue})@"
+    "errors": [
+        {
+            "entity": "unit",
+            "property": "groupId",
+            "invalidValue": null,
+            "message": "update of groupId isn't allowed."
         }
-    }
+    ]
 }

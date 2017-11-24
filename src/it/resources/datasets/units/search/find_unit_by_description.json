@@ -4,7 +4,6 @@
             {
                 "name": "bit",
                 "groupId": "59df33dc0fcdf86d872acd27",
-                "isBaseUnit": false,
                 "description": "${description}",
                 "measuringSystem": "NONE",
                 "formula": "[value] / 1000",

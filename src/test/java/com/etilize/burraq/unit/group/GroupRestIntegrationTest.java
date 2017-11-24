@@ -274,4 +274,58 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
                 .andExpect(status().isNoContent());
     }
 
+    @Test
+    @ShouldMatchDataSet(location = "/datasets/groups/group_after_update_baseUnitId_also_reset_base_units.json")
+    public void shouldUpdateGroupBaseUnitIdAlsoResetUnitisBaseUnitFlagOfAssociatedUnits()
+            throws Exception {
+        final Group group = new Group("temperature", "This is Temperature unit");
+        group.setBaseUnitId(new ObjectId("59c8da92e110b26284265711"));
+        final String content = mapper.writeValueAsString(group);
+        mockMvc.perform(put("/groups/{id}", new ObjectId("74e9155b5ed24e4c38d60e3c")) //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content(content)) //
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenBaseUnitIdEnteredAtGroupCreation()
+            throws Exception {
+        final Group group = new Group("size", "This is size unit");
+        group.setBaseUnitId(new ObjectId("59b63ec8e110b21a936c9eed"));
+        final String content = mapper.writeValueAsString(group);
+        mockMvc.perform(post("/groups") //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content(content)) //
+                .andExpect(jsonPath("$.errors", hasSize(1))) //
+                .andExpect(jsonPath("$.errors[0].message",
+                        is("baseUnitId is not allowed at group creation.")));
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenBaseUnitIdIsUpdatedToNullAtGroupUpdate()
+            throws Exception {
+        final Group group = new Group("size", "This is size unit");
+        group.setBaseUnitId(null);
+        final String content = mapper.writeValueAsString(group);
+        mockMvc.perform(put("/groups/{id}", new ObjectId("74e9155b5ed24e4c38d60e3c")) //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content(content)) //
+                .andExpect(jsonPath("$.errors", hasSize(1))) //
+                .andExpect(jsonPath("$.errors[0].message",
+                        is("baseUnitId can't be null at update.")));
+    }
+
+    @Test
+    public void shouldThrowBadRequestWhenBaseUnitDoesNotExistAtGroupUpdate()
+            throws Exception {
+        final Group group = new Group("weight", "This is weight unit");
+        group.setBaseUnitId(new ObjectId("74e9155b5ed24e4c38d60e3c"));
+        final String content = mapper.writeValueAsString(group);
+        mockMvc.perform(put("/groups/{id}", new ObjectId("53e9155b5ed24e4c38d60e3c")) //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content(content)) //
+                .andExpect(jsonPath("$.errors", hasSize(1))) //
+                .andExpect(jsonPath("$.errors[0].message", is("Unit does not exist.")));
+    }
+
 }

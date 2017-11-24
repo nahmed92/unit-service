@@ -44,6 +44,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.etilize.burraq.unit.base.AbstractMongoEntity;
 import com.etilize.burraq.unit.validator.Formula;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -104,21 +105,19 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
     }
 
     /**
-     * Annotation JsonProperty, used to set value at field level
      * Set unit baseUnit
      * @param isBaseUnit identify baseUnit
      */
-    @JsonProperty("isBaseUnit")
     public void setBaseUnit(final boolean isBaseUnit) {
         this.isBaseUnit = isBaseUnit;
     }
 
     /**
-     * Annotation JsonProperty to access field level
+     * Annotation JsonIgnore to hide property in get response
      * property value
      * @return the isBaseUnit
      */
-    @JsonProperty("isBaseUnit")
+    @JsonIgnore
     public boolean isBaseUnit() {
         return isBaseUnit;
     }

@@ -1,0 +1,42 @@
+{
+    "groups": [
+        {
+            "_id": {
+                "$oid": "74e9155b5ed24e4c38d60e3c"
+            },
+            "name": "temperature",
+            "description": "This is Temperature unit",
+            "baseUnitId": {
+                "$oid": "59c8da92e110b26284265711"
+            }
+        }
+    ],
+    "units": [
+       {
+                "_id": {
+                    "$oid": "59c8da92e110b26284265711"
+                },
+                "name": "Kelvin",
+                "groupId": {
+                    "$oid": "74e9155b5ed24e4c38d60e3c"
+                },
+                "isBaseUnit": true,
+                "measuringSystem":"METRIC",
+                "formula": "[value]/1000",
+                "description": "Temperature Unit"
+            },
+            {
+                "_id": {
+                    "$oid": "74e9155b5ed24e4c38d60e5e"
+                },
+                "name": "fahrenheit",
+                "groupId": {
+                    "$oid": "74e9155b5ed24e4c38d60e3c"
+                },
+                "isBaseUnit": false,
+                "measuringSystem":"METRIC",
+                "formula": "1/1000",
+                "description": "Temperature Unit"
+            }
+    ]
+}

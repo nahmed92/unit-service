@@ -1,0 +1,17 @@
+{
+    "units": [
+        {
+            "_id": {
+                "$oid": "74e9155b5ed24e4c38d60e5e"
+            },
+            "name": "celcius",
+            "groupId": {
+                "$oid": "74e9155b5ed24e4c38d60e3c"
+            },
+            "isBaseUnit": true,
+            "measuringSystem": "IMPERIAL",
+            "formula": "1*1000",
+            "description": "Temperature Unit"
+        }
+    ]
+}

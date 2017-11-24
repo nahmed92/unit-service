@@ -59,28 +59,24 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
         assertThat(units.get(0).getName(), is("Kilogram"));
         assertThat(units.get(0).getGroupId(),
                 is(new ObjectId("53e9155b5ed24e4c38d60e3c")));
-        assertThat(units.get(0).isBaseUnit(), is(false));
         assertThat(units.get(0).getFormula(), is("1/1000"));
         assertThat(units.get(0).getMeasuringSystem(), is(MeasuringSystem.METRIC));
         assertThat(units.get(0).getDescription(), is("Kilogram Unit"));
         assertThat(units.get(1).getName(), is("fahrenheit"));
         assertThat(units.get(1).getGroupId(),
                 is(new ObjectId("74e9155b5ed24e4c38d60e3c")));
-        assertThat(units.get(1).isBaseUnit(), is(true));
         assertThat(units.get(1).getFormula(), is("1/1000"));
         assertThat(units.get(1).getMeasuringSystem(), is(MeasuringSystem.METRIC));
         assertThat(units.get(1).getDescription(), is("Temperature Unit"));
         assertThat(units.get(2).getName(), is("Degree Celcius"));
         assertThat(units.get(2).getGroupId(),
                 is(new ObjectId("74e9155b5ed24e4c38d60e3c")));
-        assertThat(units.get(2).isBaseUnit(), is(false));
         assertThat(units.get(2).getFormula(), is("[value]*1000"));
         assertThat(units.get(2).getMeasuringSystem(), is(MeasuringSystem.METRIC));
         assertThat(units.get(2).getDescription(), is("Degree Celcius Unit"));
         assertThat(units.get(3).getName(), is("Kelvin"));
         assertThat(units.get(3).getGroupId(),
                 is(new ObjectId("74e9155b5ed24e4c38d60e3c")));
-        assertThat(units.get(3).isBaseUnit(), is(false));
         assertThat(units.get(3).getFormula(), is("[value]/1000"));
         assertThat(units.get(3).getMeasuringSystem(), is(MeasuringSystem.METRIC));
         assertThat(units.get(3).getDescription(), is("Temperature Unit"));
@@ -101,7 +97,6 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
                 new ObjectId("59b63ec8e110b21a936c9eed"));
         assertThat(unit.getName(), is("Kilogram"));
         assertThat(unit.getGroupId(), is(new ObjectId("53e9155b5ed24e4c38d60e3c")));
-        assertThat(unit.isBaseUnit(), is(false));
         assertThat(unit.getFormula(), is("1/1000"));
         assertThat(unit.getMeasuringSystem(), is(MeasuringSystem.METRIC));
         assertThat(unit.getDescription(), is("Kilogram Unit"));
@@ -118,6 +113,7 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
     public void shouldCreateNewUnit() {
         final Unit unit = new Unit("Pound", new ObjectId("53e9155b5ed24e4c38d60e3c"),
                 "Pound Unit");
+        unit.setBaseUnit(true);
         unit.setMeasuringSystem(MeasuringSystem.METRIC);
         unit.setFormula("1/1000");
         unitRepository.save(unit);
@@ -128,7 +124,6 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
     public void shouldUpdateExistingUnit() {
         final Unit unit = new Unit("Gram", new ObjectId("53e9155b5ed24e4c38d60e3c"),
                 "Gram Unit");
-        unit.setBaseUnit(true);
         unit.setFormula("[value]*1000");
         unit.setMeasuringSystem(MeasuringSystem.IMPERIAL);
         unit.setId(new ObjectId("59b63ec8e110b21a936c9eed"));
@@ -230,6 +225,7 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
     public void shouldCreateNewUnitWithDefaultValues() {
         final Unit unit = new Unit("Pound", new ObjectId("53e9155b5ed24e4c38d60e3c"),
                 "Pound Unit");
+        unit.setBaseUnit(true);
         unitRepository.save(unit);
     }
 
