@@ -1,7 +1,6 @@
 {
     "name": "Processor Speed",
     "groupId": "599585660fcdf874985e399e",
-    "isBaseUnit": false,
     "description": "Processor Speed Unit",
     "measuringSystem": "METRIC",
     "formula": "[value]",

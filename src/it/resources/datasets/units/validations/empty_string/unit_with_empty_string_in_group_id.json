@@ -1,7 +1,6 @@
 {
     "name": "Micro Second",
     "groupId": "",
-    "isBaseUnit": false,
     "measuringSystem": "METRIC",
     "formula": "[value] / 1000",
     "description": "Micro Second Unit"

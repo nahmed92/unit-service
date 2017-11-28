@@ -1,6 +1,7 @@
 {
     "name": "resolution group",
     "description": "this is latest resolution unit group",
+    "baseUnitId": null,
     "_links": {
         "self": {
             "href": "@endsWith(${locationHeaderValue})@"

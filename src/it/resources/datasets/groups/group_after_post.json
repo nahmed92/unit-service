@@ -1,6 +1,7 @@
 {
     "name": "speed",
     "description": "this is speed unit group",
+    "baseUnitId": null,
     "_links": {
         "self": {
             "href": "@endsWith(${locationHeaderValue})@"

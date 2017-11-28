@@ -1,7 +1,6 @@
 {
     "name": "MHz",
     "groupId": "599585660fcdf874985e399e",
-    "isBaseUnit": false,
     "description": "MHz Unit",
     "measuringSystem": "NONE",
     "formula": "[value] / 1000",
