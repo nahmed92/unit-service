@@ -1,7 +1,6 @@
 {
      "name": "Milli Gram",
      "groupId": "599585660fcdf874985e399e",
-     "isBaseUnit": false,
      "measuringSystem": "IMPERIAL",
      "formula": "[value] / 1000",
      "description": "Milli Gram Unit"

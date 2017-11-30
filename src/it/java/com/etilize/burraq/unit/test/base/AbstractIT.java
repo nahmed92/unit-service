@@ -180,14 +180,14 @@ public abstract class AbstractIT extends JUnit4CitrusTestDesigner {
         // Sends get request
         http().client(serviceClient) //
                 .send() //
-                .get(path) //
-                .payload(payload);
+                .get(path);
 
         // Verify Response
         http().client(serviceClient) //
                 .receive() //
                 .response(httpStatus) //
-                .messageType(MessageType.JSON);
+                .messageType(MessageType.JSON) //
+                .payload(payload);
     }
 
     /**
@@ -233,6 +233,23 @@ public abstract class AbstractIT extends JUnit4CitrusTestDesigner {
                 final String location = context.getVariable(variable);
                 final String newLocation = location.substring(location.indexOf(url));
                 context.setVariable(variable, newLocation);
+            }
+        });
+    }
+
+    /**
+     * It replaces resource url with new resource id and set it to context variable.
+     *
+     * @param variable this holds the rsource's url to parse
+     */
+    protected void parseAndSetResourceId(final String variable) {
+        action(new AbstractTestAction() {
+
+            @Override
+            public void doExecute(final TestContext context) {
+                final String id = context.getVariable(variable);
+                final String newId = id.substring(id.lastIndexOf('/') + 1);
+                context.setVariable(variable, newId);
             }
         });
     }

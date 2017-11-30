@@ -1,7 +1,6 @@
 {
     "name": "Ounce Unit",
     "groupId": "5995843b0fcdf874985e399d",
-    "isBaseUnit": false,
     "measuringSystem": "METRIC",
     "formula": "[value] / 1000",
     "description": "This Ounce unit"

@@ -1,0 +1,7 @@
+{
+    "name": "Hard Drive Capacity",
+    "description": "Hard Drive Capacity Unit",
+    "groupId": "5a1805530fcdf812bee4dd66",
+    "measuringSystem": "NONE",
+    "formula": "[value] / 1000"
+}

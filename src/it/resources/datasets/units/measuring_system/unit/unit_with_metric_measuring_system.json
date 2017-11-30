@@ -1,7 +1,6 @@
 {
      "name": "Kilogram",
      "groupId": "599585660fcdf874985e399e",
-     "isBaseUnit": false,
      "measuringSystem": "METRIC",
      "formula": "[value] / 1000",
      "description": "Kilogram Unit"

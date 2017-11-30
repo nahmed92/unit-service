@@ -1,10 +1,9 @@
 {
-    "name": "MHz",
+    "name": "Mb/s",
     "groupId": "599585660fcdf874985e399e",
-    "isBaseUnit": true,
-    "metricSystem": "NONE",
+    "description": "Mb/s Unit",
+    "measuringSystem": "NONE",
     "formula": "[value] / 1000",
-    "description": "Percentage Unit",
     "_links": {
         "self": {
             "href": "@endsWith(${locationHeaderValue})@"

@@ -1,6 +1,5 @@
 {
     "name": "Gram",
-    "isBaseUnit": true,
     "measuringSystem": "NONE",
     "formula": "[value] / 1000",
     "description": "Gram Unit"

@@ -1,0 +1,7 @@
+{
+    "name": "Kiloampere",
+    "description": "Kiloampere Unit",
+    "groupId": "5a1d3e560fcdf812bee4e099",
+    "measuringSystem": "NONE",
+    "formula": "[value] / 1000"
+}
