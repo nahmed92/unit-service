@@ -357,7 +357,7 @@
                             <includes>
                                 <include>${project.build.sourceDirectory}/**/*.java</include>
                                 <include>${project.build.testSourceDirectory}/**/*.java</include>
-                                <include>${project.build.itSourceDirectory}/**/*.java</include>
+                                <include>${project.basedir}/${project.build.itSourceDirectory}/**/*.java</include>
                             </includes>
                             <!-- not using \s as it removes blank lines as
                                 well -->

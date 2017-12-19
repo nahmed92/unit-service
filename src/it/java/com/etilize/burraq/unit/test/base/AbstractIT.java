@@ -34,14 +34,17 @@ import static org.springframework.http.MediaType.*;
 
 import java.io.IOException;
 
+import org.apache.commons.lang3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.*;
 
 import com.consol.citrus.actions.*;
 import com.consol.citrus.context.*;
-import com.consol.citrus.dsl.junit.JUnit4CitrusTestDesigner;
+import com.consol.citrus.dsl.junit.JUnit4CitrusTestRunner;
 import com.consol.citrus.http.client.HttpClient;
+import com.consol.citrus.http.message.HttpMessage;
+import com.consol.citrus.http.message.*;
 import com.consol.citrus.message.*;
 
 /**
@@ -51,7 +54,7 @@ import com.consol.citrus.message.*;
  * @author Nimra Inam
  * @since 1.0.0
  */
-public abstract class AbstractIT extends JUnit4CitrusTestDesigner {
+public abstract class AbstractIT extends JUnit4CitrusTestRunner {
 
     protected final static String GROUPS_URL = "/groups/";
 
@@ -99,10 +102,12 @@ public abstract class AbstractIT extends JUnit4CitrusTestDesigner {
      * @param url Url to get request
      */
     public void getRequest(final String url) {
-        http().client(serviceClient) //
-                .send() //
-                .get(url) //
-                .contentType(APPLICATION_JSON_VALUE);
+        send(builder -> builder.endpoint(serviceClient) //
+                .message(new HttpMessage() //
+                        .path(url) //
+                        .method(HttpMethod.GET) //
+                        .contentType(APPLICATION_JSON_VALUE) //
+                        .accept(APPLICATION_JSON_VALUE)));
     }
 
     /**
@@ -112,12 +117,12 @@ public abstract class AbstractIT extends JUnit4CitrusTestDesigner {
      * @param payload to post
      */
     protected void postRequest(final String url, final String payload) {
-        http().client(serviceClient) //
-                .send() //
-                .post(url) //
-                .payload(payload) //
-                .contentType(APPLICATION_JSON_UTF8_VALUE) //
-                .accept(APPLICATION_JSON_VALUE);
+        send(builder -> builder.endpoint(serviceClient) //
+                .message(new HttpMessage(payload) //
+                        .path(url) //
+                        .method(HttpMethod.POST) //
+                        .contentType(APPLICATION_JSON_UTF8_VALUE) //
+                        .accept(APPLICATION_JSON_VALUE)));
     }
 
     /**
@@ -130,12 +135,12 @@ public abstract class AbstractIT extends JUnit4CitrusTestDesigner {
     protected void putRequest(final String url, final String groupId,
             final String payload) {
         // Sends a put request to api
-        http().client(serviceClient) //
-                .send() //
-                .put(url + groupId) //
-                .payload(payload) //
-                .contentType(APPLICATION_JSON_VALUE) //
-                .accept(APPLICATION_JSON_VALUE);
+        send(builder -> builder.endpoint(serviceClient) //
+                .message(new HttpMessage(payload) //
+                        .path(url + groupId) //
+                        .method(HttpMethod.PUT) //
+                        .contentType(APPLICATION_JSON_VALUE) //
+                        .accept(APPLICATION_JSON_VALUE)));
     }
 
     /**
@@ -146,11 +151,12 @@ public abstract class AbstractIT extends JUnit4CitrusTestDesigner {
      */
     protected void deleteRequest(final String url, final String groupId) {
         // Sends a delete request to api
-        http().client(serviceClient) //
-                .send() //
-                .delete(url + groupId) //
-                .contentType(APPLICATION_JSON_VALUE) //
-                .accept(APPLICATION_JSON_VALUE);
+        send(builder -> builder.endpoint(serviceClient) //
+                .message(new HttpMessage() //
+                        .path(url + groupId) //
+                        .method(HttpMethod.DELETE) //
+                        .contentType(APPLICATION_JSON_VALUE) //
+                        .accept(APPLICATION_JSON_VALUE)));
     }
 
     /**
@@ -161,11 +167,11 @@ public abstract class AbstractIT extends JUnit4CitrusTestDesigner {
      */
     protected void extractHeader(final HttpStatus httpStatus,
             final String httpHeaderName) {
-        http().client(serviceClient) //
-                .receive() //
-                .response(httpStatus) //
+        receive(builder -> builder.endpoint(serviceClient) //
+                .message(new HttpMessage() //
+                        .status(httpStatus)) //
                 .messageType(MessageType.JSON) //
-                .extractFromHeader(httpHeaderName, "${locationHeaderValue}");
+                .extractFromHeader(httpHeaderName, "${locationHeaderValue}"));
     }
 
     /**
@@ -176,18 +182,13 @@ public abstract class AbstractIT extends JUnit4CitrusTestDesigner {
      * @param path header location
      */
     protected void verifyResponse(final HttpStatus httpStatus, final String payload,
-            final String path) {
-        // Sends get request
-        http().client(serviceClient) //
-                .send() //
-                .get(path);
+            final String url) {
+        getRequest(url);
 
-        // Verify Response
-        http().client(serviceClient) //
-                .receive() //
-                .response(httpStatus) //
-                .messageType(MessageType.JSON) //
-                .payload(payload);
+        receive(builder -> builder.endpoint(serviceClient) //
+                .message(new HttpMessage() //
+                        .status(httpStatus)) //
+                .messageType(MessageType.JSON).payload(payload));
     }
 
     /**
@@ -197,10 +198,10 @@ public abstract class AbstractIT extends JUnit4CitrusTestDesigner {
      */
     protected void verifyResponse(final HttpStatus httpStatus) {
         // Verify Response
-        http().client(serviceClient) //
-                .receive() //
-                .response(httpStatus) //
-                .messageType(MessageType.JSON);
+        receive(builder -> builder.endpoint(serviceClient) //
+                .message(new HttpMessage() //
+                        .status(httpStatus)) //
+                .messageType(MessageType.JSON));
     }
 
     /**
@@ -212,11 +213,11 @@ public abstract class AbstractIT extends JUnit4CitrusTestDesigner {
      */
     protected void verifyResponse(final HttpStatus httpStatus, final String payload) {
         // Verify Response
-        http().client(serviceClient) //
-                .receive() //
-                .response(httpStatus) //
+        receive(builder -> builder.endpoint(serviceClient) //
+                .message(new HttpMessage() //
+                        .status(httpStatus)) //
                 .messageType(MessageType.JSON) //
-                .payload(payload);
+                .payload(payload));
     }
 
     /**
@@ -225,32 +226,19 @@ public abstract class AbstractIT extends JUnit4CitrusTestDesigner {
      * @param url this holds api's URL
      * @param header_value this holds the rsource's location to parse
      */
-    protected void parseAndSetVariable(final String url, final String variable) {
-        action(new AbstractTestAction() {
-
-            @Override
-            public void doExecute(final TestContext context) {
-                final String location = context.getVariable(variable);
-                final String newLocation = location.substring(location.indexOf(url));
-                context.setVariable(variable, newLocation);
-            }
-        });
+    protected String parseAndSetVariable(final String url, final String headerValue) {
+        String headerLocation = headerValue.substring(headerValue.indexOf(url));
+        return headerLocation;
     }
 
     /**
      * It replaces resource url with new resource id and set it to context variable.
      *
-     * @param variable this holds the rsource's url to parse
+     * @param resourceUrl this holds the rsource's url to parse
      */
-    protected void parseAndSetResourceId(final String variable) {
-        action(new AbstractTestAction() {
-
-            @Override
-            public void doExecute(final TestContext context) {
-                final String id = context.getVariable(variable);
-                final String newId = id.substring(id.lastIndexOf('/') + 1);
-                context.setVariable(variable, newId);
-            }
-        });
+    protected String parseAndSetResourceId(final String resourceUrl) {
+        final String newResourceId = resourceUrl.substring(
+                resourceUrl.lastIndexOf('/') + 1);
+        return newResourceId;
     }
 }

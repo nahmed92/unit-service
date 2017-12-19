@@ -34,15 +34,17 @@ import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpHeaders;
 
-import com.consol.citrus.annotations.CitrusTest;
+import com.consol.citrus.annotations.*;
 import com.consol.citrus.message.MessageType;
+import com.consol.citrus.context.TestContext;
+import com.consol.citrus.http.message.HttpMessage;
 import com.etilize.burraq.unit.test.base.*;
 
 public class AddGroupIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldAddGroup() throws Exception {
+    public void shouldAddGroup(@CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
         description("A group should be added");
 
@@ -52,10 +54,11 @@ public class AddGroupIT extends AbstractIT {
                 readFile("/datasets/groups/group.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(GROUPS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(GROUPS_URL, //
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/groups/group_after_post.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
@@ -101,16 +104,16 @@ public class AddGroupIT extends AbstractIT {
 
         postRequest(GROUPS_URL, "${jsonForEmptyUnitNameAndDescription}");
 
-        http().client(serviceClient) //
-                .receive() //
-                .response(HttpStatus.BAD_REQUEST) //
+        receive(builder -> builder.endpoint(serviceClient) //
+                .message(new HttpMessage() //
+                        .status(HttpStatus.BAD_REQUEST)) //
                 .messageType(MessageType.JSON) //
                 .validate("$.errors[*].property",
                         "@assertThat(allOf(containsString(${nameProperty}),containsString(${descriptionProperty})))@") //
                 .validate("$.errors[*].message",
                         "@assertThat(allOf(containsString(${nameMessage}), containsString(${descriptionMessage})))@") //
                 .validate("$.errors[*].invalidValue",
-                        "@assertThat(allOf(containsString(${invalidValue})))@");
+                        "@assertThat(allOf(containsString(${invalidValue})))@"));
     }
 
     @Test
@@ -129,16 +132,16 @@ public class AddGroupIT extends AbstractIT {
 
         postRequest(GROUPS_URL, "${jsonForNullUnitNameAndDescription}");
 
-        http().client(serviceClient) //
-                .receive() //
-                .response(HttpStatus.BAD_REQUEST) //
+        receive(builder -> builder.endpoint(serviceClient) //
+                .message(new HttpMessage() //
+                        .status(HttpStatus.BAD_REQUEST)) //
                 .messageType(MessageType.JSON) //
                 .validate("$.errors[*].property",
                         "@assertThat(allOf(containsString(${nameProperty}),containsString(${descriptionProperty})))@") //
                 .validate("$.errors[*].message",
                         "@assertThat(allOf(containsString(${nameMessage}), containsString(${descriptionMessage})))@") //
                 .validate("$.errors[*].invalidValue",
-                        "@assertThat(allOf(containsString(${invalidValue})))@");
+                        "@assertThat(allOf(containsString(${invalidValue})))@"));
     }
 
 }

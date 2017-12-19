@@ -61,16 +61,9 @@ public class DeleteUnitIT extends AbstractIT {
 
         verifyResponse(HttpStatus.NO_CONTENT);
 
-        // Sends get request
-        http().client(serviceClient) //
-                .send() //
-                .get("/units/${" + UNIT_ID + "}");
+        getRequest("/units/${" + UNIT_ID + "}");
 
-        // Verify Response
-        http().client(serviceClient) //
-                .receive() //
-                .response(HttpStatus.NOT_FOUND) //
-                .messageType(MessageType.JSON);
+        verifyResponse(HttpStatus.NOT_FOUND);
     }
 
     @Test

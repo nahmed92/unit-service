@@ -13,7 +13,7 @@
  * is hereby forbidden to anyone except current ETILIZE employees, managers or
  * contractors who have executed Confidentiality and Non-disclosure agreements
  * explicitly covering such access.
- * 
+ *
  * The copyright notice above does not evidence any actual or intended publication
  * or disclosure of this source code, which includes information that is confidential
  * and/or proprietary, and is a trade secret, of ETILIZE. ANY REPRODUCTION, MODIFICATION,
@@ -32,6 +32,8 @@ import org.junit.*;
 import org.springframework.http.*;
 
 import com.consol.citrus.annotations.*;
+import com.consol.citrus.annotations.CitrusTest;
+import com.consol.citrus.context.TestContext;
 import com.etilize.burraq.unit.test.base.*;
 
 /**
@@ -79,12 +81,10 @@ public class ValidateUnitIT extends AbstractIT {
         description("Same Unit should not be added in a different group on add");
 
         postRequest(UNITS_URL, //
-                readFile(
-                        "/datasets/units/validations/same_unit_in_a_different_group.json"));
+                readFile("/datasets/units/validations/same_unit_in_a_different_group.json"));
 
         verifyResponse(HttpStatus.CONFLICT, //
-                readFile(
-                        "/datasets/units/validations/same_unit_in_a_different_group_error.json"));
+                readFile("/datasets/units/validations/same_unit_in_a_different_group_error.json"));
     }
 
     @Test
@@ -97,12 +97,10 @@ public class ValidateUnitIT extends AbstractIT {
 
         putRequest(UNITS_URL, //
                 "${" + UNIT_ID + "}", //
-                readFile(
-                        "/datasets/units/validations/same_unit_in_a_different_group_after_update.json"));
+                readFile("/datasets/units/validations/same_unit_in_a_different_group_after_update.json"));
 
         verifyResponse(HttpStatus.CONFLICT, //
-                readFile(
-                        "/datasets/units/validations/same_unit_in_a_different_group_error.json"));
+                readFile("/datasets/units/validations/same_unit_in_a_different_group_error.json"));
     }
 
     @Test
@@ -110,23 +108,21 @@ public class ValidateUnitIT extends AbstractIT {
     public void shouldReturnBadRequestOnAddingUnitToAGroupWhichDoesNotExist()
             throws Exception {
         author("Nimra Inam");
-        description(
-                "Bad request should be returned on adding a unit to a group which does not exist");
+        description("Bad request should be returned on adding a unit to a group which does not exist");
 
         variable(LOCATION_HEADER_VALUE, "");
 
         postRequest(UNITS_URL, //
-                readFile(
-                        "/datasets/units/validations/unit_with_group_does_not_exist.json"));
+                readFile("/datasets/units/validations/unit_with_group_does_not_exist.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile(
-                        "/datasets/units/validations/unit_with_group_does_not_exist_error.json"));
+                readFile("/datasets/units/validations/unit_with_group_does_not_exist_error.json"));
     }
 
     @Test
     @CitrusTest
-    public void shouldSetBaseUnitIdWhenFirstUnitIsAddedToAGroup() throws Exception {
+    public void shouldSetBaseUnitIdWhenFirstUnitIsAddedToAGroup(
+            @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
         description("The frist unit to a group should be added as a base unit");
 
@@ -137,14 +133,15 @@ public class ValidateUnitIT extends AbstractIT {
                 readFile("/datasets/units/validations/first_unit_in_group_request.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
-        parseAndSetResourceId(LOCATION_HEADER_VALUE);
+        String resourceLocation = parseAndSetVariable(UNITS_URL,
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
+        String resourceId = parseAndSetResourceId(resourceLocation);
+        variable("baseUnitId", resourceId);
 
         // Verify Unit
         getRequest(UNITS_URL + "?groupId=${existingGroup}&isBaseUnit=true");
         verifyResponse(HttpStatus.OK, //
-                readFile(
-                        "/datasets/units/validations/first_unit_in_group_response.json"));
+                readFile("/datasets/units/validations/first_unit_in_group_response.json"));
 
         // Verify Group
         getRequest(GROUPS_URL + "?id=${existingGroup}");
@@ -157,27 +154,23 @@ public class ValidateUnitIT extends AbstractIT {
     public void shouldSetIsBaseUnitToFalseForAnyUnitAfterFirstUnitToAGroup()
             throws Exception {
         author("Nimra Inam");
-        description(
-                "Unit after the first unit to a group should be added with isBaseUnit set to false");
+        description("Unit after the first unit to a group should be added with isBaseUnit set to false");
 
         variable("existingGroup", "5a1d3e560fcdf812bee4e099");
         variable("existingUnit", "5a1eac070fcdf812bee4e270");
 
         // Second Unit
         postRequest(UNITS_URL, //
-                readFile(
-                        "/datasets/units/validations/second_unit_in_group_request.json"));
+                readFile("/datasets/units/validations/second_unit_in_group_request.json"));
 
         // Verify Unit
         getRequest(UNITS_URL + "?groupId=${existingGroup}&isBaseUnit=false");
         verifyResponse(HttpStatus.OK, //
-                readFile(
-                        "/datasets/units/validations/second_unit_in_group_response.json"));
+                readFile("/datasets/units/validations/second_unit_in_group_response.json"));
 
         // Verify Group
         getRequest(GROUPS_URL + "?id=${existingGroup}");
         verifyResponse(HttpStatus.OK, //
-                readFile(
-                        "/datasets/groups/group_with_two_units_and_base_unit_response.json"));
+                readFile("/datasets/groups/group_with_two_units_and_base_unit_response.json"));
     }
 }

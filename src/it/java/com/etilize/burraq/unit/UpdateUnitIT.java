@@ -30,8 +30,9 @@ package com.etilize.burraq.unit;
 
 import org.junit.*;
 import org.springframework.http.*;
-
+import com.consol.citrus.context.TestContext;
 import com.consol.citrus.annotations.*;
+import com.consol.citrus.http.message.HttpMessage;
 import com.consol.citrus.message.*;
 import com.etilize.burraq.unit.test.base.*;
 
@@ -46,7 +47,8 @@ public class UpdateUnitIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldUpdateUnitNameAndDescription() throws Exception {
+    public void shouldUpdateUnitNameAndDescription(@CitrusResource TestContext context)
+            throws Exception {
         author("Nimra Inam");
         description("A unit should be updated");
 
@@ -58,10 +60,11 @@ public class UpdateUnitIT extends AbstractIT {
                 readFile("/datasets/units/update/update_name_and_description_of_unit.json"));
 
         extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL, //
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/update/update_name_and_description_of_unit_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
@@ -82,7 +85,8 @@ public class UpdateUnitIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldUpdateBaseUnitOfUnit() throws Exception {
+    public void shouldUpdateBaseUnitOfUnit(@CitrusResource TestContext context)
+            throws Exception {
         author("Nimra Inam");
         description("An update operation should update base unit field of unit");
 
@@ -94,15 +98,17 @@ public class UpdateUnitIT extends AbstractIT {
                 readFile("/datasets/units/update/update_base_unit_of_unit.json"));
 
         extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL, //
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/update/update_base_unit_of_unit_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
     @CitrusTest
-    public void shouldUpdateMeasuringSystemOfUnit() throws Exception {
+    public void shouldUpdateMeasuringSystemOfUnit(@CitrusResource TestContext context)
+            throws Exception {
         author("Nimra Inam");
         description("An update operation should update measuring system field of unit");
 
@@ -114,15 +120,17 @@ public class UpdateUnitIT extends AbstractIT {
                 readFile("/datasets/units/update/update_measuring_system_of_unit.json"));
 
         extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL, //
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/update/update_measuring_system_of_unit_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
     @CitrusTest
-    public void shouldUpdateFormulaOfUnit() throws Exception {
+    public void shouldUpdateFormulaOfUnit(@CitrusResource TestContext context)
+            throws Exception {
         author("Nimra Inam");
         description("An update operation should update formula field of unit");
 
@@ -134,10 +142,11 @@ public class UpdateUnitIT extends AbstractIT {
                 readFile("/datasets/units/update/update_formula_of_unit.json"));
 
         extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL, //
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/update/update_formula_of_unit_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
@@ -158,7 +167,8 @@ public class UpdateUnitIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldUpdateUnitWithDefaultWhenNullInFormula() throws Exception {
+    public void shouldUpdateUnitWithDefaultWhenNullInFormula(
+            @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
         description("An update operation should update unit with default value in formula when null is added");
 
@@ -170,15 +180,17 @@ public class UpdateUnitIT extends AbstractIT {
                 readFile("/datasets/units/update/update_unit_with_null_in_formula.json"));
 
         extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL, //
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/update/update_unit_with_null_in_formula_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
     @CitrusTest
-    public void shouldUpdateUnitWithDefaultWhenNullInMeasuringSystem() throws Exception {
+    public void shouldUpdateUnitWithDefaultWhenNullInMeasuringSystem(
+            @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
         description("An update operation should update unit with default value in measuring system when null is added");
 
@@ -190,15 +202,17 @@ public class UpdateUnitIT extends AbstractIT {
                 readFile("/datasets/units/update/update_unit_with_null_in_measuring_system.json"));
 
         extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL, //
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/update/update_unit_with_null_in_measuring_system_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
     @CitrusTest
-    public void shouldUpdateUnitWithDefaultWhenNullInBaseUnit() throws Exception {
+    public void shouldUpdateUnitWithDefaultWhenNullInBaseUnit(
+            @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
         description("An update operation should update unit with default when null is added in Base Unit");
 
@@ -210,10 +224,11 @@ public class UpdateUnitIT extends AbstractIT {
                 readFile("/datasets/units/update/update_unit_with_null_in_base_unit.json"));
 
         extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL, //
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/update/update_unit_with_null_in_base_unit_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
@@ -233,13 +248,13 @@ public class UpdateUnitIT extends AbstractIT {
                 "${" + UNIT_ID + "}", //
                 readFile("/datasets/units/update/update_unit_with_null_in_group_id.json"));
 
-        http().client(serviceClient) //
-                .receive() //
-                .response(HttpStatus.BAD_REQUEST) //
+        receive(builder -> builder.endpoint(serviceClient) //
+                .message(new HttpMessage() //
+                        .status(HttpStatus.BAD_REQUEST)) //
                 .messageType(MessageType.JSON) //
                 .validate("$.errors[*].entity", "${entity}") //
                 .validate("$.errors[*].property", "${property}") //
-                .validate("$.errors[*].message", "${message}");
+                .validate("$.errors[*].message", "${message}"));
     }
 
     @Test
@@ -260,21 +275,21 @@ public class UpdateUnitIT extends AbstractIT {
                 "${" + UNIT_ID + "}", //
                 readFile("/datasets/units/update/update_unit_with_empty_string_in_name.json"));
 
-        http().client(serviceClient) //
-                .receive() //
-                .response(HttpStatus.BAD_REQUEST) //
+        receive(builder -> builder.endpoint(serviceClient) //
+                .message(new HttpMessage() //
+                        .status(HttpStatus.BAD_REQUEST)) //
                 .messageType(MessageType.JSON) //
                 .validate("$.errors[*].entity", "${entity}") //
                 .validate("$.errors[*].property", "${property}") //
-                .validate("$.errors[*].message", "${message}");
+                .validate("$.errors[*].message", "${message}"));
     }
 
     @Test
     @CitrusTest
-    public void shouldUpdateUnitWithDefaultWhenEmptyStringInFormula() throws Exception {
+    public void shouldUpdateUnitWithDefaultWhenEmptyStringInFormula(
+            @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
-        description(
-                "An update operation should update unit with default when empty string is given in formula");
+        description("An update operation should update unit with default when empty string is given in formula");
 
         variable(LOCATION_HEADER_VALUE, "");
         variable(UNIT_ID, EXISTING_UNIT_ID_TO_UPDATE);
@@ -284,10 +299,11 @@ public class UpdateUnitIT extends AbstractIT {
                 readFile("/datasets/units/update/update_unit_with_empty_string_in_formula.json"));
 
         extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL, //
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/update/update_unit_with_empty_string_in_formula_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
@@ -295,8 +311,7 @@ public class UpdateUnitIT extends AbstractIT {
     @Ignore
     public void shouldNotUpdateUnitWithEmptyStringInMeasuringSystem() throws Exception {
         author("Nimra Inam");
-        description(
-                "An update operation should not update unit with empty string in Measuring System");
+        description("An update operation should not update unit with empty string in Measuring System");
 
         variable(LOCATION_HEADER_VALUE, "");
         variable(UNIT_ID, EXISTING_UNIT_ID_TO_UPDATE);
