@@ -32,6 +32,8 @@ import org.junit.*;
 import org.springframework.http.*;
 
 import com.consol.citrus.annotations.*;
+import com.consol.citrus.annotations.CitrusTest;
+import com.consol.citrus.context.TestContext;
 import com.etilize.burraq.unit.test.base.*;
 
 public class ValidateFormulaIT extends AbstractIT {
@@ -56,7 +58,8 @@ public class ValidateFormulaIT extends AbstractIT {
     public void shouldReturnBadRequestOnAddingUnitWithInvalidOperatorInFormula()
             throws Exception {
         author("Nimra Inam");
-        description("Adding a unit with invalid operator in formula should return bad request");
+        description(
+                "Adding a unit with invalid operator in formula should return bad request");
 
         variable("formula", "[value]#0");
 
@@ -106,7 +109,7 @@ public class ValidateFormulaIT extends AbstractIT {
         author("Nimra Inam");
         description("Adding a unit with text and missing operator in formula should return bad request");
 
-        variable("formula", "[value]my test0");
+        variable("formula", "[value]my test");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
@@ -293,7 +296,8 @@ public class ValidateFormulaIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithAllTypeOfBracketsInFormula() throws Exception {
+    public void shouldAddUnitWithAllTypeOfBracketsInFormula(
+            @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
         description("A unit with all type of brackets in formula should be added");
 
@@ -304,10 +308,11 @@ public class ValidateFormulaIT extends AbstractIT {
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL, //
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/formula_validations/formula_with_all_brackets.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test

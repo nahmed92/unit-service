@@ -33,6 +33,7 @@ import org.springframework.http.HttpStatus;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.message.*;
 import com.etilize.burraq.unit.test.base.*;
+import com.consol.citrus.http.message.HttpMessage;
 
 /**
  * This class contains test cases related Get Unit(s) functionality.
@@ -57,9 +58,9 @@ public class FindUnitsIT extends AbstractIT {
 
         getRequest(UNITS_URL);
 
-        http().client(serviceClient) //
-                .receive() //
-                .response(HttpStatus.OK) //
+        receive(builder -> builder.endpoint(serviceClient) //
+                .message(new HttpMessage() //
+                        .status(HttpStatus.OK)) //
                 .messageType(MessageType.JSON) //
                 .validate("$._embedded.units[*].name",
                         "@assertThat(not(isEmptyString())@") //
@@ -78,8 +79,7 @@ public class FindUnitsIT extends AbstractIT {
                         "@assertThat(greaterThanOrEqualTo(${totalElements}))@") //
                 .validate("$.page.totalPages",
                         "@assertThat(greaterThanOrEqualTo(${totalPages}))@") //
-                .validate("$.page.number", "${pageNumber}");
-
+                .validate("$.page.number", "${pageNumber}"));
     }
 
     @Test
@@ -97,9 +97,9 @@ public class FindUnitsIT extends AbstractIT {
 
         getRequest(UNITS_URL + "${unitId}");
 
-        http().client(serviceClient) //
-                .receive() //
-                .response(HttpStatus.OK) //
+        receive(builder -> builder.endpoint(serviceClient) //
+                .message(new HttpMessage() //
+                        .status(HttpStatus.OK)) //
                 .messageType(MessageType.JSON) //
                 .validate("$.name", "${name}") //
                 .validate("$.description", "${description}") //
@@ -107,7 +107,7 @@ public class FindUnitsIT extends AbstractIT {
                 .validate("$.measuringSystem", "${measuringSystem}") //
                 .validate("$.formula", "${formula}") //
                 .validate("$._links.self.href", "@endsWith(${unitId})@") //
-                .validate("$._links.unit.href", "@endsWith(${unitId})@");
+                .validate("$._links.unit.href", "@endsWith(${unitId})@"));
     }
 
     @Test
@@ -120,10 +120,7 @@ public class FindUnitsIT extends AbstractIT {
 
         getRequest(UNITS_URL + "${unitId}");
 
-        http().client(serviceClient) //
-                .receive() //
-                .response(HttpStatus.NOT_FOUND) //
-                .messageType(MessageType.JSON);
+        verifyResponse(HttpStatus.NOT_FOUND);
     }
 
     @Test
@@ -139,7 +136,6 @@ public class FindUnitsIT extends AbstractIT {
 
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/search/find_unit_by_name.json"));
-
     }
 
     @Test
@@ -154,7 +150,6 @@ public class FindUnitsIT extends AbstractIT {
 
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/search/find_unit_by_description.json"));
-
     }
 
     @Test
@@ -169,7 +164,6 @@ public class FindUnitsIT extends AbstractIT {
 
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/search/find_unit_by_base_unit.json"));
-
     }
 
     @Test
@@ -184,7 +178,6 @@ public class FindUnitsIT extends AbstractIT {
 
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/search/find_unit_by_group_id.json"));
-
     }
 
     @Test
@@ -199,7 +192,6 @@ public class FindUnitsIT extends AbstractIT {
 
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/search/find_unit_by_measuring_system.json"));
-
     }
 
     @Test
@@ -237,7 +229,6 @@ public class FindUnitsIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile(
                         "/datasets/units/search/find_unit_by_name_description_baseUnit_groupId_measuringSystem_formula.json"));
-
     }
 
     @Test

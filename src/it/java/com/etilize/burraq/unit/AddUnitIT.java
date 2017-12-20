@@ -31,8 +31,9 @@ package com.etilize.burraq.unit;
 import org.junit.*;
 import org.springframework.http.*;
 
-import com.consol.citrus.annotations.*;
 import com.consol.citrus.message.*;
+import com.consol.citrus.annotations.*;
+import com.consol.citrus.context.TestContext;
 import com.etilize.burraq.unit.test.base.*;
 
 /**
@@ -47,7 +48,8 @@ public class AddUnitIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithMetricMeasuringSystem() throws Exception {
+    public void shouldAddUnitWithMetricMeasuringSystem(
+            @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
         description("A unit should be added with METRIC measuring system");
 
@@ -57,15 +59,17 @@ public class AddUnitIT extends AbstractIT {
                 "/datasets/units/measuring_system/unit/unit_with_metric_measuring_system.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL, //
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/measuring_system/unit/unit_with_metric_measuring_system_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithImperialMeasuringSystem() throws Exception {
+    public void shouldAddUnitWithImperialMeasuringSystem(
+            @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
         description("A unit should be added with IMPERIAL measuring system");
 
@@ -75,15 +79,17 @@ public class AddUnitIT extends AbstractIT {
                 readFile("/datasets/units/measuring_system/unit/unit_with_imperial_measuring_system.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL, //
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/measuring_system/unit/unit_with_imperial_measuring_system_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithNoneMeasuringSystem() throws Exception {
+    public void shouldAddUnitWithNoneMeasuringSystem(@CitrusResource TestContext context)
+            throws Exception {
         author("Nimra Inam");
         description("A unit should be added with None measuring system");
 
@@ -93,15 +99,17 @@ public class AddUnitIT extends AbstractIT {
                 readFile("/datasets/units/measuring_system/unit/unit_with_none_measuring_system.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
-        verifyResponse(HttpStatus.OK, readFile( //
-                "/datasets/units/measuring_system/unit/unit_with_none_measuring_system_response.json"), //
-                "${locationHeaderValue}");
+        String unitLocation = parseAndSetVariable(UNITS_URL, //
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
+        verifyResponse(HttpStatus.OK, //
+                readFile("/datasets/units/measuring_system/unit/unit_with_none_measuring_system_response.json"), //
+                unitLocation);
     }
 
     @Test
     @CitrusTest
-    public void shouldAddBaseUnitWithMetricMeasuringSystem() throws Exception {
+    public void shouldAddBaseUnitWithMetricMeasuringSystem(
+            @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
         description("A base unit with measuring measuring system should be added");
 
@@ -111,34 +119,37 @@ public class AddUnitIT extends AbstractIT {
                 readFile("/datasets/units/measuring_system/base_unit/base_unit_with_metric_measuring_system.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL,
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/measuring_system/base_unit/base_unit_with_metric_measuring_system_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
     @CitrusTest
-    public void shouldAddBaseUnitWithImperialMetricSystem() throws Exception {
+    public void shouldAddBaseUnitWithImperialMetricSystem(
+            @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
         description("A base unit with Imperial measuring system should be added");
 
         variable(LOCATION_HEADER_VALUE, "");
 
         postRequest(UNITS_URL, //
-                readFile(
-                        "/datasets/units/measuring_system/base_unit/base_unit_with_imperial_measuring_system.json"));
+                readFile("/datasets/units/measuring_system/base_unit/base_unit_with_imperial_measuring_system.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL,
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/measuring_system/base_unit/base_unit_with_imperial_measuring_system_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
     @CitrusTest
-    public void shouldAddBaseUnitWithNoneMeasuringSystem() throws Exception {
+    public void shouldAddBaseUnitWithNoneMeasuringSystem(
+            @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
         description("A base unit with None measuring system should be added");
 
@@ -148,10 +159,11 @@ public class AddUnitIT extends AbstractIT {
                 readFile("/datasets/units/measuring_system/base_unit/base_unit_with_none_measuring_system.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL,
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/measuring_system/base_unit/base_unit_with_none_measuring_system_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
@@ -169,10 +181,10 @@ public class AddUnitIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithoutFormulaWithDefaultValue() throws Exception {
+    public void shouldAddUnitWithoutFormulaWithDefaultValue(
+            @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
-        description(
-                "A unit without formula should be added with the default value of [value]");
+        description("A unit without formula should be added with the default value of [value]");
 
         variable(LOCATION_HEADER_VALUE, "");
 
@@ -180,15 +192,17 @@ public class AddUnitIT extends AbstractIT {
                 readFile("/datasets/units/validations/missing_values/unit_without_formula.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL,
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/missing_values/unit_without_formula_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithoutBaseUnit() throws Exception {
+    public void shouldAddUnitWithoutBaseUnit(@CitrusResource TestContext context)
+            throws Exception {
         author("Nimra Inam");
         description("A unit without base unit field should be added");
 
@@ -198,18 +212,19 @@ public class AddUnitIT extends AbstractIT {
                 readFile("/datasets/units/validations/missing_values/unit_without_base_unit.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL,
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/missing_values/unit_without_base_unit_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithoutMetricSystemAsNone() throws Exception {
+    public void shouldAddUnitWithoutMetricSystemAsNone(
+            @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
-        description(
-                "A unit without metric system should be added with default value as None");
+        description("A unit without metric system should be added with default value as None");
 
         variable(LOCATION_HEADER_VALUE, "");
 
@@ -217,10 +232,11 @@ public class AddUnitIT extends AbstractIT {
                 readFile("/datasets/units/validations/missing_values/unit_without_metric_system.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL,
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/missing_values/unit_without_metric_system_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
@@ -267,7 +283,8 @@ public class AddUnitIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithNullInFormula() throws Exception {
+    public void shouldAddUnitWithNullInFormula(@CitrusResource TestContext context)
+            throws Exception {
         author("Nimra Inam");
         description("A unit should not be added with null in formula");
 
@@ -277,15 +294,17 @@ public class AddUnitIT extends AbstractIT {
                 readFile("/datasets/units/validations/null_values/unit_with_null_in_formula.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL,
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/null_values/unit_with_null_in_formula_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithNullInMetricSystem() throws Exception {
+    public void shouldAddUnitWithNullInMetricSystem(@CitrusResource TestContext context)
+            throws Exception {
         author("Nimra Inam");
         description("A unit should not be added with null in metric system");
 
@@ -295,15 +314,17 @@ public class AddUnitIT extends AbstractIT {
                 readFile("/datasets/units/validations/null_values/unit_with_null_in_metric_system.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL,
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/null_values/unit_with_null_in_metric_system_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithNullInBaseUnit() throws Exception {
+    public void shouldAddUnitWithNullInBaseUnit(@CitrusResource TestContext context)
+            throws Exception {
         author("Nimra Inam");
         description("A unit should not be added with null in base unit");
 
@@ -313,10 +334,11 @@ public class AddUnitIT extends AbstractIT {
                 readFile("/datasets/units/validations/null_values/unit_with_null_in_base_unit.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL,
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/null_values/unit_with_null_in_base_unit_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
@@ -347,7 +369,8 @@ public class AddUnitIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithEmptyStringInFormula() throws Exception {
+    public void shouldAddUnitWithEmptyStringInFormula(@CitrusResource TestContext context)
+            throws Exception {
         author("Nimra Inam");
         description("A unit should be added with empty string in formula");
 
@@ -357,10 +380,11 @@ public class AddUnitIT extends AbstractIT {
                 readFile("/datasets/units/validations/empty_string/unit_with_empty_string_in_formula.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL,
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/empty_string/unit_with_empty_string_in_formula_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
@@ -382,7 +406,8 @@ public class AddUnitIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithEmptyStringInBaseUnit() throws Exception {
+    public void shouldAddUnitWithEmptyStringInBaseUnit(
+            @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
         description("A unit should be added with empty string in base unit");
 
@@ -392,10 +417,11 @@ public class AddUnitIT extends AbstractIT {
                 readFile("/datasets/units/validations/empty_string/unit_with_empty_string_in_base_unit.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL,
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/empty_string/unit_with_empty_string_in_base_unit_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
@@ -416,7 +442,8 @@ public class AddUnitIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithMixedLetters() throws Exception {
+    public void shouldAddUnitWithMixedLetters(@CitrusResource TestContext context)
+            throws Exception {
         author("Nimra Inam");
         description("A unit should be added with mixed letters");
 
@@ -426,15 +453,17 @@ public class AddUnitIT extends AbstractIT {
                 readFile("/datasets/units/validations/different_types/unit_with_mixed_letters.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL,
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/different_types/unit_with_mixed_letters_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithSpecialCharacters() throws Exception {
+    public void shouldAddUnitWithSpecialCharacters(@CitrusResource TestContext context)
+            throws Exception {
         author("Nimra Inam");
         description("A unit should be added with special characters");
 
@@ -444,15 +473,17 @@ public class AddUnitIT extends AbstractIT {
                 readFile("/datasets/units/validations/different_types/unit_with_special_characters.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL,
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/different_types/unit_with_special_characters_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
     @CitrusTest
-    public void shouldAddUnitWithAllNumbers() throws Exception {
+    public void shouldAddUnitWithAllNumbers(@CitrusResource TestContext context)
+            throws Exception {
         author("Nimra Inam");
         description("A unit should be added with all numbers");
 
@@ -462,10 +493,11 @@ public class AddUnitIT extends AbstractIT {
                 readFile("/datasets/units/validations/different_types/unit_with_all_numbers.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
-        parseAndSetVariable(UNITS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(UNITS_URL,
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/different_types/unit_with_all_numbers_response.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
 }

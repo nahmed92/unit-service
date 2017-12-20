@@ -55,10 +55,9 @@ public class ListApisIT extends AbstractIT {
     public void shouldListApis() throws IOException {
         author("Nimra Inam");
         description("Sends a GET request to base url and expects a list of all the Apis");
-        http().client(serviceClient).send().get();
-        http().client(serviceClient) //
-                .receive().response(HttpStatus.OK) //
-                .messageType(MessageType.JSON) //
-                .payload(readFile("/datasets/api_list.json"));
+
+        getRequest("/");
+
+        verifyResponse(HttpStatus.OK, readFile("/datasets/api_list.json"));
     }
 }

@@ -30,6 +30,7 @@ package com.etilize.burraq.unit.group;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 
+import com.consol.citrus.http.message.HttpMessage;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.message.*;
 import com.etilize.burraq.unit.test.base.*;
@@ -57,9 +58,9 @@ public class FindGroupsIT extends AbstractIT {
 
         getRequest(GROUPS_URL);
 
-        http().client(serviceClient) //
-                .receive() //
-                .response(HttpStatus.OK) //
+        receive(builder -> builder.endpoint(serviceClient) //
+                .message(new HttpMessage() //
+                        .status(HttpStatus.OK)) //
                 .messageType(MessageType.JSON) //
                 .validate("$._embedded.groups[*].name",
                         "@assertThat(not(isEmptyString())@") //
@@ -74,7 +75,7 @@ public class FindGroupsIT extends AbstractIT {
                         "@assertThat(greaterThanOrEqualTo(${totalElements}))@") //
                 .validate("$.page.totalPages",
                         "@assertThat(greaterThanOrEqualTo(${totalPages}))@") //
-                .validate("$.page.number", "${pageNumber}");
+                .validate("$.page.number", "${pageNumber}"));
 
     }
 
@@ -90,14 +91,14 @@ public class FindGroupsIT extends AbstractIT {
 
         getRequest(GROUPS_URL + "${groupId}");
 
-        http().client(serviceClient) //
-                .receive() //
-                .response(HttpStatus.OK) //
+        receive(builder -> builder.endpoint(serviceClient) //
+                .message(new HttpMessage() //
+                        .status(HttpStatus.OK)) //
                 .messageType(MessageType.JSON) //
                 .validate("$.name", "${name}") //
                 .validate("$.description", "${description}") //
                 .validate("$._links.self.href", "@endsWith(${groupId})@") //
-                .validate("$._links.group.href", "@endsWith(${groupId})@");
+                .validate("$._links.group.href", "@endsWith(${groupId})@"));
     }
 
     @Test
@@ -110,10 +111,7 @@ public class FindGroupsIT extends AbstractIT {
 
         getRequest(GROUPS_URL + "${groupId}");
 
-        http().client(serviceClient) //
-                .receive() //
-                .response(HttpStatus.NOT_FOUND) //
-                .messageType(MessageType.JSON);
+        verifyResponse(HttpStatus.NOT_FOUND);
     }
 
     @Test
@@ -179,8 +177,7 @@ public class FindGroupsIT extends AbstractIT {
     public void shouldRetunNoRecordWhenMatchingDescriptionDoesNotExist()
             throws Exception {
         author("Nimra Inam");
-        description(
-                "Validate response while finding group by description which does not exist");
+        description("Validate response while finding group by description which does not exist");
 
         getRequest(GROUPS_URL + "?description=groupNoFound");
 

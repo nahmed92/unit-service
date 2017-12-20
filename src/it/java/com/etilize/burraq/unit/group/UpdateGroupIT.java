@@ -31,6 +31,9 @@ package com.etilize.burraq.unit.group;
 import org.junit.*;
 import org.springframework.http.*;
 
+import com.consol.citrus.http.message.HttpMessage;
+import com.consol.citrus.annotations.CitrusTest;
+import com.consol.citrus.context.TestContext;
 import com.consol.citrus.annotations.*;
 import com.consol.citrus.message.*;
 import com.etilize.burraq.unit.test.base.*;
@@ -46,7 +49,7 @@ public class UpdateGroupIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    public void shouldUpdateGroup() throws Exception {
+    public void shouldUpdateGroup(@CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
         description("A group should not be updated");
 
@@ -58,10 +61,11 @@ public class UpdateGroupIT extends AbstractIT {
                 readFile("/datasets/groups/group_to_update.json"));
 
         extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
-        parseAndSetVariable(GROUPS_URL, LOCATION_HEADER_VALUE);
+        String unitLocation = parseAndSetVariable(GROUPS_URL, //
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/groups/group_after_put.json"), //
-                "${locationHeaderValue}");
+                unitLocation);
     }
 
     @Test
@@ -85,8 +89,7 @@ public class UpdateGroupIT extends AbstractIT {
     public void shouldNotUpdateGroupWhichAlreadyExistsWithSameNameButWithDifferentCase()
             throws Exception {
         author("Nimra Inam");
-        description(
-                "An existing unit group should not be updated by just converting it to a different case");
+        description("An existing unit group should not be updated by just converting it to a different case");
 
         variable(GROUP_ID, EXISTING_GROUP_ID);
 
@@ -102,8 +105,7 @@ public class UpdateGroupIT extends AbstractIT {
     @CitrusTest
     public void shouldNotUpdateGroupWithMissingNameAndDescription() throws Exception {
         author("Nimra Inam");
-        description(
-                "A unit group with missing name and description should not be updated");
+        description("A unit group with missing name and description should not be updated");
 
         variable(GROUP_ID, EXISTING_GROUP_ID);
         variable("nameProperty", "name");
@@ -115,14 +117,12 @@ public class UpdateGroupIT extends AbstractIT {
 
         putRequest(GROUPS_URL, "${groupId}", "${jsonForEmptyUnitNameAndDescription}");
 
-        http().client(serviceClient) //
-                .receive() //
-                .response(HttpStatus.BAD_REQUEST) //
+        receive(builder -> builder.endpoint(serviceClient) //
+                .message(new HttpMessage() //
+                        .status(HttpStatus.BAD_REQUEST)) //
                 .messageType(MessageType.JSON) //
-                .validate("$.errors[*].property",
-                        "@assertThat(allOf(containsString(${nameProperty}), containsString(${descriptionProperty})))@") //
-                .validate("$.errors[*].message",
-                        "@assertThat(allOf(containsString(${nameMessage}), containsString(${descriptionMessage})))@");
+                .validate("$.errors[*].property","@assertThat(allOf(containsString(${nameProperty}), containsString(${descriptionProperty})))@") //
+                .validate("$.errors[*].message","@assertThat(allOf(containsString(${nameMessage}), containsString(${descriptionMessage})))@"));
     }
 
 }

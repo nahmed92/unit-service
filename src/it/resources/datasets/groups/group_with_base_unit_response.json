@@ -4,7 +4,7 @@
             {
                 "name": "Storage",
                 "description": "this is storage unit group",
-                "baseUnitId": "${locationHeaderValue}",
+                "baseUnitId": "${baseUnitId}",
                 "_links": {
                     "self": {
                         "href": "@contains(/groups)@"
