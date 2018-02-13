@@ -8,7 +8,11 @@
             "baseUnitId": {
                 "$exists": true
             },
-            "description": "This is weight unit"
+            "description": "This is weight unit",
+            "lastModifiedBy": "ROLE_PTM",
+            "lastModifiedDate": {
+                "$exists": true
+            }
         },
         {
             "_id": {
@@ -27,6 +31,14 @@
                 "$exists": true
             },
             "name": "Gram",
+            "createdBy": "ROLE_PTM",
+            "createdDate": {
+                "$exists": true
+            },
+            "lastModifiedBy": "ROLE_PTM",
+            "lastModifiedDate": {
+                "$exists": true
+            },
             "groupId": {
                 "$oid": "53e9155b5ed24e4c38d60e3c"
             },

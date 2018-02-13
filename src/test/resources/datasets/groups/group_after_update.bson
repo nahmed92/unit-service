@@ -5,7 +5,11 @@
                 "$oid": "53e9155b5ed24e4c38d60e3c"
             },
             "name": "distance",
-            "description": "This is distance group"
+            "description": "This is distance group",
+            "lastModifiedBy": "ROLE_PTM",
+            "lastModifiedDate": {
+                "$exists": true
+            }
         },
         {
             "_id": {

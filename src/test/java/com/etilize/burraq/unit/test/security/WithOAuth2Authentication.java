@@ -2,7 +2,7 @@
  * #region
  * unit-service
  * %%
- * Copyright (C) 2017 Etilize
+ * Copyright (C) 2017 - 2018 Etilize
  * %%
  * NOTICE: All information contained herein is, and remains the property of ETILIZE.
  * The intellectual and technical concepts contained herein are proprietary to
@@ -26,38 +26,40 @@
  * #endregion
  */
 
-package com.etilize.burraq.unit;
+package com.etilize.burraq.unit.test.security;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.querydsl.QueryDslPredicateExecutor;
-import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
-import org.springframework.data.querydsl.binding.QuerydslBindings;
-import org.springframework.security.access.prepost.PreAuthorize;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import com.querydsl.core.types.dsl.StringPath;
+import org.springframework.security.test.context.support.WithSecurityContext;
 
 /**
- * It's repository interface for {@link Unit}.
+ * Mocks OAuth2Authentication
  *
  * @author Nasir Ahmed
- * @since 1.0
+ *
  */
-public interface UnitRepository extends MongoRepository<Unit, ObjectId>,
-        QueryDslPredicateExecutor<Unit>, QuerydslBinderCustomizer<QUnit> {
 
-    @Override
-    default void customize(final QuerydslBindings bindings, final QUnit root) {
-        bindings.bind(String.class).first((final StringPath path, final String value) -> {
-            return path.equalsIgnoreCase(value);
-        });
-    }
+@Target({ ElementType.METHOD, ElementType.TYPE })
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+@Documented
+@WithSecurityContext(factory = WithOAuth2AuthenticationSecurityContextFactory.class)
+public @interface WithOAuth2Authentication {
 
-    @PreAuthorize("#oauth2.hasAnyScope('unit.create','unit.update')")
-    @Override
-    <S extends Unit> S save(S entity);
+    /**
+     *
+     * @return mocked clientId
+     */
+    String clientId() default "burraq";
 
-    @PreAuthorize("#oauth2.hasScope('unit.delete')")
-    @Override
-    void delete(Unit unit);
+    /**
+     *
+     * @return mocked username
+     */
+    String username() default "user";
 }

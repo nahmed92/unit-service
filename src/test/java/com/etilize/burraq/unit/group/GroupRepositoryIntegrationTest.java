@@ -42,12 +42,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.etilize.burraq.unit.group.Group;
 import com.etilize.burraq.unit.group.GroupRepository;
 import com.etilize.burraq.unit.test.AbstractIntegrationTest;
+import com.etilize.burraq.unit.test.security.WithOAuth2Authentication;
 import com.lordofthejars.nosqlunit.annotation.ShouldMatchDataSet;
 import com.lordofthejars.nosqlunit.annotation.UsingDataSet;
 import com.querydsl.core.types.Predicate;
 import org.springframework.dao.DuplicateKeyException;
 
 @UsingDataSet(locations = "/datasets/groups/groups.bson")
+@WithOAuth2Authentication(username = "ROLE_PTM")
 public class GroupRepositoryIntegrationTest extends AbstractIntegrationTest {
 
     @Autowired

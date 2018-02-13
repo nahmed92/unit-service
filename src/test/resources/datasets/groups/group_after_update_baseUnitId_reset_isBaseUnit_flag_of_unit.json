@@ -19,6 +19,10 @@
             "groupId": {
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
+            "lastModifiedBy": "ROLE_PTM",
+            "lastModifiedDate": {
+                "$exists": true
+            },
             "isBaseUnit": false,
             "measuringSystem":"METRIC",
             "formula": "1/1000",
@@ -42,6 +46,10 @@
                 "$oid": "59c8da92e110b26284265711"
             },
             "name": "Kelvin",
+            "lastModifiedBy": "ROLE_PTM",
+            "lastModifiedDate": {
+                "$exists": true
+            },
             "groupId": {
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
