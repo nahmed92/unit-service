@@ -88,4 +88,13 @@ public class GroupRepositoryEventHandlerTest extends AbstractIntegrationTest {
         group.setId(new ObjectId("74e9155b5ed24e4c38d60e3c"));
         groupEventHandler.handleBeforeSave(group);
     }
+
+    @Test
+    @ShouldMatchDataSet(location = "/datasets/groups/group_after_delete_also_delete_associated_unit.json")
+    public void shouldDeleteAssociatedUnitsOnGroupDelete() {
+        final Group group = new Group("temperature", "temperature Unit");
+        group.setBaseUnitId(new ObjectId("74e9155b5ed24e4c38d60e5e"));
+        group.setId(new ObjectId("74e9155b5ed24e4c38d60e3c"));
+        groupEventHandler.handleBeforeDelete(group);
+    }
 }

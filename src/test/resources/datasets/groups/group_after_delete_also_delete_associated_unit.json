@@ -1,0 +1,24 @@
+{
+    "groups": [
+        {
+            "_id": {
+                "$oid": "53e9155b5ed24e4c38d60e3c"
+            },
+            "name": "weight",
+            "description": "This is weight unit"
+        }
+    ],
+    "units": [
+        {
+            "_id": {
+                "$oid": "59b63ec8e110b21a936c9eed"
+            },
+            "name": "Kilogram",
+            "groupId": "53e9155b5ed24e4c38d60e3c",
+            "isBaseUnit": false,
+            "measuringSystem": "METRIC",
+            "formula": "1/1000",
+            "description": "Kilogram Unit"
+        }
+    ]
+}

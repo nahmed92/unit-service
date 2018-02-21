@@ -28,10 +28,12 @@
 
 package com.etilize.burraq.unit.validator;
 
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.RepositoryConstraintViolationException;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
+import org.springframework.data.rest.core.annotation.HandleBeforeDelete;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.stereotype.Component;
@@ -146,5 +148,19 @@ public class GroupRepositoryEventHandler {
     private ValidationErrors validationError(final String name, final String field,
             final String message) {
         return new ValidationErrors(name, field, message);
+    }
+
+    /**
+     * Handle Delete request.
+     * Delete All unit associated with group
+     *
+     * @param group group entity
+     */
+    @HandleBeforeDelete(Group.class)
+    public void handleBeforeDelete(final Group group) {
+        final List<Unit> units = unitRepository.findAllByGroupId(group.getId());
+        for (final Unit unit : units) {
+            unitRepository.delete(unit);
+        }
     }
 }
