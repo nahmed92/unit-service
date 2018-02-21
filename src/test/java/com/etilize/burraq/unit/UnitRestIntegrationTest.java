@@ -54,7 +54,9 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
 
     @Test
     public void shouldFindUnitById() throws Exception {
-        mockMvc.perform(get("/units/{id}", new ObjectId("59b63ec8e110b21a936c9eed"))) //
+        mockMvc.perform(get("/units/{id}", new ObjectId("59b63ec8e110b21a936c9eed")) //
+                .with(bearerToken) //
+                .contentType(MediaType.APPLICATION_JSON)) //
                 .andExpect(status().isOk()) //
                 .andExpect(jsonPath("$._links.self.href", //
                         endsWith("/units/59b63ec8e110b21a936c9eed")))//
@@ -67,7 +69,9 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
 
     @Test
     public void shouldFindAllUnits() throws Exception {
-        mockMvc.perform(get("/units")) //
+        mockMvc.perform(get("/units") //
+                .with(bearerToken) //
+                .contentType(MediaType.APPLICATION_JSON)) //
                 .andExpect(status().isOk()) //
                 .andExpect(jsonPath("$._embedded.units[*]", hasSize(4))) //
                 .andExpect(jsonPath("$.page.size", is(20))) //
@@ -117,6 +121,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
         unit.setFormula("1/1000");
         unit.setMeasuringSystem(MeasuringSystem.METRIC);
         mockMvc.perform(post("/units") //
+                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(unit))) //
                 .andExpect(status().isCreated()) //
@@ -132,6 +137,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
         unit.setMeasuringSystem(MeasuringSystem.IMPERIAL);
         final String content = mapper.writeValueAsString(unit);
         mockMvc.perform(put("/units/{id}", new ObjectId("59b63ec8e110b21a936c9eed")) //
+                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isNoContent()) //
@@ -148,6 +154,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
         unit.setMeasuringSystem(MeasuringSystem.IMPERIAL);
         final String content = mapper.writeValueAsString(unit);
         mockMvc.perform(put("/units/{id}", new ObjectId("74e9155b5ed24e4c38d60e5e")) //
+                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isNoContent()) //
@@ -162,6 +169,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
         unit.setFormula("1/1000");
         unit.setMeasuringSystem(MeasuringSystem.METRIC);
         mockMvc.perform(post("/units") //
+                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(unit))) //
                 .andExpect(status().isConflict()) //
@@ -171,7 +179,9 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
 
     @Test
     public void shouldFindUnitByName() throws Exception {
-        mockMvc.perform(get("/units?name={name}", "Kilogram")) //
+        mockMvc.perform(get("/units?name={name}", "Kilogram") //
+                .with(bearerToken) //
+                .contentType(MediaType.APPLICATION_JSON)) //
                 .andExpect(status().isOk()) //
                 .andExpect(jsonPath("$._embedded.units[*]", hasSize(1))) //
                 .andExpect(jsonPath("$.page.size", is(20))) //
@@ -193,6 +203,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
         final Unit unit = new Unit("", new ObjectId("53e9155b5ed24e4c38d60e3c"), "");
         unit.setFormula("");
         mockMvc.perform(post("/units") //
+                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(unit))) //
                 .andExpect(status().isBadRequest()) //
@@ -208,6 +219,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
         unit.setFormula("");
         final String content = mapper.writeValueAsString(unit);
         mockMvc.perform(put("/units/{id}", new ObjectId("59b63ec8e110b21a936c9eed")) //
+                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isBadRequest()) //
@@ -223,6 +235,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
         unit.setFormula(null);
         unit.setMeasuringSystem(null);
         mockMvc.perform(post("/units") //
+                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(unit))) //
                 .andExpect(status().isBadRequest()) //
@@ -242,6 +255,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
         unit.setMeasuringSystem(null);
         final String content = mapper.writeValueAsString(unit);
         mockMvc.perform(put("/units/{id}", new ObjectId("59b63ec8e110b21a936c9eed")) //
+                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isBadRequest()) //
@@ -259,6 +273,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
         final Unit unit = new Unit("Pound", new ObjectId("53e9155b5ed24e4c38d60e3c"),
                 "Pound Unit");
         mockMvc.perform(post("/units") //
+                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(unit))) //
                 .andExpect(status().isCreated()) //
@@ -274,6 +289,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
         final String content = mapper.writeValueAsString(centigradeUnit);
         mockMvc.perform(post("/units") //
                 .contentType(MediaType.APPLICATION_JSON) //
+                .with(bearerToken) //
                 .content(content)) //
                 .andExpect(status().isBadRequest()) //
                 .andExpect(jsonPath("$.errors", hasSize(1))) //
@@ -288,6 +304,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
         kevlinUnit.setBaseUnit(true);
         final String content = mapper.writeValueAsString(kevlinUnit);
         mockMvc.perform(put("/units/{id}", new ObjectId("59c8da92e110b26284265711")) //
+                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isBadRequest()) //
@@ -303,6 +320,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
         unit.setFormula("[value]//(10000++23)");
         // Invalid division operator
         mockMvc.perform(post("/units") //
+                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(unit))) //
                 .andExpect(status().isBadRequest()) //
@@ -316,6 +334,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
                 "Kilogram Unit");
         unit.setFormula("[value]/10000ABC");
         mockMvc.perform(post("/units") //
+                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(unit))) //
                 .andExpect(status().isBadRequest()) //
@@ -325,6 +344,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
     @Test
     public void shouldThrowBadRequestWhenMeasuringSystemIsEmpty() throws Exception {
         mockMvc.perform(post("/units") //
+                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content("{" + "\"name\":\"Kilogram\","
                         + "\"groupId\": \"53e9155b5ed24e4c38d60e3c\","
@@ -341,6 +361,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
     @Test
     public void shouldThrowBadRequestWhenGroupIdIsEmpty() throws Exception {
         mockMvc.perform(post("/units") //
+                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content("{" + "\"name\":\"Kilogram\"," + "\"groupId\": \"\","
                         + "\"description\": \"Kilogram Unit " + "}")) //
@@ -361,6 +382,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
         unit.setFormula("1/1000");
         unit.setMeasuringSystem(MeasuringSystem.METRIC);
         mockMvc.perform(post("/units") //
+                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(unit))) //
                 .andExpect(status().isCreated()) //
@@ -374,6 +396,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
         kevlinUnit.setBaseUnit(true);
         final String content = mapper.writeValueAsString(kevlinUnit);
         mockMvc.perform(put("/units/{id}", new ObjectId("59c8da92e110b26284265711")) //
+                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isBadRequest()) //
@@ -381,5 +404,4 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
                 .andExpect(jsonPath("$.errors[0].message", //
                         is("update of groupId isn't allowed.")));
     }
-
 }

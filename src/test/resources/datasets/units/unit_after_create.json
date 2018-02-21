@@ -58,6 +58,14 @@
             "groupId": {
                 "$oid": "53e9155b5ed24e4c38d60e3c"
             },
+            "createdBy": "ROLE_PTM",
+            "createdDate": {
+                "$exists": true
+            },
+            "lastModifiedBy": "ROLE_PTM",
+            "lastModifiedDate": {
+                "$exists": true
+            },
             "isBaseUnit": true,
             "measuringSystem":"METRIC",
             "formula": "1/1000",

@@ -22,7 +22,15 @@
                 "$exists": true
             },
             "name": "pressure",
-            "description": "This is pressure group"
+            "description": "This is pressure group",
+            "createdBy": "ROLE_PTM",
+            "createdDate": {
+                "$exists": true
+            },
+            "lastModifiedBy": "ROLE_PTM",
+            "lastModifiedDate": {
+                "$exists": true
+            }
         }
     ]
 }

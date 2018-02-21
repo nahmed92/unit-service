@@ -2,7 +2,7 @@
  * #region
  * unit-service
  * %%
- * Copyright (C) 2017 Etilize
+ * Copyright (C) 2017 - 2018 Etilize
  * %%
  * NOTICE: All information contained herein is, and remains the property of ETILIZE.
  * The intellectual and technical concepts contained herein are proprietary to
@@ -26,38 +26,41 @@
  * #endregion
  */
 
-package com.etilize.burraq.unit;
+package com.etilize.burraq.unit.group;
 
 import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.querydsl.QueryDslPredicateExecutor;
-import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
-import org.springframework.data.querydsl.binding.QuerydslBindings;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 
-import com.querydsl.core.types.dsl.StringPath;
+import com.etilize.burraq.unit.test.AbstractIntegrationTest;
+import com.etilize.burraq.unit.test.security.WithOAuth2Authentication;
 
-/**
- * It's repository interface for {@link Unit}.
- *
- * @author Nasir Ahmed
- * @since 1.0
- */
-public interface UnitRepository extends MongoRepository<Unit, ObjectId>,
-        QueryDslPredicateExecutor<Unit>, QuerydslBinderCustomizer<QUnit> {
+@WithOAuth2Authentication(username = "ROLE_PTM", clientId = "unauthorized")
+public class GroupRepositoryAuthorizationTest extends AbstractIntegrationTest {
 
-    @Override
-    default void customize(final QuerydslBindings bindings, final QUnit root) {
-        bindings.bind(String.class).first((final StringPath path, final String value) -> {
-            return path.equalsIgnoreCase(value);
-        });
+    @Autowired
+    private GroupRepository repository;
+
+    @Test(expected = AccessDeniedException.class)
+    public void shouldThrowAccessDeniedExceptionExceptionWhenUnAuthorizedUserCreatesNewGroup()
+            throws Exception {
+        final Group group = new Group("pressure", "This is pressure group");
+        repository.save(group);
     }
 
-    @PreAuthorize("#oauth2.hasAnyScope('unit.create','unit.update')")
-    @Override
-    <S extends Unit> S save(S entity);
+    @Test(expected = AccessDeniedException.class)
+    public void shouldThrowAccessDeniedExceptionExceptionWhenUnAuthorizedUserUpdatesGroup()
+            throws Exception {
+        final Group group = new Group(null, "This is distance group");
+        group.setId(new ObjectId("53e9155b5ed24e4c38d60e3c"));
+        repository.save(group);
+    }
 
-    @PreAuthorize("#oauth2.hasScope('unit.delete')")
-    @Override
-    void delete(Unit unit);
+    @Test(expected = AccessDeniedException.class)
+    public void shouldThrowAccessDeniedExceptionExceptionWhenUnAuthorizedUserDeletesGroup()
+            throws Exception {
+        Group group = repository.findOne(new ObjectId("53e9155b5ed24e4c38d60e3c"));
+        repository.delete(group);
+    }
 }

@@ -2,7 +2,7 @@
  * #region
  * unit-service
  * %%
- * Copyright (C) 2017 Etilize
+ * Copyright (C) 2017 - 2018 Etilize
  * %%
  * NOTICE: All information contained herein is, and remains the property of ETILIZE.
  * The intellectual and technical concepts contained herein are proprietary to
@@ -26,38 +26,35 @@
  * #endregion
  */
 
-package com.etilize.burraq.unit;
+package com.etilize.burraq.unit.config;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.querydsl.QueryDslPredicateExecutor;
-import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
-import org.springframework.data.querydsl.binding.QuerydslBindings;
-import org.springframework.security.access.prepost.PreAuthorize;
-
-import com.querydsl.core.types.dsl.StringPath;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
 /**
- * It's repository interface for {@link Unit}.
- *
- * @author Nasir Ahmed
- * @since 1.0
- */
-public interface UnitRepository extends MongoRepository<Unit, ObjectId>,
-        QueryDslPredicateExecutor<Unit>, QuerydslBinderCustomizer<QUnit> {
+*
+* Implementation of AuditorAware based on Spring Security.
+*
+* @author Nasir Ahmed
+*/
+@EnableMongoAuditing
+@Component
+public class SpringSecurityAuditorAware implements AuditorAware<String> {
 
+    /**
+     * @return currentAuditor the current auditor of the application.
+     *
+     * @see org.springframework.data.domain.AuditorAware#getCurrentAuditor()
+     */
     @Override
-    default void customize(final QuerydslBindings bindings, final QUnit root) {
-        bindings.bind(String.class).first((final StringPath path, final String value) -> {
-            return path.equalsIgnoreCase(value);
-        });
+    public String getCurrentAuditor() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return null;
+        }
+        return authentication.getName();
     }
-
-    @PreAuthorize("#oauth2.hasAnyScope('unit.create','unit.update')")
-    @Override
-    <S extends Unit> S save(S entity);
-
-    @PreAuthorize("#oauth2.hasScope('unit.delete')")
-    @Override
-    void delete(Unit unit);
 }
