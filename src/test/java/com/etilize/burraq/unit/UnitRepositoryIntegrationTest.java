@@ -301,4 +301,14 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
         assertThat(units.get(2).getMeasuringSystem(), is(MeasuringSystem.METRIC));
         assertThat(units.get(2).getDescription(), is("Temperature Unit"));
     }
+
+    @Test
+    public void shouldFindByName() {
+        final Unit unit = unitRepository.findByName("Kilogram");
+        assertThat(unit.getGroupId(), is(new ObjectId("53e9155b5ed24e4c38d60e3c")));
+        assertThat(unit.getToBaseFormula(), is("1/1000"));
+        assertThat(unit.getFromBaseFormula(), is("[value]"));
+        assertThat(unit.getMeasuringSystem(), is(MeasuringSystem.METRIC));
+        assertThat(unit.getDescription(), is("Kilogram Unit"));
+    }
 }

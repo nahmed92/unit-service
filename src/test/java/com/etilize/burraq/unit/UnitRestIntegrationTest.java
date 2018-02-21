@@ -79,7 +79,8 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
                 .andExpect(jsonPath("$._embedded.units[0].groupId",
                         is("53e9155b5ed24e4c38d60e3c"))) //
                 .andExpect(jsonPath("$._embedded.units[0].toBaseFormula", is("1/1000"))) //
-                .andExpect(jsonPath("$._embedded.units[0].fromBaseFormula", is("[value]"))) //
+                .andExpect(
+                        jsonPath("$._embedded.units[0].fromBaseFormula", is("[value]"))) //
                 .andExpect(jsonPath("$._embedded.units[0].measuringSystem", is("METRIC"))) //
                 .andExpect(
                         jsonPath("$._embedded.units[0].description", is("Kilogram Unit"))) //
@@ -89,7 +90,8 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
                 .andExpect(jsonPath("$._embedded.units[1]._links.self.href", //
                         endsWith("/units/74e9155b5ed24e4c38d60e5e")))//
                 .andExpect(jsonPath("$._embedded.units[1].toBaseFormula", is("1/1000"))) //
-                .andExpect(jsonPath("$._embedded.units[1].fromBaseFormula", is("[value]"))) //
+                .andExpect(
+                        jsonPath("$._embedded.units[1].fromBaseFormula", is("[value]"))) //
                 .andExpect(jsonPath("$._embedded.units[1].measuringSystem", is("METRIC"))) //
                 .andExpect(jsonPath("$._embedded.units[1].description",
                         is("Temperature Unit"))) //
@@ -98,7 +100,8 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
                         endsWith("/units/59b63ec8e110b21a936c9eef")))//
                 .andExpect(jsonPath("$._embedded.units[2].toBaseFormula",
                         is("[value]*1000"))) //
-                .andExpect(jsonPath("$._embedded.units[2].fromBaseFormula", is("[value]"))) //
+                .andExpect(
+                        jsonPath("$._embedded.units[2].fromBaseFormula", is("[value]"))) //
                 .andExpect(jsonPath("$._embedded.units[2].measuringSystem", is("METRIC"))) //
                 .andExpect(jsonPath("$._embedded.units[2].description",
                         is("Degree Celcius Unit"))) //
@@ -109,7 +112,8 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
                         endsWith("/units/59c8da92e110b26284265711")))//
                 .andExpect(jsonPath("$._embedded.units[3].toBaseFormula",
                         is("[value]/1000"))) //
-                .andExpect(jsonPath("$._embedded.units[3].fromBaseFormula", is("[value]"))) //
+                .andExpect(
+                        jsonPath("$._embedded.units[3].fromBaseFormula", is("[value]"))) //
                 .andExpect(jsonPath("$._embedded.units[3].measuringSystem", is("METRIC"))) //
                 .andExpect(jsonPath("$._embedded.units[3].description",
                         is("Temperature Unit")));
@@ -191,7 +195,8 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
                 .andExpect(jsonPath("$._embedded.units[0].name", is("Kilogram"))) //
                 .andExpect(jsonPath("$._embedded.units[0].groupId",
                         is("53e9155b5ed24e4c38d60e3c"))) //
-                .andExpect(jsonPath("$._embedded.units[0].fromBaseFormula", is("[value]"))) //
+                .andExpect(
+                        jsonPath("$._embedded.units[0].fromBaseFormula", is("[value]"))) //
                 .andExpect(jsonPath("$._embedded.units[0].toBaseFormula", is("1/1000"))) //
                 .andExpect(jsonPath("$._embedded.units[0].measuringSystem", is("METRIC"))) //
                 .andExpect(jsonPath("$._embedded.units[0].description",

@@ -2,7 +2,7 @@
  * #region
  * unit-service
  * %%
- * Copyright (C) 2017 Etilize
+ * Copyright (C) 2017 - 2018 Etilize
  * %%
  * NOTICE: All information contained herein is, and remains the property of ETILIZE.
  * The intellectual and technical concepts contained herein are proprietary to
@@ -26,48 +26,25 @@
  * #endregion
  */
 
-package com.etilize.burraq.unit;
+package com.etilize.burraq.unit.convert;
 
 import java.util.List;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.querydsl.QueryDslPredicateExecutor;
-import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
-import org.springframework.data.querydsl.binding.QuerydslBindings;
-import org.springframework.data.rest.core.annotation.RestResource;
-
-import com.querydsl.core.types.dsl.StringPath;
 
 /**
- * It's repository interface for {@link Unit}.
+ * This service convert provided source unit into
+ * provided target units
  *
  * @author Nasir Ahmed
- * @since 1.0
+ *
  */
-public interface UnitRepository extends MongoRepository<Unit, ObjectId>,
-        QueryDslPredicateExecutor<Unit>, QuerydslBinderCustomizer<QUnit> {
-
-    @Override
-    default void customize(final QuerydslBindings bindings, final QUnit root) {
-        bindings.bind(String.class).first((final StringPath path, final String value) -> {
-            return path.equalsIgnoreCase(value);
-        });
-    }
+public interface ConvertService {
 
     /**
-     * Returns a List of Unit find by groupId
+     * this method converts provided value in source unit of payload object
+     * into target value, provided in payload target units
      *
-     * @param groupId ID of Group
-     * @return List of units
+     * @param payload provided payload
+     * @return converted target units
      */
-    @RestResource(exported = false)
-    List<Unit> findAllByGroupId(ObjectId groupId);
-
-    /**
-     * Return unit by name
-     * @param unit unit name
-     * @return unit
-     */
-    @RestResource(exported = false)
-    Unit findByName(String unit);
+    List<ConvertedUnit> convert(Payload payload);
 }
