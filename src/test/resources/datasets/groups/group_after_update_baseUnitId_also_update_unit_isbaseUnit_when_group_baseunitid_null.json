@@ -5,14 +5,10 @@
                 "$oid": "53e9155b5ed24e4c38d60e3c"
             },
             "name": "weight",
-            "description": "This is weight unit",
-            "lastModifiedBy": "ROLE_PTM",
-            "lastModifiedDate": {
-                "$exists": true
-            },
             "baseUnitId": {
                 "$oid": "59b63ec8e110b21a936c9eed"
-            }
+            },
+            "description": "This is weight unit"
         }
     ],
     "units": [
@@ -27,11 +23,7 @@
             "isBaseUnit": true,
             "measuringSystem": "METRIC",
             "formula": "1/1000",
-            "description": "Kilogram Unit",
-            "lastModifiedBy": "ROLE_PTM",
-            "lastModifiedDate": {
-                "$exists": true
-            }
+            "description": "Kilogram Unit"
         }
     ]
 }

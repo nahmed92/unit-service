@@ -8,10 +8,6 @@
             "groupId": {
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
-            "lastModifiedBy": "ROLE_PTM",
-            "lastModifiedDate": {
-                "$exists": true
-            },
             "isBaseUnit": true,
             "measuringSystem": "IMPERIAL",
             "formula": "1*1000",

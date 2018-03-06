@@ -11,11 +11,7 @@
             "isBaseUnit": true,
             "measuringSystem": "METRIC",
             "formula": "1/1000",
-            "description": "Kilogram Unit",
-            "lastModifiedBy": "ROLE_PTM",
-            "lastModifiedDate": {
-                "$exists": true
-            }
+            "description": "Kilogram Unit"
         }
     ]
 }

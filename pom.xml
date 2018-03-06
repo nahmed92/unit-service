@@ -7,8 +7,8 @@
     <artifactId>unit-service</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>unit-service</name>
 
+    <name>unit-service</name>
     <description>Unit Service provide services to store units and value conversion across units</description>
 
     <parent>
@@ -26,24 +26,15 @@
         <sonar.host.url>http://sonar.etilizepak.com</sonar.host.url>
         <docker.repo.url>repo.etilizepak.com:444</docker.repo.url>
         <docker.image.prefix>etilize</docker.image.prefix>
-        <commons.io.version>2.5</commons.io.version>
     </properties>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Edgware.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+
     <inceptionYear>2017</inceptionYear>
+
     <organization>
         <name>Etilize</name>
         <url>http://www.etilize.com</url>
     </organization>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -89,6 +80,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -147,11 +139,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>com.consol.citrus</groupId>
             <artifactId>citrus-java-dsl</artifactId>
             <scope>test</scope>
@@ -168,26 +155,8 @@
             <artifactId>exp4j</artifactId>
             <version>0.4.7</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-security</artifactId>
-        </dependency>
-        <!-- OAuth2 with Json Web Tokens -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-oauth2</artifactId>
-        </dependency>
-        <!-- Read RSA keys -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons.io.version}</version>
-        </dependency>
     </dependencies>
+
     <build>
         <finalName>unit-service</finalName>
         <plugins>
@@ -236,6 +205,7 @@
                 </executions>
             </plugin>
         </plugins>
+
         <pluginManagement>
             <plugins>
                 <!-- Error Prone integration -->
@@ -246,8 +216,8 @@
                     <configuration>
                         <compilerId>javac-with-errorprone</compilerId>
                         <forceJavacCompilerUse>true</forceJavacCompilerUse>
-                        <!-- maven-compiler-plugin defaults to targeting Java 5, but our javac
-                            only supports >=6 -->
+                        <!-- maven-compiler-plugin defaults to targeting
+                            Java 5, but our javac only supports >=6 -->
                         <source>${java.version}</source>
                         <target>${java.version}</target>
                         <showWarnings>true</showWarnings>
@@ -258,8 +228,8 @@
                             <artifactId>plexus-compiler-javac-errorprone</artifactId>
                             <version>2.8</version>
                         </dependency>
-                        <!-- override plexus-compiler-javac-errorprone's dependency on Error
-                            Prone with the latest version -->
+                        <!-- override plexus-compiler-javac-errorprone's
+                            dependency on Error Prone with the latest version -->
                         <dependency>
                             <groupId>com.google.errorprone</groupId>
                             <artifactId>error_prone_core</artifactId>
@@ -288,11 +258,12 @@
                 <plugin>
                     <groupId>org.sonarsource.scanner.maven</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
-                    <version>3.4.0.905</version>
+                    <version>3.0.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
     </build>
+
     <profiles>
         <!-- Profile to be run by developers to add license and format code -->
         <profile>
@@ -388,7 +359,8 @@
                                 <include>${project.build.testSourceDirectory}/**/*.java</include>
                                 <include>${project.basedir}/${project.build.itSourceDirectory}/**/*.java</include>
                             </includes>
-                            <!-- not using \s as it removes blank lines as well -->
+                            <!-- not using \s as it removes blank lines as
+                                well -->
                             <token>[ ]+$</token>
                             <value />
                             <regexFlags>
@@ -422,7 +394,8 @@
                         <artifactId>json-smart</artifactId>
                         <version>2.2</version>
                     </dependency>
-                    <!-- citrus-core needs version 2.0.0 and spring needs 0.9.1 -->
+                    <!-- citrus-core needs version 2.0.0 and spring needs
+                        0.9.1 -->
                     <dependency>
                         <groupId>com.jayway.jsonpath</groupId>
                         <artifactId>json-path</artifactId>
@@ -507,6 +480,7 @@
             </build>
         </profile>
     </profiles>
+
     <distributionManagement>
         <repository>
             <id>deployment</id>

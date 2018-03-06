@@ -5,10 +5,6 @@
                 "$oid": "59b63ec8e110b21a936c9eed"
             },
             "name": "Kilogram",
-            "lastModifiedBy": "ROLE_PTM",
-            "lastModifiedDate": {
-                "$exists": true
-            },
             "groupId": {
                 "$oid": "53e9155b5ed24e4c38d60e3c"
             },

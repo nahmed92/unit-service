@@ -29,19 +29,9 @@
 package com.etilize.burraq.unit.base;
 
 import java.io.Serializable;
-import java.util.Date;
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.hateoas.Identifiable;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * Base class for Mongo entity implementations.
@@ -54,28 +44,6 @@ public abstract class AbstractMongoEntity<ID extends Serializable>
     @Id
     private ID id;
 
-    @CreatedBy
-    @JsonIgnore
-    @JsonSerialize
-    private String createdBy;
-
-    @CreatedDate
-    @DateTimeFormat(iso = ISO.DATE_TIME)
-    @JsonIgnore
-    @JsonSerialize
-    private Date createdDate;
-
-    @LastModifiedBy
-    @JsonIgnore
-    @JsonSerialize
-    private String lastModifiedBy;
-
-    @LastModifiedDate
-    @DateTimeFormat(iso = ISO.DATE_TIME)
-    @JsonIgnore
-    @JsonSerialize
-    private Date lastModifiedDate;
-
     @Override
     public ID getId() {
         return id;
@@ -83,71 +51,6 @@ public abstract class AbstractMongoEntity<ID extends Serializable>
 
     public void setId(final ID id) {
         this.id = id;
-    }
-
-    /**
-     * Get createdBy
-     *
-     * @return createdBy
-     */
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    /**
-     * @param createdBy the createdBy to set
-     */
-    public void setCreatedBy(final String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    /**
-     * Get created date
-     *
-     * @return Date
-     */
-    public Date getCreatedDate() {
-        return createdDate != null ? new Date(createdDate.getTime()) : null;
-    }
-
-    /**
-     * @param createdDate the createdDate to set
-     */
-    public void setCreatedDate(final Date createdDate) {
-        this.createdDate = createdDate != null ? new Date(createdDate.getTime()) : null;
-    }
-
-    /**
-     * Get last modified by
-     *
-     * @return LastModifiedBy
-     */
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    /**
-     * @param lastModifiedBy the lastModifiedBy to set
-     */
-    public void setLastModifiedBy(final String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
-    /**
-     * Get Last Modified date
-     *
-     * @return lastModifiedDate
-     */
-    public Date getLastModifiedDate() {
-        return lastModifiedDate != null ? new Date(lastModifiedDate.getTime()) : null;
-    }
-
-    /**
-     * @param lastModifiedDate the lastModifiedDate to set
-     */
-    public void setLastModifiedDate(final Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate != null
-                ? new Date(lastModifiedDate.getTime()) : null;
     }
 
     @Override

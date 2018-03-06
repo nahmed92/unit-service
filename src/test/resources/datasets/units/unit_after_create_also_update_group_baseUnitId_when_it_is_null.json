@@ -8,11 +8,7 @@
             "baseUnitId": {
                 "$exists": true
             },
-            "description": "This is weight unit",
-            "lastModifiedBy": "ROLE_PTM",
-            "lastModifiedDate": {
-                "$exists": true
-            }
+            "description": "This is weight unit"
         },
         {
             "_id": {

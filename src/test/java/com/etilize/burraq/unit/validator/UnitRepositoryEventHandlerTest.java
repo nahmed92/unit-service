@@ -36,7 +36,6 @@ import org.springframework.data.rest.core.RepositoryConstraintViolationException
 import com.etilize.burraq.unit.MeasuringSystem;
 import com.etilize.burraq.unit.Unit;
 import com.etilize.burraq.unit.test.AbstractIntegrationTest;
-import com.etilize.burraq.unit.test.security.WithOAuth2Authentication;
 import com.lordofthejars.nosqlunit.annotation.CustomComparisonStrategy;
 import com.lordofthejars.nosqlunit.annotation.ShouldMatchDataSet;
 import com.lordofthejars.nosqlunit.annotation.UsingDataSet;
@@ -45,7 +44,7 @@ import com.lordofthejars.nosqlunit.mongodb.MongoFlexibleComparisonStrategy;
 @UsingDataSet(locations = { "/datasets/units/units.json",
     "/datasets/groups/groups.bson" })
 @CustomComparisonStrategy(comparisonStrategy = MongoFlexibleComparisonStrategy.class)
-@WithOAuth2Authentication(username = "ROLE_PTM")
+
 public class UnitRepositoryEventHandlerTest extends AbstractIntegrationTest {
 
     @Autowired
