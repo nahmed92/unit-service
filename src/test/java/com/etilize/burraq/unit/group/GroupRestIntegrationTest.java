@@ -54,9 +54,7 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
 
     @Test
     public void shouldFindGroupById() throws Exception {
-        mockMvc.perform(get("/groups/{id}", new ObjectId("53e9155b5ed24e4c38d60e3c")) //
-                .with(bearerToken) //
-                .contentType(MediaType.APPLICATION_JSON)) //
+        mockMvc.perform(get("/groups/{id}", new ObjectId("53e9155b5ed24e4c38d60e3c"))) //
                 .andExpect(status().isOk()) //
                 .andExpect(jsonPath("$.name", is("weight"))) //
                 .andExpect(jsonPath("$.description", is("This is weight unit")));
@@ -64,9 +62,7 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
 
     @Test
     public void shouldFindAllGroups() throws Exception {
-        mockMvc.perform(get("/groups") //
-                .with(bearerToken) //
-                .contentType(MediaType.APPLICATION_JSON)) //
+        mockMvc.perform(get("/groups")) //
                 .andExpect(status().isOk()) //
                 .andExpect(jsonPath("$._embedded.groups[*]", hasSize(2))) //
                 .andExpect(jsonPath("$.page.size", is(20))) //
@@ -85,7 +81,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
     public void shouldCreateNewGroup() throws Exception {
         final Group group = new Group("pressure", "This is pressure group");
         mockMvc.perform(post("/groups") //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(group))) //
                 .andExpect(status().isCreated()) //
@@ -98,7 +93,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
         final Group group = new Group("distance", "This is distance group");
         final String content = mapper.writeValueAsString(group);
         mockMvc.perform(put("/groups/{id}", new ObjectId("53e9155b5ed24e4c38d60e3c")) //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isNoContent()) //
@@ -110,7 +104,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
     public void shouldReturnStatusConflictWhenGroupNameAlreadyExists() throws Exception {
         final Group group = new Group("weight", "This is weight unit");
         mockMvc.perform(post("/groups") //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(group))) //
                 .andExpect(status().isConflict()) //
@@ -123,7 +116,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
             throws Exception {
         final Group group = new Group("WEIGHT", "This is weight unit");
         mockMvc.perform(post("/groups") //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(group))) //
                 .andExpect(status().isConflict());
@@ -131,9 +123,7 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
 
     @Test
     public void shouldReturnStatusNotFoundWhenGroupDoesnotExist() throws Exception {
-        mockMvc.perform(get("/groups/{id}", "53e9155b5ed24e4c38d60e3d") //
-                .with(bearerToken) //
-                .contentType(MediaType.APPLICATION_JSON)) //
+        mockMvc.perform(get("/groups/{id}", "53e9155b5ed24e4c38d60e3d")) //
                 .andExpect(status().isNotFound()); //
     }
 
@@ -141,7 +131,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
     public void shouldReturnStatusBadRequestWhenNameIsNullAtCreation() throws Exception {
         final Group group = new Group(null, "this is weight unit");
         mockMvc.perform(post("/groups") //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(group))) //
                 .andExpect(status().isBadRequest()) //
@@ -153,7 +142,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
         final Group group = new Group(null, "this is weight unit");
         final String content = mapper.writeValueAsString(group);
         mockMvc.perform(put("/groups/{id}", new ObjectId("53e9155b5ed24e4c38d60e3c")) //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isBadRequest()) //
@@ -164,7 +152,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
     public void shouldReturnStatusBadRequestWhenNameIsEmptyAtCreation() throws Exception {
         final Group group = new Group("", "this is weight unit");
         mockMvc.perform(post("/groups") //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(group))) //
                 .andExpect(status().isBadRequest()) //
@@ -176,7 +163,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
         final Group group = new Group("", "this is weight unit");
         final String content = mapper.writeValueAsString(group);
         mockMvc.perform(put("/groups/{id}", new ObjectId("53e9155b5ed24e4c38d60e3c")) //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isBadRequest()) //
@@ -188,7 +174,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
             throws Exception {
         final Group group = new Group("weight", null);
         mockMvc.perform(post("/groups") //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(group))) //
                 .andExpect(status().isBadRequest()) //
@@ -202,7 +187,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
         final Group group = new Group("weight", null);
         final String content = mapper.writeValueAsString(group);
         mockMvc.perform(put("/groups/{id}", new ObjectId("53e9155b5ed24e4c38d60e3c")) //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isBadRequest()) //
@@ -215,7 +199,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
             throws Exception {
         final Group group = new Group("weight", "");
         mockMvc.perform(post("/groups") //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(group))) //
                 .andExpect(status().isBadRequest()) //
@@ -229,7 +212,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
         final Group group = new Group("weight", "");
         final String content = mapper.writeValueAsString(group);
         mockMvc.perform(put("/groups/{id}", new ObjectId("53e9155b5ed24e4c38d60e3c")) //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isBadRequest()) //
@@ -239,9 +221,7 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
 
     @Test
     public void shouldFindGroupByName() throws Exception {
-        mockMvc.perform(get("/groups?name={name}", "weight") //
-                .with(bearerToken) //
-                .contentType(MediaType.APPLICATION_JSON)) //
+        mockMvc.perform(get("/groups?name={name}", "weight")) //
                 .andExpect(status().isOk()) //
                 .andExpect(jsonPath("$._embedded.groups[*]", hasSize(1))) //
                 .andExpect(jsonPath("$._embedded.groups[*]._links.self.href", //
@@ -256,9 +236,7 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
 
     @Test
     public void shouldFindByNameCaseInSensitively() throws Exception {
-        mockMvc.perform(get("/groups?name={name}", "Weight") //
-                .with(bearerToken) //
-                .contentType(MediaType.APPLICATION_JSON)) //
+        mockMvc.perform(get("/groups?name={name}", "Weight")) //
                 .andExpect(status().isOk()) //
                 .andExpect(jsonPath("$._embedded.groups[*]", hasSize(1))) //
                 .andExpect(jsonPath("$._embedded.groups[*]._links.self.href",
@@ -278,7 +256,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
         group.setBaseUnitId(new ObjectId("59c8da92e110b26284265711"));
         final String content = mapper.writeValueAsString(group);
         mockMvc.perform(put("/groups/{id}", new ObjectId("74e9155b5ed24e4c38d60e3c")) //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isNoContent());
@@ -292,7 +269,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
         group.setBaseUnitId(new ObjectId("59b63ec8e110b21a936c9eed"));
         final String content = mapper.writeValueAsString(group);
         mockMvc.perform(put("/groups/{id}", new ObjectId("53e9155b5ed24e4c38d60e3c")) //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isNoContent());
@@ -306,7 +282,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
         group.setBaseUnitId(new ObjectId("59c8da92e110b26284265711"));
         final String content = mapper.writeValueAsString(group);
         mockMvc.perform(put("/groups/{id}", new ObjectId("74e9155b5ed24e4c38d60e3c")) //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(status().isNoContent());
@@ -319,7 +294,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
         group.setBaseUnitId(new ObjectId("59b63ec8e110b21a936c9eed"));
         final String content = mapper.writeValueAsString(group);
         mockMvc.perform(post("/groups") //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(jsonPath("$.errors", hasSize(1))) //
@@ -334,7 +308,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
         group.setBaseUnitId(null);
         final String content = mapper.writeValueAsString(group);
         mockMvc.perform(put("/groups/{id}", new ObjectId("74e9155b5ed24e4c38d60e3c")) //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(jsonPath("$.errors", hasSize(1))) //
@@ -349,7 +322,6 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
         group.setBaseUnitId(new ObjectId("74e9155b5ed24e4c38d60e3c"));
         final String content = mapper.writeValueAsString(group);
         mockMvc.perform(put("/groups/{id}", new ObjectId("53e9155b5ed24e4c38d60e3c")) //
-                .with(bearerToken) //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(content)) //
                 .andExpect(jsonPath("$.errors", hasSize(1))) //

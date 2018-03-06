@@ -42,12 +42,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 
 import com.etilize.burraq.unit.test.AbstractIntegrationTest;
-import com.etilize.burraq.unit.test.security.WithOAuth2Authentication;
 import com.lordofthejars.nosqlunit.annotation.ShouldMatchDataSet;
 import com.lordofthejars.nosqlunit.annotation.UsingDataSet;
 
 @UsingDataSet(locations = "/datasets/units/units.json")
-@WithOAuth2Authentication(username = "ROLE_PTM")
 public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
 
     @Autowired

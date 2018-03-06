@@ -12,17 +12,13 @@
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
             "name": "temperature",
-            "description": "Temperature unit",
-            "lastModifiedBy": "ROLE_PTM",
-            "lastModifiedDate": {
-                "$exists": true
-            },
             "baseUnitId": {
                 "$oid": "59c8da92e110b26284265711"
-            }
+            },
+            "description": "Temperature unit"
         }
     ],
-    "units": [
+        "units": [
         {
             "_id": {
                 "$oid": "74e9155b5ed24e4c38d60e5e"
@@ -32,13 +28,9 @@
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
             "isBaseUnit": false,
-            "measuringSystem": "METRIC",
+            "measuringSystem":"METRIC",
             "formula": "1/1000",
-            "description": "Temperature Unit",
-            "lastModifiedBy": "ROLE_PTM",
-            "lastModifiedDate": {
-                "$exists": true
-            }
+            "description": "Temperature Unit"
         },
         {
             "_id": {
@@ -49,7 +41,7 @@
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
             "isBaseUnit": false,
-            "measuringSystem": "METRIC",
+            "measuringSystem":"METRIC",
             "formula": "[value]*1000",
             "description": "Degree Celcius Unit"
         },
@@ -62,13 +54,9 @@
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
             "isBaseUnit": true,
-            "measuringSystem": "METRIC",
+            "measuringSystem":"METRIC",
             "formula": "[value]/1000",
-            "description": "Temperature Unit",
-            "lastModifiedBy": "ROLE_PTM",
-            "lastModifiedDate": {
-                "$exists": true
-            }
+            "description": "Temperature Unit"
         }
     ]
 }

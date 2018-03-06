@@ -44,9 +44,7 @@ public class UnitServiceApplicationTests extends AbstractRestIntegrationTest {
 
     @Test
     public void shouldRespondToGetRequest() throws Exception {
-        mockMvc.perform(get("/") //
-                .with(bearerToken) //
-                .contentType(MediaType.APPLICATION_JSON)) //
+        mockMvc.perform(get("/").contentType(MediaType.APPLICATION_JSON)) //
                 .andExpect(status().isOk());
     }
 

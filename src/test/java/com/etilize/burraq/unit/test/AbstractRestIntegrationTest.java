@@ -28,15 +28,11 @@
 
 package com.etilize.burraq.unit.test;
 
-import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
-import com.etilize.burraq.unit.test.security.OAuthHelper;
 
 /**
  * Base class for REST integration tests that use {@link MockMvc}
@@ -54,20 +50,4 @@ public abstract class AbstractRestIntegrationTest extends AbstractIntegrationTes
     @Autowired
     protected MockMvc mockMvc;
 
-    @Autowired
-    private OAuthHelper oAuthHelper;
-
-    protected RequestPostProcessor bearerToken;
-
-    protected RequestPostProcessor revokedToken;
-
-    protected RequestPostProcessor unAuthorizedToken;
-
-    @Before
-    public void before() {
-        super.before();
-        bearerToken = oAuthHelper.bearerToken("burraq", "ROLE_PTM");
-        revokedToken = oAuthHelper.revokedToken("burraq", "ROLE_PTM");
-        unAuthorizedToken = oAuthHelper.bearerToken("unauthorized", "ROLE_PTM");
-    }
 }

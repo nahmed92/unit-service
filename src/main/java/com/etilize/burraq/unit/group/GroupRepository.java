@@ -33,7 +33,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
-import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.querydsl.core.types.dsl.StringPath;
 
@@ -52,12 +51,4 @@ public interface GroupRepository extends MongoRepository<Group, ObjectId>,
             return path.equalsIgnoreCase(value);
         });
     }
-
-    @PreAuthorize("#oauth2.hasAnyScope('group.create','group.update')")
-    @Override
-    <S extends Group> S save(S entity);
-
-    @PreAuthorize("#oauth2.hasScope('group.delete')")
-    @Override
-    void delete(Group group);
 }
