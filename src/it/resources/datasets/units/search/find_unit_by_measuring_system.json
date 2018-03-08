@@ -6,7 +6,8 @@
                 "groupId": "5995843b0fcdf874985e399d",
                 "description": "Kilogram Per Hour",
                 "measuringSystem": "IMPERIAL",
-                "formula": "[value] * 1000",
+                "toBaseFormula": "[value] * 1000",
+                "fromBaseFormula" : "[value]",
                 "_links": {
                     "self": {
                         "href": "@contains(/units)@"

@@ -2,6 +2,6 @@
     "name": "Hour",
     "groupId": "599585660fcdf874985e399e",
     "measuringSystem": "NONE",
-    "formula": null,
+    "toBaseFormula": null,
     "description": "Hour Unit"
 }

@@ -2,6 +2,6 @@
     "name": "MB",
     "groupId": "59df33dc0fcdf86d872acd27",
     "measuringSystem": "NONE",
-    "formula": "[value] / 1000",
+    "toBaseFormula": "[value] / 1000",
     "description": "MB Unit"
 }

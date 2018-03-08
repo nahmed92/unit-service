@@ -10,7 +10,8 @@
             },
             "isBaseUnit": true,
             "measuringSystem": "IMPERIAL",
-            "formula": "1*1000",
+            "toBaseFormula": "1*1000",
+            "fromBaseFormula": "1/1000",
             "description": "Temperature Unit"
         }
     ]

@@ -14,3 +14,7 @@ db.units.updateMany({"measuringSystem":"CGS"}, { $set : {"measuringSystem": "IMP
 // changeset nasahmed:US-64
 db.groups.updateMany({"baseUnitId": {$exists: false}}, { $set : {"baseUnitId":null}});
 db.units.updateMany({"isBaseUnit":true}, { $set : {"isBaseUnit": false }});
+
+//changeset nasahmed:US-74
+db.units.updateMany({"formula": { $exists: true } }, { $rename: {"formula": "toBaseFormula" }});
+db.units.updateMany({"fromBaseFormula": {$exists: false}}, { $set : {"fromBaseFormula":"[value]"}});

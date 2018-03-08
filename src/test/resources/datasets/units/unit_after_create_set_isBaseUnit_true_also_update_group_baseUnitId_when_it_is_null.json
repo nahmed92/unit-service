@@ -32,7 +32,8 @@
             },
             "isBaseUnit": true,
             "measuringSystem": "METRIC",
-            "formula": "1/1000",
+            "toBaseFormula": "1/1000",
+            "fromBaseFormula": "1 * 1000",
             "description": "Gram Unit"
         }
     ]

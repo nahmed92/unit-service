@@ -83,7 +83,8 @@ public class AddGroupIT extends AbstractIT {
         description("A case insensitive matching group should not be added");
 
         postRequest(GROUPS_URL, //
-                readFile("/datasets/groups/case_insensitive_matching/case_insensitive_matching_group.json"));
+                readFile(
+                        "/datasets/groups/case_insensitive_matching/case_insensitive_matching_group.json"));
 
         verifyResponse(HttpStatus.CONFLICT, //
                 readFile("/datasets/groups/errors/duplicate_group_error.json"));

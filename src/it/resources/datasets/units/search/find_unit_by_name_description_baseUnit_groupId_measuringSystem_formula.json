@@ -6,7 +6,8 @@
                 "groupId": "${groupId}",
                 "description": "${description}",
                 "measuringSystem": "${metricSystem}",
-                "formula": "${formula}",
+                "toBaseFormula": "${toBaseFormula}",
+                "fromBaseFormula" : "[value]",
                 "_links": {
                     "self": {
                         "href": "@contains(/units)@"

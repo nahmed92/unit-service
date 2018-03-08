@@ -81,10 +81,12 @@ public class ValidateUnitIT extends AbstractIT {
         description("Same Unit should not be added in a different group on add");
 
         postRequest(UNITS_URL, //
-                readFile("/datasets/units/validations/same_unit_in_a_different_group.json"));
+                readFile(
+                        "/datasets/units/validations/same_unit_in_a_different_group.json"));
 
         verifyResponse(HttpStatus.CONFLICT, //
-                readFile("/datasets/units/validations/same_unit_in_a_different_group_error.json"));
+                readFile(
+                        "/datasets/units/validations/same_unit_in_a_different_group_error.json"));
     }
 
     @Test
@@ -97,10 +99,12 @@ public class ValidateUnitIT extends AbstractIT {
 
         putRequest(UNITS_URL, //
                 "${" + UNIT_ID + "}", //
-                readFile("/datasets/units/validations/same_unit_in_a_different_group_after_update.json"));
+                readFile(
+                        "/datasets/units/validations/same_unit_in_a_different_group_after_update.json"));
 
         verifyResponse(HttpStatus.CONFLICT, //
-                readFile("/datasets/units/validations/same_unit_in_a_different_group_error.json"));
+                readFile(
+                        "/datasets/units/validations/same_unit_in_a_different_group_error.json"));
     }
 
     @Test
@@ -108,15 +112,18 @@ public class ValidateUnitIT extends AbstractIT {
     public void shouldReturnBadRequestOnAddingUnitToAGroupWhichDoesNotExist()
             throws Exception {
         author("Nimra Inam");
-        description("Bad request should be returned on adding a unit to a group which does not exist");
+        description(
+                "Bad request should be returned on adding a unit to a group which does not exist");
 
         variable(LOCATION_HEADER_VALUE, "");
 
         postRequest(UNITS_URL, //
-                readFile("/datasets/units/validations/unit_with_group_does_not_exist.json"));
+                readFile(
+                        "/datasets/units/validations/unit_with_group_does_not_exist.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/validations/unit_with_group_does_not_exist_error.json"));
+                readFile(
+                        "/datasets/units/validations/unit_with_group_does_not_exist_error.json"));
     }
 
     @Test
@@ -141,7 +148,8 @@ public class ValidateUnitIT extends AbstractIT {
         // Verify Unit
         getRequest(UNITS_URL + "?groupId=${existingGroup}&isBaseUnit=true");
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/validations/first_unit_in_group_response.json"));
+                readFile(
+                        "/datasets/units/validations/first_unit_in_group_response.json"));
 
         // Verify Group
         getRequest(GROUPS_URL + "?id=${existingGroup}");
@@ -157,7 +165,8 @@ public class ValidateUnitIT extends AbstractIT {
     public void shouldSetIsBaseUnitToFalseForAnyUnitAfterFirstUnitToAGroup(@CitrusResource TestContext context)
             throws Exception {
         author("Nimra Inam");
-        description("Unit after the first unit to a group should be added with isBaseUnit set to false");
+        description(
+                "Unit after the first unit to a group should be added with isBaseUnit set to false");
 
         variable(LOCATION_HEADER_VALUE, "");
         variable("existingGroup", "5a1d3e560fcdf812bee4e099");
@@ -165,7 +174,8 @@ public class ValidateUnitIT extends AbstractIT {
 
         // Second Unit
         postRequest(UNITS_URL, //
-                readFile("/datasets/units/validations/second_unit_in_group_request.json"));
+                readFile(
+                        "/datasets/units/validations/second_unit_in_group_request.json"));
 
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         String resourceLocation = parseAndSetVariable(UNITS_URL,
@@ -174,7 +184,8 @@ public class ValidateUnitIT extends AbstractIT {
         // Verify Unit
         getRequest(UNITS_URL + "?groupId=${existingGroup}&isBaseUnit=false");
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/validations/second_unit_in_group_response.json"));
+                readFile(
+                        "/datasets/units/validations/second_unit_in_group_response.json"));
 
         // Verify Group
         getRequest(GROUPS_URL + "?id=${existingGroup}");

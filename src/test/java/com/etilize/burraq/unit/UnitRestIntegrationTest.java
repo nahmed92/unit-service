@@ -60,7 +60,8 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
                         endsWith("/units/59b63ec8e110b21a936c9eed")))//
                 .andExpect(jsonPath("$.name", is("Kilogram"))) //
                 .andExpect(jsonPath("$.groupId", is("53e9155b5ed24e4c38d60e3c"))) //
-                .andExpect(jsonPath("$.formula", is("1/1000"))) //
+                .andExpect(jsonPath("$.fromBaseFormula", is("[value]"))) //
+                .andExpect(jsonPath("$.toBaseFormula", is("1/1000"))) //
                 .andExpect(jsonPath("$.measuringSystem", is("METRIC"))) //
                 .andExpect(jsonPath("$.description", is("Kilogram Unit")));
     }
@@ -77,7 +78,8 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
                 .andExpect(jsonPath("$._embedded.units[0].name", is("Kilogram"))) //
                 .andExpect(jsonPath("$._embedded.units[0].groupId",
                         is("53e9155b5ed24e4c38d60e3c"))) //
-                .andExpect(jsonPath("$._embedded.units[0].formula", is("1/1000"))) //
+                .andExpect(jsonPath("$._embedded.units[0].toBaseFormula", is("1/1000"))) //
+                .andExpect(jsonPath("$._embedded.units[0].fromBaseFormula", is("[value]"))) //
                 .andExpect(jsonPath("$._embedded.units[0].measuringSystem", is("METRIC"))) //
                 .andExpect(
                         jsonPath("$._embedded.units[0].description", is("Kilogram Unit"))) //
@@ -86,14 +88,17 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
                         is("74e9155b5ed24e4c38d60e3c"))) //
                 .andExpect(jsonPath("$._embedded.units[1]._links.self.href", //
                         endsWith("/units/74e9155b5ed24e4c38d60e5e")))//
-                .andExpect(jsonPath("$._embedded.units[1].formula", is("1/1000"))) //
+                .andExpect(jsonPath("$._embedded.units[1].toBaseFormula", is("1/1000"))) //
+                .andExpect(jsonPath("$._embedded.units[1].fromBaseFormula", is("[value]"))) //
                 .andExpect(jsonPath("$._embedded.units[1].measuringSystem", is("METRIC"))) //
                 .andExpect(jsonPath("$._embedded.units[1].description",
                         is("Temperature Unit"))) //
                 .andExpect(jsonPath("$._embedded.units[2].name", is("Degree Celcius"))) //
                 .andExpect(jsonPath("$._embedded.units[2]._links.self.href", //
                         endsWith("/units/59b63ec8e110b21a936c9eef")))//
-                .andExpect(jsonPath("$._embedded.units[2].formula", is("[value]*1000"))) //
+                .andExpect(jsonPath("$._embedded.units[2].toBaseFormula",
+                        is("[value]*1000"))) //
+                .andExpect(jsonPath("$._embedded.units[2].fromBaseFormula", is("[value]"))) //
                 .andExpect(jsonPath("$._embedded.units[2].measuringSystem", is("METRIC"))) //
                 .andExpect(jsonPath("$._embedded.units[2].description",
                         is("Degree Celcius Unit"))) //
@@ -102,7 +107,9 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
                         is("74e9155b5ed24e4c38d60e3c"))) //
                 .andExpect(jsonPath("$._embedded.units[3]._links.self.href", //
                         endsWith("/units/59c8da92e110b26284265711")))//
-                .andExpect(jsonPath("$._embedded.units[3].formula", is("[value]/1000"))) //
+                .andExpect(jsonPath("$._embedded.units[3].toBaseFormula",
+                        is("[value]/1000"))) //
+                .andExpect(jsonPath("$._embedded.units[3].fromBaseFormula", is("[value]"))) //
                 .andExpect(jsonPath("$._embedded.units[3].measuringSystem", is("METRIC"))) //
                 .andExpect(jsonPath("$._embedded.units[3].description",
                         is("Temperature Unit")));
@@ -114,7 +121,8 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
     public void shouldCreateNewUnit() throws Exception {
         final Unit unit = new Unit("Pound", new ObjectId("53e9155b5ed24e4c38d60e3c"),
                 "Pound Unit");
-        unit.setFormula("1/1000");
+        unit.setToBaseFormula("1/1000");
+        unit.setFromBaseFormula("1 * 1000");
         unit.setMeasuringSystem(MeasuringSystem.METRIC);
         mockMvc.perform(post("/units") //
                 .contentType(MediaType.APPLICATION_JSON) //
@@ -128,7 +136,8 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
     public void shouldUpdateExistingUnit() throws Exception {
         final Unit unit = new Unit("Gram", new ObjectId("53e9155b5ed24e4c38d60e3c"),
                 "Gram Unit");
-        unit.setFormula("[value]*1000");
+        unit.setToBaseFormula("[value]*1000");
+        unit.setFromBaseFormula("[value]");
         unit.setMeasuringSystem(MeasuringSystem.IMPERIAL);
         final String content = mapper.writeValueAsString(unit);
         mockMvc.perform(put("/units/{id}", new ObjectId("59b63ec8e110b21a936c9eed")) //
@@ -144,7 +153,8 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
     public void shouldUpdateExistingUnitWillNotChangeBaseUnitState() throws Exception {
         final Unit unit = new Unit("celcius", new ObjectId("74e9155b5ed24e4c38d60e3c"),
                 "Temperature Unit");
-        unit.setFormula("1*1000");
+        unit.setToBaseFormula("1*1000");
+        unit.setFromBaseFormula("1/1000");
         unit.setMeasuringSystem(MeasuringSystem.IMPERIAL);
         final String content = mapper.writeValueAsString(unit);
         mockMvc.perform(put("/units/{id}", new ObjectId("74e9155b5ed24e4c38d60e5e")) //
@@ -159,7 +169,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
     public void shouldReturnStatusConflictWhenUnitNameAlreadyExists() throws Exception {
         final Unit unit = new Unit("Kilogram", new ObjectId("53e9155b5ed24e4c38d60e3c"),
                 "Kilogram Unit");
-        unit.setFormula("1/1000");
+        unit.setToBaseFormula("1/1000");
         unit.setMeasuringSystem(MeasuringSystem.METRIC);
         mockMvc.perform(post("/units") //
                 .contentType(MediaType.APPLICATION_JSON) //
@@ -181,7 +191,8 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
                 .andExpect(jsonPath("$._embedded.units[0].name", is("Kilogram"))) //
                 .andExpect(jsonPath("$._embedded.units[0].groupId",
                         is("53e9155b5ed24e4c38d60e3c"))) //
-                .andExpect(jsonPath("$._embedded.units[0].formula", is("1/1000"))) //
+                .andExpect(jsonPath("$._embedded.units[0].fromBaseFormula", is("[value]"))) //
+                .andExpect(jsonPath("$._embedded.units[0].toBaseFormula", is("1/1000"))) //
                 .andExpect(jsonPath("$._embedded.units[0].measuringSystem", is("METRIC"))) //
                 .andExpect(jsonPath("$._embedded.units[0].description",
                         is("Kilogram Unit")));
@@ -191,7 +202,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
     public void shouldReturnStatusBadRequestWhenRequiredFieldsAreEmptyAtCreation()
             throws Exception {
         final Unit unit = new Unit("", new ObjectId("53e9155b5ed24e4c38d60e3c"), "");
-        unit.setFormula("");
+        unit.setToBaseFormula("");
         mockMvc.perform(post("/units") //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(unit))) //
@@ -205,7 +216,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
     public void shouldReturnStatusBadRequestWhenFieldsAreEmptyAtUpdate()
             throws Exception {
         final Unit unit = new Unit("", new ObjectId("53e9155b5ed24e4c38d60e3c"), "");
-        unit.setFormula("");
+        unit.setToBaseFormula("");
         final String content = mapper.writeValueAsString(unit);
         mockMvc.perform(put("/units/{id}", new ObjectId("59b63ec8e110b21a936c9eed")) //
                 .contentType(MediaType.APPLICATION_JSON) //
@@ -220,7 +231,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
     public void shouldReturnStatusBadRequestWhenRequiredFieldsAreNullAtCreation()
             throws Exception {
         final Unit unit = new Unit(null, null, null);
-        unit.setFormula(null);
+        unit.setToBaseFormula(null);
         unit.setMeasuringSystem(null);
         mockMvc.perform(post("/units") //
                 .contentType(MediaType.APPLICATION_JSON) //
@@ -238,7 +249,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
     public void shouldReturnStatusBadRequestWhenNameGroupIdAndDescriptionAreNullAtUpdate()
             throws Exception {
         final Unit unit = new Unit(null, null, null);
-        unit.setFormula(null);
+        unit.setToBaseFormula(null);
         unit.setMeasuringSystem(null);
         final String content = mapper.writeValueAsString(unit);
         mockMvc.perform(put("/units/{id}", new ObjectId("59b63ec8e110b21a936c9eed")) //
@@ -300,7 +311,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
             throws Exception {
         Unit unit = new Unit("Kilogram", new ObjectId("53e9155b5ed24e4c38d60e3c"),
                 "Kilogram Unit");
-        unit.setFormula("[value]//(10000++23)");
+        unit.setToBaseFormula("[value]//(10000++23)");
         // Invalid division operator
         mockMvc.perform(post("/units") //
                 .contentType(MediaType.APPLICATION_JSON) //
@@ -314,7 +325,7 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
     public void shouldReturnBadRequestWhenTextExistInFormula() throws Exception {
         final Unit unit = new Unit("Kilogram", new ObjectId("53e9155b5ed24e4c38d60e3c"),
                 "Kilogram Unit");
-        unit.setFormula("[value]/10000ABC");
+        unit.setToBaseFormula("[value]/10000ABC");
         mockMvc.perform(post("/units") //
                 .contentType(MediaType.APPLICATION_JSON) //
                 .content(mapper.writeValueAsString(unit))) //
@@ -358,7 +369,8 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
             throws Exception {
         final Unit unit = new Unit("Gram", new ObjectId("53e9155b5ed24e4c38d60e3c"),
                 "Gram Unit");
-        unit.setFormula("1/1000");
+        unit.setToBaseFormula("1/1000");
+        unit.setFromBaseFormula("1 * 1000");
         unit.setMeasuringSystem(MeasuringSystem.METRIC);
         mockMvc.perform(post("/units") //
                 .contentType(MediaType.APPLICATION_JSON) //

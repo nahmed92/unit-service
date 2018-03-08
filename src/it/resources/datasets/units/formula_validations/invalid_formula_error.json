@@ -2,8 +2,8 @@
     "errors": [
         {
             "entity": "Unit",
-            "property": "formula",
-            "invalidValue": "${formula}",
+            "property": "toBaseFormula",
+            "invalidValue": "${toBaseFormula}",
             "message": "Formula is not valid."
         }
     ]

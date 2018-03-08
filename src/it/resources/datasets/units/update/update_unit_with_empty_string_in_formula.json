@@ -2,6 +2,6 @@
     "name": "Ounce",
     "groupId": "599585660fcdf874985e399e",
     "measuringSystem": "METRIC",
-    "formula": "",
+    "toBaseFormula": "",
     "description": "This Ounce unit"
 }

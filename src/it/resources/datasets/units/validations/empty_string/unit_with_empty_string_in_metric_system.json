@@ -2,6 +2,6 @@
     "name": "Micro Second",
     "groupId": "599585660fcdf874985e399e",
     "measuringSystem": "",
-    "formula": "[value] / 1000",
+    "toBaseFormula": "[value] / 1000",
     "description": "Micro Second Unit"
 }

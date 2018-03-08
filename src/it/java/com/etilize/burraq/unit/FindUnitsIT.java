@@ -1,5 +1,4 @@
 /*
- * #region
  * unit-service
  * %%
  * Copyright (C) 2017 Etilize
@@ -93,7 +92,7 @@ public class FindUnitsIT extends AbstractIT {
         variable("description", "bit Unit");
         variable("groupId", "59df33dc0fcdf86d872acd27");
         variable("measuringSystem", "NONE");
-        variable("formula", "[value] / 1000");
+        variable("toBaseFormula", "[value] / 1000");
 
         getRequest(UNITS_URL + "${unitId}");
 
@@ -105,7 +104,7 @@ public class FindUnitsIT extends AbstractIT {
                 .validate("$.description", "${description}") //
                 .validate("$.groupId", "${groupId}") //
                 .validate("$.measuringSystem", "${measuringSystem}") //
-                .validate("$.formula", "${formula}") //
+                .validate("$.toBaseFormula", "${toBaseFormula}") //
                 .validate("$._links.self.href", "@endsWith(${unitId})@") //
                 .validate("$._links.unit.href", "@endsWith(${unitId})@"));
     }
@@ -200,9 +199,9 @@ public class FindUnitsIT extends AbstractIT {
         author("Nimra Inam");
         description("Validate response by finding unit by formula");
 
-        variable("formula", "[value] * 1000");
+        variable("toBaseFormula", "[value] * 1000");
 
-        getRequest(UNITS_URL + "?formula=[value] * 1000");
+        getRequest(UNITS_URL + "?toBaseFormula=[value] * 1000");
 
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/search/find_unit_by_formula.json"));
@@ -221,10 +220,10 @@ public class FindUnitsIT extends AbstractIT {
         variable("baseUnit", "false");
         variable("groupId", "59df33dc0fcdf86d872acd27");
         variable("metricSystem", "NONE");
-        variable("formula", "[value] / 1000");
+        variable("toBaseFormula", "[value] / 1000");
 
         getRequest(UNITS_URL
-                + "?name=bit&groupId=59df33dc0fcdf86d872acd27&isBaseUnit=false&description=bit Unit&measuringSystem=NONE&formula=[value] / 1000");
+                + "?name=bit&groupId=59df33dc0fcdf86d872acd27&isBaseUnit=false&description=bit Unit&measuringSystem=NONE&toBaseFormula=[value] / 1000");
 
         verifyResponse(HttpStatus.OK, //
                 readFile(
@@ -265,7 +264,7 @@ public class FindUnitsIT extends AbstractIT {
         description(
                 "Validate response having no record while finding a unit by formula which does not exist");
 
-        getRequest(UNITS_URL + "?formula=UnitNoFound");
+        getRequest(UNITS_URL + "?toBaseFormula=UnitNoFound");
 
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/search/find_unit_which_does_not_exist.json"));

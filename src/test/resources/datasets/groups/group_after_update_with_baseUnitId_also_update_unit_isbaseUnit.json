@@ -18,7 +18,7 @@
             "description": "Temperature unit"
         }
     ],
-        "units": [
+    "units": [
         {
             "_id": {
                 "$oid": "74e9155b5ed24e4c38d60e5e"
@@ -28,8 +28,9 @@
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
             "isBaseUnit": false,
-            "measuringSystem":"METRIC",
-            "formula": "1/1000",
+            "measuringSystem": "METRIC",
+            "fromBaseFormula": "[value]",
+            "toBaseFormula": "1/1000",
             "description": "Temperature Unit"
         },
         {
@@ -41,8 +42,8 @@
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
             "isBaseUnit": false,
-            "measuringSystem":"METRIC",
-            "formula": "[value]*1000",
+            "measuringSystem": "METRIC",
+            "toBaseFormula": "[value]*1000",
             "description": "Degree Celcius Unit"
         },
         {
@@ -54,8 +55,9 @@
                 "$oid": "74e9155b5ed24e4c38d60e3c"
             },
             "isBaseUnit": true,
-            "measuringSystem":"METRIC",
-            "formula": "[value]/1000",
+            "measuringSystem": "METRIC",
+            "fromBaseFormula": "[value]",
+            "toBaseFormula": "[value]/1000",
             "description": "Temperature Unit"
         }
     ]

@@ -89,13 +89,15 @@ public class UpdateGroupIT extends AbstractIT {
     public void shouldNotUpdateGroupWhichAlreadyExistsWithSameNameButWithDifferentCase()
             throws Exception {
         author("Nimra Inam");
-        description("An existing unit group should not be updated by just converting it to a different case");
+        description(
+                "An existing unit group should not be updated by just converting it to a different case");
 
         variable(GROUP_ID, EXISTING_GROUP_ID);
 
         putRequest(GROUPS_URL, //
                 "${groupId}", //
-                readFile("/datasets/groups/case_insensitive_matching/case_insensitive_matching_group.json"));
+                readFile(
+                        "/datasets/groups/case_insensitive_matching/case_insensitive_matching_group.json"));
 
         verifyResponse(HttpStatus.CONFLICT, //
                 readFile("/datasets/groups/errors/duplicate_group_error.json"));
@@ -105,7 +107,8 @@ public class UpdateGroupIT extends AbstractIT {
     @CitrusTest
     public void shouldNotUpdateGroupWithMissingNameAndDescription() throws Exception {
         author("Nimra Inam");
-        description("A unit group with missing name and description should not be updated");
+        description(
+                "A unit group with missing name and description should not be updated");
 
         variable(GROUP_ID, EXISTING_GROUP_ID);
         variable("nameProperty", "name");
@@ -121,8 +124,10 @@ public class UpdateGroupIT extends AbstractIT {
                 .message(new HttpMessage() //
                         .status(HttpStatus.BAD_REQUEST)) //
                 .messageType(MessageType.JSON) //
-                .validate("$.errors[*].property","@assertThat(allOf(containsString(${nameProperty}), containsString(${descriptionProperty})))@") //
-                .validate("$.errors[*].message","@assertThat(allOf(containsString(${nameMessage}), containsString(${descriptionMessage})))@"));
+                .validate("$.errors[*].property",
+                        "@assertThat(allOf(containsString(${nameProperty}), containsString(${descriptionProperty})))@") //
+                .validate("$.errors[*].message",
+                        "@assertThat(allOf(containsString(${nameMessage}), containsString(${descriptionMessage})))@"));
     }
 
 }

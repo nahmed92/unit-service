@@ -17,7 +17,7 @@
             "groupId": "53e9155b5ed24e4c38d60e3c",
             "isBaseUnit": false,
             "measuringSystem": "METRIC",
-            "formula": "1/1000",
+            "toBaseFormula": "1/1000",
             "description": "Kilogram Unit"
         }
     ]

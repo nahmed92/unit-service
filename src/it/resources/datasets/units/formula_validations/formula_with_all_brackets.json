@@ -3,7 +3,8 @@
     "groupId": "599585660fcdf874985e399e",
     "description": "lb/h unit description",
     "measuringSystem": "METRIC",
-    "formula": "${formula}",
+    "toBaseFormula": "${toBaseFormula}",
+    "fromBaseFormula" : "[value]",
     "_links": {
         "self": {
             "href": "@contains(/units)@"
