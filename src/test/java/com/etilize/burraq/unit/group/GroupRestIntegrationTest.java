@@ -328,4 +328,12 @@ public class GroupRestIntegrationTest extends AbstractRestIntegrationTest {
                 .andExpect(jsonPath("$.errors[0].message", is("Unit does not exist.")));
     }
 
+    @Test
+    @ShouldMatchDataSet(location = "/datasets/groups/group_after_delete_also_delete_associated_unit.json")
+    public void shouldDeleteAssociatedUnitsOnGroupDelete() throws Exception {
+        mockMvc.perform(delete("/groups/{id}", new ObjectId("74e9155b5ed24e4c38d60e3c")) //
+                .contentType(MediaType.APPLICATION_JSON)) //
+                .andExpect(status().isNoContent());
+    }
+
 }

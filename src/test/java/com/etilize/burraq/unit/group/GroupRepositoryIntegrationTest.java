@@ -32,7 +32,6 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 import java.util.List;
-
 import javax.validation.ConstraintViolationException;
 
 import org.bson.types.ObjectId;

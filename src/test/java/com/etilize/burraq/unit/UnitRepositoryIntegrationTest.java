@@ -268,4 +268,29 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
         unit.setId(new ObjectId("59b63ec8e110b21a936c9eed"));
         unitRepository.save(unit);
     }
+
+    @Test
+    public void shouldFindUnitsByGroupId() {
+        final List<Unit> units = unitRepository.findAllByGroupId(
+                new ObjectId("74e9155b5ed24e4c38d60e3c"));
+        assertThat(units, is(notNullValue()));
+        assertThat(units.get(0).getName(), is("fahrenheit"));
+        assertThat(units.get(0).getGroupId(),
+                is(new ObjectId("74e9155b5ed24e4c38d60e3c")));
+        assertThat(units.get(0).getFormula(), is("1/1000"));
+        assertThat(units.get(0).getMeasuringSystem(), is(MeasuringSystem.METRIC));
+        assertThat(units.get(0).getDescription(), is("Temperature Unit"));
+        assertThat(units.get(1).getName(), is("Degree Celcius"));
+        assertThat(units.get(1).getGroupId(),
+                is(new ObjectId("74e9155b5ed24e4c38d60e3c")));
+        assertThat(units.get(1).getFormula(), is("[value]*1000"));
+        assertThat(units.get(1).getMeasuringSystem(), is(MeasuringSystem.METRIC));
+        assertThat(units.get(1).getDescription(), is("Degree Celcius Unit"));
+        assertThat(units.get(2).getName(), is("Kelvin"));
+        assertThat(units.get(2).getGroupId(),
+                is(new ObjectId("74e9155b5ed24e4c38d60e3c")));
+        assertThat(units.get(2).getFormula(), is("[value]/1000"));
+        assertThat(units.get(2).getMeasuringSystem(), is(MeasuringSystem.METRIC));
+        assertThat(units.get(2).getDescription(), is("Temperature Unit"));
+    }
 }

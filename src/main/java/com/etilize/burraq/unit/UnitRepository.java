@@ -28,11 +28,13 @@
 
 package com.etilize.burraq.unit;
 
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import com.querydsl.core.types.dsl.StringPath;
 
@@ -51,4 +53,13 @@ public interface UnitRepository extends MongoRepository<Unit, ObjectId>,
             return path.equalsIgnoreCase(value);
         });
     }
+
+    /**
+     * Returns a List of Unit find by groupId
+     *
+     * @param groupId ID of Group
+     * @return List of units
+     */
+    @RestResource(exported = false)
+    List<Unit> findAllByGroupId(ObjectId groupId);
 }

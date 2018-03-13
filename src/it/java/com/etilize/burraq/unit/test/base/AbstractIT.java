@@ -47,6 +47,7 @@ import com.consol.citrus.http.message.HttpMessage;
 import com.consol.citrus.http.message.*;
 import com.consol.citrus.message.*;
 
+
 /**
  * This class should be extended to write IT test cases. It provides methods to read file,
  * put, post, remove and verify responses.
