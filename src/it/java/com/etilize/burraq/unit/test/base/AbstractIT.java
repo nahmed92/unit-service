@@ -47,7 +47,6 @@ import com.consol.citrus.http.message.HttpMessage;
 import com.consol.citrus.http.message.*;
 import com.consol.citrus.message.*;
 
-
 /**
  * This class should be extended to write IT test cases. It provides methods to read file,
  * put, post, remove and verify responses.
@@ -152,12 +151,22 @@ public abstract class AbstractIT extends JUnit4CitrusTestRunner {
      */
     protected void deleteRequest(final String url, final String groupId) {
         // Sends a delete request to api
-        send(builder -> builder.endpoint(serviceClient) //
-                .message(new HttpMessage() //
-                        .path(url + groupId) //
-                        .method(HttpMethod.DELETE) //
-                        .contentType(APPLICATION_JSON_VALUE) //
-                        .accept(APPLICATION_JSON_VALUE)));
+        if (StringUtils.equals(groupId, "")) {
+            send(builder -> builder.endpoint(serviceClient) //
+                    .message(new HttpMessage() //
+                            .path(url) //
+                            .method(HttpMethod.DELETE) //
+                            .contentType(APPLICATION_JSON_VALUE) //
+                            .accept(APPLICATION_JSON_VALUE)));
+
+        } else {
+            send(builder -> builder.endpoint(serviceClient) //
+                    .message(new HttpMessage() //
+                            .path(url + groupId) //
+                            .method(HttpMethod.DELETE) //
+                            .contentType(APPLICATION_JSON_VALUE) //
+                            .accept(APPLICATION_JSON_VALUE)));
+        }
     }
 
     /**

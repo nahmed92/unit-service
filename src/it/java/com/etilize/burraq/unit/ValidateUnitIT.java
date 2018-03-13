@@ -147,21 +147,29 @@ public class ValidateUnitIT extends AbstractIT {
         getRequest(GROUPS_URL + "?id=${existingGroup}");
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/groups/group_with_base_unit_response.json"));
+
+        // Cleanup
+        deleteRequest(resourceLocation,"");
     }
 
     @Test
     @CitrusTest
-    public void shouldSetIsBaseUnitToFalseForAnyUnitAfterFirstUnitToAGroup()
+    public void shouldSetIsBaseUnitToFalseForAnyUnitAfterFirstUnitToAGroup(@CitrusResource TestContext context)
             throws Exception {
         author("Nimra Inam");
         description("Unit after the first unit to a group should be added with isBaseUnit set to false");
 
+        variable(LOCATION_HEADER_VALUE, "");
         variable("existingGroup", "5a1d3e560fcdf812bee4e099");
         variable("existingUnit", "5a1eac070fcdf812bee4e270");
 
         // Second Unit
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/validations/second_unit_in_group_request.json"));
+
+        extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
+        String resourceLocation = parseAndSetVariable(UNITS_URL,
+                context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
 
         // Verify Unit
         getRequest(UNITS_URL + "?groupId=${existingGroup}&isBaseUnit=false");
@@ -172,5 +180,8 @@ public class ValidateUnitIT extends AbstractIT {
         getRequest(GROUPS_URL + "?id=${existingGroup}");
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/groups/group_with_two_units_and_base_unit_response.json"));
+
+        // Cleanup
+        deleteRequest(resourceLocation,"");
     }
 }

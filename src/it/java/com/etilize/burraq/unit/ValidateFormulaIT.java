@@ -313,6 +313,9 @@ public class ValidateFormulaIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/formula_validations/formula_with_all_brackets.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test

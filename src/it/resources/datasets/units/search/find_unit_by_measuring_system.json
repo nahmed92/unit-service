@@ -15,36 +15,6 @@
                         "href": "@contains(/units)@"
                     }
                 }
-            },
-            {
-                "name": "Milli Gram",
-                "groupId": "599585660fcdf874985e399e",
-                "description": "Milli Gram Unit",
-                "measuringSystem": "IMPERIAL",
-                "formula": "[value] / 1000",
-                "_links": {
-                    "self": {
-                        "href": "@contains(/units)@"
-                    },
-                    "unit": {
-                        "href": "@contains(/units)@"
-                    }
-                }
-            },
-            {
-                "name": "Meter",
-                "groupId": "599585660fcdf874985e399e",
-                "description": "Meter Unit",
-                "measuringSystem": "IMPERIAL",
-                "formula": "[value] / 1000",
-                "_links": {
-                    "self": {
-                        "href": "@contains(/units)@"
-                    },
-                    "unit": {
-                        "href": "@contains(/units)@"
-                    }
-                }
             }
         ]
     },
@@ -59,7 +29,7 @@
     },
     "page": {
         "size": 20,
-        "totalElements": 3,
+        "totalElements": 1,
         "totalPages": 1,
         "number": 0
     }

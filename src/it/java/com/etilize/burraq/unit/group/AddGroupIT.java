@@ -28,16 +28,13 @@
 
 package com.etilize.burraq.unit.group;
 
-import static org.springframework.http.MediaType.*;
-
-import org.junit.Test;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpHeaders;
+import org.junit.*;
+import org.springframework.http.*;
 
 import com.consol.citrus.annotations.*;
-import com.consol.citrus.message.MessageType;
-import com.consol.citrus.context.TestContext;
+import com.consol.citrus.context.*;
 import com.consol.citrus.http.message.HttpMessage;
+import com.consol.citrus.message.*;
 import com.etilize.burraq.unit.test.base.*;
 
 public class AddGroupIT extends AbstractIT {
@@ -56,9 +53,13 @@ public class AddGroupIT extends AbstractIT {
         extractHeader(HttpStatus.CREATED, HttpHeaders.LOCATION);
         String unitLocation = parseAndSetVariable(GROUPS_URL, //
                 context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
+        echo("unit is: "+ unitLocation);
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/groups/group_after_post.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test
