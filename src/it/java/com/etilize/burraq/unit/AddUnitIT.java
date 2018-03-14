@@ -64,6 +64,9 @@ public class AddUnitIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/measuring_system/unit/unit_with_metric_measuring_system_response.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test
@@ -84,6 +87,9 @@ public class AddUnitIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/measuring_system/unit/unit_with_imperial_measuring_system_response.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test
@@ -104,6 +110,9 @@ public class AddUnitIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/measuring_system/unit/unit_with_none_measuring_system_response.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test
@@ -124,6 +133,9 @@ public class AddUnitIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/measuring_system/base_unit/base_unit_with_metric_measuring_system_response.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test
@@ -144,6 +156,9 @@ public class AddUnitIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/measuring_system/base_unit/base_unit_with_imperial_measuring_system_response.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test
@@ -164,6 +179,9 @@ public class AddUnitIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/measuring_system/base_unit/base_unit_with_none_measuring_system_response.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test
@@ -197,6 +215,9 @@ public class AddUnitIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/missing_values/unit_without_formula_response.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test
@@ -217,6 +238,9 @@ public class AddUnitIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/missing_values/unit_without_base_unit_response.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test
@@ -237,6 +261,9 @@ public class AddUnitIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/missing_values/unit_without_metric_system_response.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test
@@ -299,6 +326,9 @@ public class AddUnitIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/null_values/unit_with_null_in_formula_response.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test
@@ -319,6 +349,9 @@ public class AddUnitIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/null_values/unit_with_null_in_metric_system_response.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test
@@ -339,6 +372,9 @@ public class AddUnitIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/null_values/unit_with_null_in_base_unit_response.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test
@@ -385,6 +421,9 @@ public class AddUnitIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/empty_string/unit_with_empty_string_in_formula_response.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test
@@ -422,6 +461,9 @@ public class AddUnitIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/empty_string/unit_with_empty_string_in_base_unit_response.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test
@@ -458,6 +500,9 @@ public class AddUnitIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/different_types/unit_with_mixed_letters_response.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test
@@ -478,6 +523,9 @@ public class AddUnitIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/different_types/unit_with_special_characters_response.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
     @Test
@@ -498,6 +546,9 @@ public class AddUnitIT extends AbstractIT {
         verifyResponse(HttpStatus.OK, //
                 readFile("/datasets/units/validations/different_types/unit_with_all_numbers_response.json"), //
                 unitLocation);
+
+        // Cleanup
+        deleteRequest(unitLocation,"");
     }
 
 }

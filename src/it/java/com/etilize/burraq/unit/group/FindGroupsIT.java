@@ -27,11 +27,11 @@
 
 package com.etilize.burraq.unit.group;
 
-import org.junit.Test;
-import org.springframework.http.HttpStatus;
+import org.junit.*;
+import org.springframework.http.*;
 
+import com.consol.citrus.annotations.*;
 import com.consol.citrus.http.message.HttpMessage;
-import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.message.*;
 import com.etilize.burraq.unit.test.base.*;
 

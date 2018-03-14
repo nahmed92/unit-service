@@ -28,12 +28,12 @@
 package com.etilize.burraq.unit;
 
 import org.junit.*;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.*;
 
-import com.consol.citrus.annotations.CitrusTest;
+import com.consol.citrus.annotations.*;
+import com.consol.citrus.http.message.HttpMessage;
 import com.consol.citrus.message.*;
 import com.etilize.burraq.unit.test.base.*;
-import com.consol.citrus.http.message.HttpMessage;
 
 /**
  * This class contains test cases related Get Unit(s) functionality.
@@ -46,15 +46,14 @@ public class FindUnitsIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    @Ignore("Failing on Jenkins,Testing team will fix it")
     public void shouldFindAllUnits() throws Exception {
         author("Nimra Inam");
         description("Should return all existing units");
 
         variable("urlToCheck", "/units");
         variable("pageSize", "20");
-        variable("totalElements", "21");
-        variable("totalPages", "2");
+        variable("totalElements", "8");
+        variable("totalPages", "1");
         variable("pageNumber", "0");
 
         getRequest(UNITS_URL);
@@ -77,7 +76,7 @@ public class FindUnitsIT extends AbstractIT {
                         "@contains(${urlToCheck})@") //
                 .validate("$.page.size", "${pageSize}") //
                 .validate("$.page.totalElements",
-                        "@assertThat(greaterThanOrEqualTo(${totalElements}))@") //
+                        "@assertThat(lessThanOrEqualTo(${totalElements}))@") //
                 .validate("$.page.totalPages",
                         "@assertThat(greaterThanOrEqualTo(${totalPages}))@") //
                 .validate("$.page.number", "${pageNumber}"));
@@ -155,7 +154,6 @@ public class FindUnitsIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    @Ignore("Testing Team will Fix Test Failure on Jenkins")
     public void shouldFindUnitsByBaseUnit() throws Exception {
         author("Nimra Inam");
         description("Validate response by finding unit by base unit");
@@ -184,7 +182,6 @@ public class FindUnitsIT extends AbstractIT {
 
     @Test
     @CitrusTest
-    @Ignore("Failing on Jenkins,Testing team will fix it")
     public void shouldFindUnitsByMeasuringSystem() throws Exception {
         author("Nimra Inam");
         description("Validate response by finding unit by metric system");

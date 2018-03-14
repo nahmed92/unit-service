@@ -1,7 +1,7 @@
 {
     "_embedded": {
         "units": [
-            {
+             {
                 "name": "Gb",
                 "groupId": "59df33dc0fcdf86d872acd27",
                 "description": "Gb Unit",
@@ -60,51 +60,6 @@
                         "href": "@contains(/units)@"
                     }
                 }
-            },
-            {
-                "name": "Hard Drive Capacity",
-                "groupId": "5a1805530fcdf812bee4dd66",
-                "description": "Hard Drive Capacity Unit",
-                "measuringSystem": "NONE",
-                "formula": "[value] / 1000",
-                "_links": {
-                    "self": {
-                        "href": "@contains(/units)@"
-                    },
-                    "unit": {
-                        "href": "@contains(/units)@"
-                    }
-                }
-            },
-            {
-                "name": "Gram",
-                "groupId": "599585660fcdf874985e399e",
-                "description": "Gram Unit",
-                "measuringSystem": "METRIC",
-                "formula": "[value] / 1000",
-                "_links": {
-                    "self": {
-                        "href": "@contains(/units)@"
-                    },
-                    "unit": {
-                        "href": "@contains(/units)@"
-                    }
-                }
-            },
-            {
-                "name": "GHz",
-                "groupId": "5995843b0fcdf874985e399d",
-                "description": "GHz unit",
-                "measuringSystem": "NONE",
-                "formula": "[value] / 1000",
-                "_links": {
-                    "self": {
-                        "href": "@contains(/units)@"
-                    },
-                    "unit": {
-                        "href": "@contains(/units)@"
-                    }
-                }
             }
         ]
     },
@@ -119,7 +74,7 @@
     },
     "page": {
         "size": 20,
-        "totalElements": 7,
+        "totalElements": 4,
         "totalPages": 1,
         "number": 0
     }
