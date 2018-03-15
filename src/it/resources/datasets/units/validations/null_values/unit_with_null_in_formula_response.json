@@ -3,7 +3,8 @@
     "groupId": "599585660fcdf874985e399e",
     "description": "Hour Unit",
     "measuringSystem": "NONE",
-    "formula": "[value]",
+    "toBaseFormula": "[value]",
+    "fromBaseFormula": "[value]",
     "_links": {
         "self": {
             "href": "@endsWith(${locationHeaderValue})@"

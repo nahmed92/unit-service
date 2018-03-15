@@ -57,13 +57,15 @@ public class UpdateUnitIT extends AbstractIT {
 
         putRequest(UNITS_URL, //
                 "${" + UNIT_ID + "}", //
-                readFile("/datasets/units/update/update_name_and_description_of_unit.json"));
+                readFile(
+                        "/datasets/units/update/update_name_and_description_of_unit.json"));
 
         extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
         String unitLocation = parseAndSetVariable(UNITS_URL, //
                 context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/update/update_name_and_description_of_unit_response.json"), //
+                readFile(
+                        "/datasets/units/update/update_name_and_description_of_unit_response.json"), //
                 unitLocation);
     }
 
@@ -123,7 +125,8 @@ public class UpdateUnitIT extends AbstractIT {
         String unitLocation = parseAndSetVariable(UNITS_URL, //
                 context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/update/update_measuring_system_of_unit_response.json"), //
+                readFile(
+                        "/datasets/units/update/update_measuring_system_of_unit_response.json"), //
                 unitLocation);
     }
 
@@ -170,7 +173,8 @@ public class UpdateUnitIT extends AbstractIT {
     public void shouldUpdateUnitWithDefaultWhenNullInFormula(
             @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
-        description("An update operation should update unit with default value in formula when null is added");
+        description(
+                "An update operation should update unit with default value in formula when null is added");
 
         variable(LOCATION_HEADER_VALUE, "");
         variable(UNIT_ID, EXISTING_UNIT_ID_TO_UPDATE);
@@ -183,7 +187,8 @@ public class UpdateUnitIT extends AbstractIT {
         String unitLocation = parseAndSetVariable(UNITS_URL, //
                 context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/update/update_unit_with_null_in_formula_response.json"), //
+                readFile(
+                        "/datasets/units/update/update_unit_with_null_in_formula_response.json"), //
                 unitLocation);
     }
 
@@ -192,20 +197,23 @@ public class UpdateUnitIT extends AbstractIT {
     public void shouldUpdateUnitWithDefaultWhenNullInMeasuringSystem(
             @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
-        description("An update operation should update unit with default value in measuring system when null is added");
+        description(
+                "An update operation should update unit with default value in measuring system when null is added");
 
         variable(LOCATION_HEADER_VALUE, "");
         variable(UNIT_ID, EXISTING_UNIT_ID_TO_UPDATE);
 
         putRequest(UNITS_URL, //
                 "${" + UNIT_ID + "}", //
-                readFile("/datasets/units/update/update_unit_with_null_in_measuring_system.json"));
+                readFile(
+                        "/datasets/units/update/update_unit_with_null_in_measuring_system.json"));
 
         extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
         String unitLocation = parseAndSetVariable(UNITS_URL, //
                 context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/update/update_unit_with_null_in_measuring_system_response.json"), //
+                readFile(
+                        "/datasets/units/update/update_unit_with_null_in_measuring_system_response.json"), //
                 unitLocation);
     }
 
@@ -214,20 +222,23 @@ public class UpdateUnitIT extends AbstractIT {
     public void shouldUpdateUnitWithDefaultWhenNullInBaseUnit(
             @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
-        description("An update operation should update unit with default when null is added in Base Unit");
+        description(
+                "An update operation should update unit with default when null is added in Base Unit");
 
         variable(LOCATION_HEADER_VALUE, "");
         variable(UNIT_ID, EXISTING_UNIT_ID_TO_UPDATE);
 
         putRequest(UNITS_URL, //
                 "${" + UNIT_ID + "}", //
-                readFile("/datasets/units/update/update_unit_with_null_in_base_unit.json"));
+                readFile(
+                        "/datasets/units/update/update_unit_with_null_in_base_unit.json"));
 
         extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
         String unitLocation = parseAndSetVariable(UNITS_URL, //
                 context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/update/update_unit_with_null_in_base_unit_response.json"), //
+                readFile(
+                        "/datasets/units/update/update_unit_with_null_in_base_unit_response.json"), //
                 unitLocation);
     }
 
@@ -246,7 +257,8 @@ public class UpdateUnitIT extends AbstractIT {
 
         putRequest(UNITS_URL, //
                 "${" + UNIT_ID + "}", //
-                readFile("/datasets/units/update/update_unit_with_null_in_group_id.json"));
+                readFile(
+                        "/datasets/units/update/update_unit_with_null_in_group_id.json"));
 
         receive(builder -> builder.endpoint(serviceClient) //
                 .message(new HttpMessage() //
@@ -273,7 +285,8 @@ public class UpdateUnitIT extends AbstractIT {
 
         putRequest(UNITS_URL, //
                 "${" + UNIT_ID + "}", //
-                readFile("/datasets/units/update/update_unit_with_empty_string_in_name.json"));
+                readFile(
+                        "/datasets/units/update/update_unit_with_empty_string_in_name.json"));
 
         receive(builder -> builder.endpoint(serviceClient) //
                 .message(new HttpMessage() //
@@ -289,20 +302,23 @@ public class UpdateUnitIT extends AbstractIT {
     public void shouldUpdateUnitWithDefaultWhenEmptyStringInFormula(
             @CitrusResource TestContext context) throws Exception {
         author("Nimra Inam");
-        description("An update operation should update unit with default when empty string is given in formula");
+        description(
+                "An update operation should update unit with default when empty string is given in formula");
 
         variable(LOCATION_HEADER_VALUE, "");
         variable(UNIT_ID, EXISTING_UNIT_ID_TO_UPDATE);
 
         putRequest(UNITS_URL, //
                 "${" + UNIT_ID + "}", //
-                readFile("/datasets/units/update/update_unit_with_empty_string_in_formula.json"));
+                readFile(
+                        "/datasets/units/update/update_unit_with_empty_string_in_formula.json"));
 
         extractHeader(HttpStatus.OK, HttpHeaders.LOCATION);
         String unitLocation = parseAndSetVariable(UNITS_URL, //
                 context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/update/update_unit_with_empty_string_in_formula_response.json"), //
+                readFile(
+                        "/datasets/units/update/update_unit_with_empty_string_in_formula_response.json"), //
                 unitLocation);
     }
 
@@ -311,16 +327,19 @@ public class UpdateUnitIT extends AbstractIT {
     @Ignore
     public void shouldNotUpdateUnitWithEmptyStringInMeasuringSystem() throws Exception {
         author("Nimra Inam");
-        description("An update operation should not update unit with empty string in Measuring System");
+        description(
+                "An update operation should not update unit with empty string in Measuring System");
 
         variable(LOCATION_HEADER_VALUE, "");
         variable(UNIT_ID, EXISTING_UNIT_ID_TO_UPDATE);
 
         putRequest(UNITS_URL, //
                 "${" + UNIT_ID + "}", //
-                readFile("/datasets/units/update/update_unit_with_empty_string_in_measuring_system.json"));
+                readFile(
+                        "/datasets/units/update/update_unit_with_empty_string_in_measuring_system.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/update/update_unit_with_empty_string_in_measuring_system_error.json"));
+                readFile(
+                        "/datasets/units/update/update_unit_with_empty_string_in_measuring_system_error.json"));
     }
 }

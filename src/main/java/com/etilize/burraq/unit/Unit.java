@@ -58,6 +58,8 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
 
     public static final String COLLECTION_NAME = "units";
 
+    private static final String DEFAULT_FORMULA_VALUE = "[value]";
+
     @NotBlank(message = "name is required")
     @Indexed(unique = true)
     private final String name;
@@ -70,7 +72,10 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
     private MeasuringSystem measuringSystem = MeasuringSystem.NONE;
 
     @Formula
-    private String formula = "[value]";
+    private String toBaseFormula = DEFAULT_FORMULA_VALUE;
+
+    @Formula
+    private String fromBaseFormula = DEFAULT_FORMULA_VALUE;
 
     @NotBlank(message = "description is required")
     private final String description;
@@ -139,18 +144,41 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
     }
 
     /**
-     * Set unit formula
-     * @param formula It's the formula to convert value
+     * Sets formula to convert value this unit to base unit
+     *
+     * @param formula to convert value into base unit
      */
-    public void setFormula(final String formula) {
-        this.formula = StringUtils.isBlank(formula) ? "[value]" : formula;
+    public void setToBaseFormula(final String toBaseFormula) {
+        this.toBaseFormula = StringUtils.isBlank(toBaseFormula) ? DEFAULT_FORMULA_VALUE
+                : toBaseFormula;
     }
 
     /**
-     * @return formula
+     * Return formula to convert into baseUnit
+     *
+     * @return toBaseformula
      */
-    public String getFormula() {
-        return formula;
+    public String getToBaseFormula() {
+        return toBaseFormula;
+    }
+
+    /**
+     * Sets formula to convert value from base unit to this unit
+     *
+     * @param fromBaseFormula formula to convert from base unit
+     */
+    public void setFromBaseFormula(final String fromBaseFormula) {
+        this.fromBaseFormula = StringUtils.isBlank(fromBaseFormula)
+                ? DEFAULT_FORMULA_VALUE : fromBaseFormula;
+    }
+
+    /**
+     * Return fromula to convert value from base unit
+     *
+     * @return the fromBaseFormula
+     */
+    public String getFromBaseFormula() {
+        return fromBaseFormula;
     }
 
     /**

@@ -44,13 +44,14 @@ public class ValidateFormulaIT extends AbstractIT {
         author("Nimra Inam");
         description("Adding a unit with text in formula should return bad request");
 
-        variable("formula", "[value]test/0");
+        variable("toBaseFormula", "[value]test/0");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 
     @Test
@@ -61,13 +62,14 @@ public class ValidateFormulaIT extends AbstractIT {
         description(
                 "Adding a unit with invalid operator in formula should return bad request");
 
-        variable("formula", "[value]#0");
+        variable("toBaseFormula", "[value]#0");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 
     @Test
@@ -75,15 +77,17 @@ public class ValidateFormulaIT extends AbstractIT {
     public void shouldReturnBadRequestOnAddingUnitWithRepeatedOperatorInFormula()
             throws Exception {
         author("Nimra Inam");
-        description("Adding a unit with Repeated Operator in formula should return bad request");
+        description(
+                "Adding a unit with Repeated Operator in formula should return bad request");
 
-        variable("formula", "[value]**0");
+        variable("toBaseFormula", "[value]**0");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 
     @Test
@@ -91,15 +95,17 @@ public class ValidateFormulaIT extends AbstractIT {
     public void shouldReturnBadRequestOnAddingUnitWithMissingEndingBracketsInFormula()
             throws Exception {
         author("Nimra Inam");
-        description("Adding a unit with missing ending brackets in formula should return bad request");
+        description(
+                "Adding a unit with missing ending brackets in formula should return bad request");
 
-        variable("formula", "[value]*(10/2");
+        variable("toBaseFormula", "[value]*(10/2");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 
     @Test
@@ -107,15 +113,17 @@ public class ValidateFormulaIT extends AbstractIT {
     public void shouldReturnBadRequestOnAddingUnitWithTextAndMissingOperatorInFormula()
             throws Exception {
         author("Nimra Inam");
-        description("Adding a unit with text and missing operator in formula should return bad request");
+        description(
+                "Adding a unit with text and missing operator in formula should return bad request");
 
-        variable("formula", "[value]my test");
+        variable("toBaseFormula", "[value]my test");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 
     @Test
@@ -123,15 +131,17 @@ public class ValidateFormulaIT extends AbstractIT {
     public void shouldReturnBadRequestOnAddingUnitWithMissingStartingAndEndingBracketsInFormula()
             throws Exception {
         author("Nimra Inam");
-        description("Adding a unit with missing starting and ending brackets in formula should return bad request");
+        description(
+                "Adding a unit with missing starting and ending brackets in formula should return bad request");
 
-        variable("formula", "value])1000*(3+4");
+        variable("toBaseFormula", "value])1000*(3+4");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 
     @Test
@@ -139,15 +149,17 @@ public class ValidateFormulaIT extends AbstractIT {
     public void shouldReturnBadRequestOnAddingUnitWithoutPlaceholderBracketsInFormula()
             throws Exception {
         author("Nimra Inam");
-        description("Adding a unit without placeholder brackets in fromula should return bad request");
+        description(
+                "Adding a unit without placeholder brackets in fromula should return bad request");
 
-        variable("formula", "value)+50");
+        variable("toBaseFormula", "value)+50");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 
     @Test
@@ -155,15 +167,17 @@ public class ValidateFormulaIT extends AbstractIT {
     public void shouldReturnBadRequestOnAddingUnitWithOperatorInStartAndEndOfFormula()
             throws Exception {
         author("Nimra Inam");
-        description("Adding a unit with operator in start and end of fromula should return bad request");
+        description(
+                "Adding a unit with operator in start and end of fromula should return bad request");
 
-        variable("formula", "*[value]/");
+        variable("toBaseFormula", "*[value]/");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 
     @Test
@@ -171,15 +185,17 @@ public class ValidateFormulaIT extends AbstractIT {
     public void shouldReturnBadRequestOnAddingUnitWithEmptyBracketsInFormula()
             throws Exception {
         author("Nimra Inam");
-        description("Adding a unit with empty brackets in fromula should return bad request");
+        description(
+                "Adding a unit with empty brackets in fromula should return bad request");
 
-        variable("formula", "([value]+2)/{}");
+        variable("toBaseFormula", "([value]+2)/{}");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 
     @Test
@@ -187,15 +203,17 @@ public class ValidateFormulaIT extends AbstractIT {
     public void shouldReturnBadRequestOnAddingUnitWithTextInFormulaPlaceholder()
             throws Exception {
         author("Nimra Inam");
-        description("Adding a unit with text in formula placeholder should return bad request");
+        description(
+                "Adding a unit with text in formula placeholder should return bad request");
 
-        variable("formula", "[myvalue]/1000");
+        variable("toBaseFormula", "[myvalue]/1000");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 
     @Test
@@ -205,13 +223,14 @@ public class ValidateFormulaIT extends AbstractIT {
         author("Nimra Inam");
         description("Adding a unit with only text in formula should return bad request");
 
-        variable("formula", "this is a formula");
+        variable("toBaseFormula", "this is a formula");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 
     @Test
@@ -219,15 +238,17 @@ public class ValidateFormulaIT extends AbstractIT {
     public void shouldReturnBadRequestOnAddingUnitWithFormulaWithoutSquareBracketsInPlaceholder()
             throws Exception {
         author("Nimra Inam");
-        description("Adding a unit without square brackets in formula placeholder should return bad request");
+        description(
+                "Adding a unit without square brackets in formula placeholder should return bad request");
 
-        variable("formula", "value*1000");
+        variable("toBaseFormula", "value*1000");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 
     @Test
@@ -237,13 +258,14 @@ public class ValidateFormulaIT extends AbstractIT {
         author("Nimra Inam");
         description("Adding a unit with incomplete formula should return bad request");
 
-        variable("formula", "1000%");
+        variable("toBaseFormula", "1000%");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 
     @Test
@@ -251,15 +273,17 @@ public class ValidateFormulaIT extends AbstractIT {
     public void shouldReturnBadRequestOnAddingUnitWithSpecialCharactersInFormula()
             throws Exception {
         author("Nimra Inam");
-        description("Adding a unit with special characters in formula should return bad request");
+        description(
+                "Adding a unit with special characters in formula should return bad request");
 
-        variable("formula", "!@#$%^&*()~<>/?;:'|,.=");
+        variable("toBaseFormula", "!@#$%^&*()~<>/?;:'|,.=");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 
     @Test
@@ -269,13 +293,14 @@ public class ValidateFormulaIT extends AbstractIT {
         author("Nimra Inam");
         description("Adding a unit with symbols in formula should return bad request");
 
-        variable("formula", "°F/Wµft²");
+        variable("toBaseFormula", "°F/Wµft²");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 
     @Test
@@ -285,13 +310,14 @@ public class ValidateFormulaIT extends AbstractIT {
         author("Nimra Inam");
         description("A unit with only operators in formula should return bad request");
 
-        variable("formula", "/*-+-^%");
+        variable("toBaseFormula", "/*-+-^%");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 
     @Test
@@ -302,7 +328,7 @@ public class ValidateFormulaIT extends AbstractIT {
         description("A unit with all type of brackets in formula should be added");
 
         variable(LOCATION_HEADER_VALUE, "");
-        variable("formula", "[{([value] + 2) * (6 - 4) + 2} * 4]");
+        variable("toBaseFormula", "[{([value] + 2) * (6 - 4) + 2} * 4]");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
@@ -311,7 +337,8 @@ public class ValidateFormulaIT extends AbstractIT {
         String unitLocation = parseAndSetVariable(UNITS_URL, //
                 context.getVariable("${" + LOCATION_HEADER_VALUE + "}"));
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/units/formula_validations/formula_with_all_brackets.json"), //
+                readFile(
+                        "/datasets/units/formula_validations/formula_with_all_brackets.json"), //
                 unitLocation);
 
         // Cleanup
@@ -323,15 +350,17 @@ public class ValidateFormulaIT extends AbstractIT {
     public void shouldReturnBadRequestOnAddingUnitWithLiteralOperatorsInFormula()
             throws Exception {
         author("Nimra Inam");
-        description("A unit with literal mathematical operators in formula should return bad request");
+        description(
+                "A unit with literal mathematical operators in formula should return bad request");
 
-        variable("formula", "[{([value] + 2) × (6 ÷ 4) + 2} × 4]");
+        variable("toBaseFormula", "[{([value] + 2) × (6 ÷ 4) + 2} × 4]");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 
     @Test
@@ -341,12 +370,13 @@ public class ValidateFormulaIT extends AbstractIT {
         author("Nimra Inam");
         description("A unit with mixed case formula operator should return bad request");
 
-        variable("formula", "[vALue]*1000");
+        variable("toBaseFormula", "[vALue]*1000");
 
         postRequest(UNITS_URL, //
                 readFile("/datasets/units/formula_validations/unit_with_formula.json"));
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/formula_validations/invalid_formula_error.json"));
+                readFile(
+                        "/datasets/units/formula_validations/invalid_formula_error.json"));
     }
 }

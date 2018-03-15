@@ -157,7 +157,8 @@ public class FindGroupsIT extends AbstractIT {
         getRequest(GROUPS_URL + "?name=weight&description=this is weight unit group");
 
         verifyResponse(HttpStatus.OK, //
-                readFile("/datasets/groups/search/find_group_by_name_and_description.json"));
+                readFile(
+                        "/datasets/groups/search/find_group_by_name_and_description.json"));
     }
 
     @Test
@@ -177,7 +178,8 @@ public class FindGroupsIT extends AbstractIT {
     public void shouldRetunNoRecordWhenMatchingDescriptionDoesNotExist()
             throws Exception {
         author("Nimra Inam");
-        description("Validate response while finding group by description which does not exist");
+        description(
+                "Validate response while finding group by description which does not exist");
 
         getRequest(GROUPS_URL + "?description=groupNoFound");
 

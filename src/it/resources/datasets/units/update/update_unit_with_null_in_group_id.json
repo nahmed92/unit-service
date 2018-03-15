@@ -2,6 +2,7 @@
     "name": "Ounce Unit",
     "groupId": null,
     "measuringSystem": "METRIC",
-    "formula": "[value] / 1000",
+    "toBaseFormula": "[value] / 1000",
+    "fromBaseFormula": "[value]",
     "description": "This Ounce unit"
 }

@@ -2,6 +2,6 @@
     "name": "Gram",
     "groupId": null,
     "measuringSystem": "NONE",
-    "formula": "[value] / 1000",
+    "toBaseFormula": "[value] / 1000",
     "description": "Gram Unit"
 }

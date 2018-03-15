@@ -72,7 +72,7 @@ public class UnitRepositoryEventHandlerTest extends AbstractIntegrationTest {
         final Unit unit = new Unit("Gram", new ObjectId("53e9155b5ed24e4c38d60e3c"),
                 "Gram Unit");
         unit.setId(new ObjectId("59c8da92e110b26284265711"));
-        unit.setFormula("1/1000");
+        unit.setToBaseFormula("1/1000");
         unit.setMeasuringSystem(MeasuringSystem.METRIC);
         unitEventHandler.handleAfterUnitCreate(unit);
     }

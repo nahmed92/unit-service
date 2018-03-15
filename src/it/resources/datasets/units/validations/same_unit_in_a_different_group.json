@@ -2,6 +2,6 @@
     "name": "bit",
     "groupId": "599585660fcdf874985e399e",
     "measuringSystem": "NONE",
-    "formula": "[value] / 1000",
+    "toBaseFormula": "[value] / 1000",
     "description": "bit Unit"
 }

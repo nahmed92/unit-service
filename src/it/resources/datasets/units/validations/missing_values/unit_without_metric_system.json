@@ -1,6 +1,6 @@
 {
     "name": "Gb/s",
     "groupId": "5995843b0fcdf874985e399d",
-    "formula": "[value] / 1000",
+    "toBaseFormula": "[value] / 1000",
     "description": "Gb/s Unit"
 }

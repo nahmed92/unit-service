@@ -6,7 +6,8 @@
                 "groupId": "59df33dc0fcdf86d872acd27",
                 "description": "Gb Unit",
                 "measuringSystem": "NONE",
-                "formula": "[value] / 1000",
+                "toBaseFormula": "[value] / 1000",
+                "fromBaseFormula" : "[value]",
                 "_links": {
                     "self": {
                         "href": "@contains(/units)@"
@@ -21,7 +22,8 @@
                 "groupId": "59df33dc0fcdf86d872acd27",
                 "description": "Gb Unit",
                 "measuringSystem": "NONE",
-                "formula": "[value] / 1000",
+                "toBaseFormula": "[value] / 1000",
+                "fromBaseFormula" : "[value]",
                 "_links": {
                     "self": {
                         "href": "@contains(/units)@"
@@ -36,7 +38,8 @@
                 "groupId": "5995843b0fcdf874985e399d",
                 "description": "Kilogram Per Hour",
                 "measuringSystem": "IMPERIAL",
-                "formula": "[value] * 1000",
+                "fromBaseFormula" : "[value]",
+                "toBaseFormula": "[value] * 1000",
                 "_links": {
                     "self": {
                         "href": "@contains(/units)@"
@@ -51,7 +54,8 @@
                 "groupId": "5a1d3e560fcdf812bee4e099",
                 "description": "Milliampere Unit",
                 "measuringSystem": "NONE",
-                "formula": "[value] / 1000",
+                "toBaseFormula": "[value] / 1000",
+                "fromBaseFormula" : "[value]",
                 "_links": {
                     "self": {
                         "href": "@contains(/units)@"
@@ -79,3 +83,4 @@
         "number": 0
     }
 }
+
