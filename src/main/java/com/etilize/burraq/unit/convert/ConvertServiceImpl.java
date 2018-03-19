@@ -64,14 +64,14 @@ public class ConvertServiceImpl implements ConvertService {
      * @see com.etilize.burraq.unit.service.ConvertService#convert(com.etilize.burraq.unit.service.Source)
      */
     @Override
-    public List<ConvertedUnit> convert(final Payload payload) {
+    public Result convert(final Payload payload) {
         Assert.notNull(payload, "payload cannot be null");
         final Source source = payload.getSource();
         List<ConvertedUnit> convertedUnits = Lists.newArrayList();
         final Unit unit = unitRepository.findByName(source.getUnit());
         if (unit == null) {
             throw new UnsupportedOperationException(
-                    "Source unit [" + source.getUnit() + "] doesnot not exist");
+                    "Source unit [" + source.getUnit() + "] does not exist.");
         }
         // check if it is baseUnit, simply convert into target unit
         if (unit.isBaseUnit()) {
@@ -85,7 +85,7 @@ public class ConvertServiceImpl implements ConvertService {
             convertedUnits = convertBaseUnitValueToTargetUnits(baseUnitValue,
                     payload.getTarget(), unit.getGroupId());
         }
-        return convertedUnits;
+        return new Result(convertedUnits);
     }
 
     /**
@@ -104,12 +104,12 @@ public class ConvertServiceImpl implements ConvertService {
             // check Taget unit exist
             if (unit == null) {
                 throw new UnsupportedOperationException(
-                        "Target unit [" + unitName + "] doesnot not exist");
+                        "Target unit [" + unitName + "] does not exist.");
             }
             // check target unit is same group of source unit
             if (!unit.getGroupId().equals(groupId)) {
                 throw new UnsupportedOperationException("Target unit [" + unit.getName()
-                        + "] not found in source unit group");
+                        + "] not found in source unit group.");
             }
             final BigDecimal value = new BigDecimal(
                     executeFormula(unit.getFromBaseFormula(), sourceValue));

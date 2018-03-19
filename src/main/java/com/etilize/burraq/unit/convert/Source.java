@@ -28,9 +28,12 @@
 
 package com.etilize.burraq.unit.convert;
 
+import javax.validation.constraints.NotNull;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -43,8 +46,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Source {
 
+    @NotBlank(message = "source unit cannot be null or empty.")
     private final String unit;
 
+    @NotNull(message = "source value cannot be null.")
     private final Double value;
 
     /**

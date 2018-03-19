@@ -28,21 +28,49 @@
 
 package com.etilize.burraq.unit.convert;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
- * This service convert provided source unit into
- * provided target units
+ * Handles request of unit conversions
  *
  * @author Nasir Ahmed
  *
  */
-public interface ConvertService {
+@RestController
+@RequestMapping("/convert")
+public class ConvertController {
+
+    private final ConvertService service;
 
     /**
-     * this method converts provided value in source unit of payload object
-     * into target value, provided in payload target units
+     * Constructor to inject ConvertService
      *
-     * @param payload provided payload
-     * @return Result of converted target units
+     * @param service {@link ConvertService} instance
      */
-    Result convert(Payload payload);
+    @Autowired
+    public ConvertController(final ConvertService service) {
+        Assert.notNull(service, "convertService cannot be null.");
+        this.service = service;
+    }
+
+    /**
+     * Post request endpoint BaseUrl/convert
+     *
+     * @param payload {@link Payload}
+     * @return units converted from source
+     */
+    @PostMapping()
+    public ResponseEntity<Result> convert(
+            @Valid @RequestBody(required = true) final Payload payload) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.convert(payload));
+    }
 }

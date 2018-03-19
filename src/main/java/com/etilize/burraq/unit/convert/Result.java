@@ -28,21 +28,31 @@
 
 package com.etilize.burraq.unit.convert;
 
+import java.util.List;
+
 /**
- * This service convert provided source unit into
- * provided target units
+ * Return List of converted unit result
  *
  * @author Nasir Ahmed
  *
  */
-public interface ConvertService {
+public class Result {
+
+    private final List<ConvertedUnit> result;
 
     /**
-     * this method converts provided value in source unit of payload object
-     * into target value, provided in payload target units
-     *
-     * @param payload provided payload
-     * @return Result of converted target units
+     * Constructor for ConvertedUnit
+     * @param result {@link ConvertedUnit}}
      */
-    Result convert(Payload payload);
+    public Result(final List<ConvertedUnit> result) {
+        this.result = result;
+    }
+
+    /**
+     * Get List of converted result
+     * @return
+     */
+    public List<ConvertedUnit> getResult() {
+        return result;
+    }
 }
