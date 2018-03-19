@@ -146,7 +146,7 @@ public class Unit extends AbstractMongoEntity<ObjectId> {
     /**
      * Sets formula to convert value this unit to base unit
      *
-     * @param formula to convert value into base unit
+     * @param toBaseFormula to convert value into base unit
      */
     public void setToBaseFormula(final String toBaseFormula) {
         this.toBaseFormula = StringUtils.isBlank(toBaseFormula) ? DEFAULT_FORMULA_VALUE
