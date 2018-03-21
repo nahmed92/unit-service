@@ -85,4 +85,13 @@ public class UnitRepositoryEventHandlerTest extends AbstractIntegrationTest {
         unit.setBaseUnit(true);
         unitEventHandler.handleBeforeUnitSave(unit);
     }
+
+    @Test(expected = RepositoryConstraintViolationException.class)
+    public void shouldThrowRepositoryConstraintViolationExceptionWhenBaseUnitIsDeleted() {
+        final Unit unit = new Unit("fahrenheit", new ObjectId("74e9155b5ed24e4c38d60e3c"),
+                "Temperature Unit");
+        unit.setId(new ObjectId("74e9155b5ed24e4c38d60e5e"));
+        unit.setBaseUnit(true);
+        unitEventHandler.handleBeforeDeleteUnit(unit);
+    }
 }

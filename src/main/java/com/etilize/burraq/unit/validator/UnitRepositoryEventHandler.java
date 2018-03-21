@@ -32,6 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.RepositoryConstraintViolationException;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
+import org.springframework.data.rest.core.annotation.HandleBeforeDelete;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.stereotype.Component;
@@ -95,8 +96,7 @@ public class UnitRepositoryEventHandler {
     /**
      * Handle update request to validate.
      *
-     * Validate group exist for associated unit.
-     * Validate unit for update groupId
+     * Validate group exist for associated unit. Validate unit for update groupId
      *
      * @param unit entity
      */
@@ -140,6 +140,19 @@ public class UnitRepositoryEventHandler {
         if (group == null) {
             throw new RepositoryConstraintViolationException(
                     new ValidationErrors("unit", "groupId", "Group does not exist."));
+        }
+    }
+
+    /**
+     * Handle Delete request.
+     *
+     * @param unit {@link Unit}
+     */
+    @HandleBeforeDelete(Unit.class)
+    public void handleBeforeDeleteUnit(final Unit unit) {
+        if (unit.isBaseUnit()) {
+            throw new RepositoryConstraintViolationException(new ValidationErrors("unit",
+                    "BaseUnit", "BaseUnit associated with group, cannot be deleted."));
         }
     }
 }
