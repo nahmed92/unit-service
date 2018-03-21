@@ -52,6 +52,8 @@ public class UnitRepositoryExceptionHandler {
     private final Logger logger = LoggerFactory.getLogger(
             UnitRepositoryExceptionHandler.class);
 
+    private static final String UNABLE_TO_PROCCED = "Unable to processed:";
+
     /**
      * Handle repository duplicate key exception.
      *
@@ -84,7 +86,7 @@ public class UnitRepositoryExceptionHandler {
     }
 
     /**
-     * Handle IllegalArgumentException exception.
+     * Handle HttpMessageNotReadableException exception.
      *
      * @param ex Exception {@link HttpMessageNotReadableException}
      * @return {@link ResponseEntity} Response for given entity.
@@ -96,6 +98,57 @@ public class UnitRepositoryExceptionHandler {
                 0);
         // logging error message
         logger.error("Error during request processing: " + ex.getMessage());
+        return new ResponseEntity<>(errorMessage, new HttpHeaders(),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Handle UnsupportedOperationException exception.
+     *
+     * @param ex Exception {@link UnsupportedOperationException}
+     * @return {@link ResponseEntity} Response for given entity.
+     */
+    @ExceptionHandler(value = { UnsupportedOperationException.class })
+    protected ResponseEntity<Object> handleUnsupportedOperationException(
+            final UnsupportedOperationException ex) {
+        final ExceptionMessage errorMessage = new ExceptionMessage(ex.getMessage(), null,
+                0);
+        // logging error message
+        logger.error(UNABLE_TO_PROCCED + ex.getMessage());
+        return new ResponseEntity<>(errorMessage, new HttpHeaders(),
+                HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    /**
+     * Handle ArithmeticException exception.
+     *
+     * @param ex Exception {@link ArithmeticException}
+     * @return {@link ResponseEntity} Response for given entity.
+     */
+    @ExceptionHandler(value = { ArithmeticException.class })
+    protected ResponseEntity<Object> handleArithmeticException(
+            final ArithmeticException ex) {
+        final ExceptionMessage errorMessage = new ExceptionMessage(ex.getMessage(), null,
+                0);
+        // logging error message
+        logger.error(UNABLE_TO_PROCCED + ex.getMessage());
+        return new ResponseEntity<>(errorMessage, new HttpHeaders(),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Handle IllegalArgumentException exception.
+     *
+     * @param ex Exception {@link IllegalArgumentException}
+     * @return {@link ResponseEntity} Response for given entity.
+     */
+    @ExceptionHandler(value = { IllegalArgumentException.class })
+    protected ResponseEntity<Object> handleIllegalArgumentException(
+            final IllegalArgumentException ex) {
+        final ExceptionMessage errorMessage = new ExceptionMessage(ex.getMessage(), null,
+                0);
+        // logging error message
+        logger.error(UNABLE_TO_PROCCED + ex.getMessage());
         return new ResponseEntity<>(errorMessage, new HttpHeaders(),
                 HttpStatus.BAD_REQUEST);
     }

@@ -99,22 +99,24 @@ public class ConvertServiceTest extends AbstractTest {
         final Source sourceUnit = new Source("gram", new Double(2000));
         final Payload payload = new Payload(sourceUnit,
                 Sets.newHashSet("Kilogram", "Pound"));
-        final List<ConvertedUnit> tagetUnits = unitConvert.convert(payload);
-        assertThat(tagetUnits.get(0).getUnit(), is("Kilogram"));
-        assertThat(tagetUnits.get(0).getValue(), is(new BigDecimal("2.000")));
-        assertThat(tagetUnits.get(1).getUnit(), is("Pound"));
-        assertThat(tagetUnits.get(1).getValue(), is(new BigDecimal("4.410")));
+        final List<ConvertedUnit> convertedUnit = unitConvert.convert(
+                payload).getResult();
+        assertThat(convertedUnit.get(0).getUnit(), is("Kilogram"));
+        assertThat(convertedUnit.get(0).getValue(), is(new BigDecimal("2.000")));
+        assertThat(convertedUnit.get(1).getUnit(), is("Pound"));
+        assertThat(convertedUnit.get(1).getValue(), is(new BigDecimal("4.410")));
     }
 
     @Test
     public void shouldConvertWhenSourceIsNotBaseUnit() {
         final Source sourceUnit = new Source("Kilogram", new Double(2));
         final Payload payload = new Payload(sourceUnit, Sets.newHashSet("gram", "Pound"));
-        final List<ConvertedUnit> tagetUnits = unitConvert.convert(payload);
-        assertThat(tagetUnits.get(0).getUnit(), is("gram"));
-        assertThat(tagetUnits.get(0).getValue(), is(new BigDecimal("2000.000")));
-        assertThat(tagetUnits.get(1).getUnit(), is("Pound"));
-        assertThat(tagetUnits.get(1).getValue(), is(new BigDecimal("4.410")));
+        final List<ConvertedUnit> convertedUnit = unitConvert.convert(
+                payload).getResult();
+        assertThat(convertedUnit.get(0).getUnit(), is("gram"));
+        assertThat(convertedUnit.get(0).getValue(), is(new BigDecimal("2000.000")));
+        assertThat(convertedUnit.get(1).getUnit(), is("Pound"));
+        assertThat(convertedUnit.get(1).getValue(), is(new BigDecimal("4.410")));
     }
 
     @Test(expected = UnsupportedOperationException.class)
@@ -122,11 +124,12 @@ public class ConvertServiceTest extends AbstractTest {
         final Source sourceUnit = new Source("gram", new Double(2000));
         final Payload payload = new Payload(sourceUnit,
                 Sets.newHashSet("Kilogram", "Degree"));
-        final List<ConvertedUnit> tagetUnits = unitConvert.convert(payload);
-        assertThat(tagetUnits.get(0).getUnit(), is("Kilogram"));
-        assertThat(tagetUnits.get(0).getValue(), is(new BigDecimal("2.000")));
-        assertThat(tagetUnits.get(1).getUnit(), is("Degree"));
-        assertThat(tagetUnits.get(1).getValue(), is(new BigDecimal("4.410")));
+        final List<ConvertedUnit> convertedUnit = unitConvert.convert(
+                payload).getResult();
+        assertThat(convertedUnit.get(0).getUnit(), is("Kilogram"));
+        assertThat(convertedUnit.get(0).getValue(), is(new BigDecimal("2.000")));
+        assertThat(convertedUnit.get(1).getUnit(), is("Degree"));
+        assertThat(convertedUnit.get(1).getValue(), is(new BigDecimal("4.410")));
     }
 
     @Test(expected = UnsupportedOperationException.class)
@@ -141,10 +144,10 @@ public class ConvertServiceTest extends AbstractTest {
     public void shouldConvertValueWithPrecisionThree() {
         final Source sourceUnit = new Source("gram", new Double(2000));
         final Payload payload = new Payload(sourceUnit, Sets.newHashSet("Pound"));
-        final List<ConvertedUnit> tagetUnits = unitConvert.convert(payload);
-        assertThat(tagetUnits.get(0).getUnit(), is("Pound"));
-        assertThat(tagetUnits.get(0).getValue(), is(not(new BigDecimal("4.409245"))));
-        assertThat(tagetUnits.get(0).getValue(), is(new BigDecimal("4.410")));
+        final List<ConvertedUnit> convertUnit = unitConvert.convert(payload).getResult();
+        assertThat(convertUnit.get(0).getUnit(), is("Pound"));
+        assertThat(convertUnit.get(0).getValue(), is(not(new BigDecimal("4.409245"))));
+        assertThat(convertUnit.get(0).getValue(), is(new BigDecimal("4.410")));
     }
 
     @Test(expected = ArithmeticException.class)

@@ -30,9 +30,13 @@ package com.etilize.burraq.unit.convert;
 
 import java.util.Set;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -45,8 +49,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Payload {
 
+    @NotNull(message = "source cannot be null.")
+    @Valid
     private final Source source;
 
+    @NotEmpty(message = "target cannot be empty.")
     private final Set<String> target;
 
     /**

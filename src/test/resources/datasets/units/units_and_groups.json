@@ -1,0 +1,92 @@
+{
+    "groups": [
+        {
+            "_id": {
+                "$oid": "53e9155b5ed24e4c38d60e3c"
+            },
+            "name": "weight",
+            "description": "This is weight unit",
+            "baseUnitId": {
+                "$oid": "59b63ec8e110b21a936c9ead"
+            }
+        },
+        {
+            "_id": {
+                "$oid": "74e9155b5ed24e4c38d60e3c"
+            },
+            "name": "temperature",
+            "description": "This is Temperature unit",
+            "baseUnitId": {
+                "$oid": "74e9155b5ed24e4c38d60e5e"
+            }
+        }
+    ],
+    "units": [
+        {
+            "_id": {
+                "$oid": "59b63ec8e110b21a936c9ead"
+            },
+            "name": "gram",
+            "groupId": "53e9155b5ed24e4c38d60e3c",
+            "isBaseUnit": true,
+            "measuringSystem": "METRIC",
+            "fromBaseFormula": "[value]",
+            "toBaseFormula": "[value]",
+            "description": "gram Unit"
+        },
+        {
+            "_id": {
+                "$oid": "59b63ec8e110b21a936c9eed"
+            },
+            "name": "Kilogram",
+            "groupId": "53e9155b5ed24e4c38d60e3c",
+            "isBaseUnit": false,
+            "measuringSystem": "METRIC",
+            "fromBaseFormula": "[value]/1000",
+            "toBaseFormula": "[value]*1000",
+            "description": "Kilogram Unit"
+        },
+        {
+            "_id": {
+                "$oid": "59b63ec8e110b21a936c9eef"
+            },
+            "name": "Pound",
+            "groupId": {
+                "$oid": "53e9155b5ed24e4c38d60e3c"
+            },
+            "isBaseUnit": false,
+            "measuringSystem": "METRIC",
+            "fromBaseFormula": "[value]/453.59",
+            "toBaseFormula": "[value]*453.59",
+            "description": "Pound Unit"
+        },
+        {
+            "_id": {
+                "$oid": "69b63ec8e110b21a936c9eef"
+            },
+            "name": "Km",
+            "groupId": {
+                "$oid": "73e9155b5ed24e4c38d60e3c"
+            },
+            "isBaseUnit": false,
+            "measuringSystem": "METRIC",
+            "fromBaseFormula": "[value]/453.59",
+            "toBaseFormula": "[value]*453.59",
+            "description": "Pound Unit"
+        },
+        {
+            "_id": {
+                "$oid": "59b63ec8e110b21a936c9eec"
+            },
+            "name": "tons",
+            "groupId": {
+                "$oid": "53e9155b5ed24e4c38d60e3c"
+            },
+            "isBaseUnit": false,
+            "measuringSystem": "METRIC",
+            "fromBaseFormula": "[value]/0",
+            "toBaseFormula": "[value]*0",
+            "description": "Pound Unit"
+        }
+    ]
+}
