@@ -399,4 +399,32 @@ public class UnitRestIntegrationTest extends AbstractRestIntegrationTest {
                         is("update of groupId isn't allowed.")));
     }
 
+    @Test
+    public void shouldReturnBadRequestWhenBaseUnitIsDeleted() throws Exception {
+        final Unit unit = new Unit("fahrenheit", new ObjectId("74e9155b5ed24e4c38d60e3c"),
+                "Temperature Unit");
+        unit.setBaseUnit(true);
+        final String content = mapper.writeValueAsString(unit);
+        mockMvc.perform(delete("/units/{id}", new ObjectId("74e9155b5ed24e4c38d60e5e")) //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content(content)) //
+                .andExpect(status().isBadRequest()) //
+                .andExpect(jsonPath("$.errors", hasSize(1))) //
+                .andExpect(jsonPath("$.errors[0].message", //
+                        is("BaseUnit associated with group, cannot be deleted.")));
+    }
+
+    @Test
+    @ShouldMatchDataSet(location = "/datasets/units/unit_after_delete.json")
+    public void shouldDeleteUnitWhenUnitIsNotBaseUnit() throws Exception {
+        final Unit unit = new Unit("Degree Celcius",
+                new ObjectId("74e9155b5ed24e4c38d60e3c"), "Temperature Unit");
+        unit.setBaseUnit(false);
+        final String content = mapper.writeValueAsString(unit);
+        mockMvc.perform(delete("/units/{id}", new ObjectId("59b63ec8e110b21a936c9eef")) //
+                .contentType(MediaType.APPLICATION_JSON) //
+                .content(content)) //
+                .andExpect(status().isNoContent());
+    }
+
 }

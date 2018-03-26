@@ -109,8 +109,24 @@ public class UnitRepositoryIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     @ShouldMatchDataSet(location = "/datasets/units/unit_after_delete.json")
+    public void shouldDeleteUnit() {
+        final Unit unit = new Unit("Degree Celcius",
+                new ObjectId("74e9155b5ed24e4c38d60e3c"), "Temperature Unit");
+        unit.setBaseUnit(false);
+        unit.setId(new ObjectId("59b63ec8e110b21a936c9eef"));
+        unitRepository.delete(unit);
+    }
+
+    @Test
+    @ShouldMatchDataSet(location = "/datasets/units/unit_after_delete.json")
     public void shouldDeleteUnitById() {
         unitRepository.delete(new ObjectId("59b63ec8e110b21a936c9eef"));
+    }
+
+    @Test
+    @ShouldMatchDataSet(location = "/datasets/units/unit_after_delete_baseunit.json")
+    public void shouldDeleteBaseUnitByID() {
+        unitRepository.delete(new ObjectId("74e9155b5ed24e4c38d60e5e"));
     }
 
     @Test
