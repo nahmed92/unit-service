@@ -60,6 +60,8 @@ public abstract class AbstractIT extends JUnit4CitrusTestRunner {
 
     protected final static String UNITS_URL = "/units/";
 
+    protected final static String CONVERT_URL = "/convert/";
+
     protected final static String LOCATION_HEADER_VALUE = "locationHeaderValue";
 
     protected final static String GROUP_ID = "groupId";

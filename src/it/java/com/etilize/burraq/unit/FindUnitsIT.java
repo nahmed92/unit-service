@@ -51,7 +51,7 @@ public class FindUnitsIT extends AbstractIT {
 
         variable("urlToCheck", "/units");
         variable("pageSize", "20");
-        variable("totalElements", "8");
+        variable("totalElements", "10");
         variable("totalPages", "1");
         variable("pageNumber", "0");
 

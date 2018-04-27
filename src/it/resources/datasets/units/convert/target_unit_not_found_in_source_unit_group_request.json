@@ -1,0 +1,10 @@
+{
+    "source": {
+        "unit": "bit",
+        "value": 3600
+    },
+    "target": [
+        "Hours",
+        "Minutes"
+    ]
+}
