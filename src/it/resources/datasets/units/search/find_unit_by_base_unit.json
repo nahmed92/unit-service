@@ -1,13 +1,13 @@
 {
     "_embedded": {
         "units": [
-             {
+            {
                 "name": "Gb",
                 "groupId": "59df33dc0fcdf86d872acd27",
                 "description": "Gb Unit",
                 "measuringSystem": "NONE",
                 "toBaseFormula": "[value] / 1000",
-                "fromBaseFormula" : "[value]",
+                "fromBaseFormula": "[value]",
                 "_links": {
                     "self": {
                         "href": "@contains(/units)@"
@@ -23,7 +23,7 @@
                 "description": "Gb Unit",
                 "measuringSystem": "NONE",
                 "toBaseFormula": "[value] / 1000",
-                "fromBaseFormula" : "[value]",
+                "fromBaseFormula": "[value]",
                 "_links": {
                     "self": {
                         "href": "@contains(/units)@"
@@ -38,7 +38,7 @@
                 "groupId": "5995843b0fcdf874985e399d",
                 "description": "Kilogram Per Hour",
                 "measuringSystem": "IMPERIAL",
-                "fromBaseFormula" : "[value]",
+                "fromBaseFormula": "[value]",
                 "toBaseFormula": "[value] * 1000",
                 "_links": {
                     "self": {
@@ -55,7 +55,23 @@
                 "description": "Milliampere Unit",
                 "measuringSystem": "NONE",
                 "toBaseFormula": "[value] / 1000",
-                "fromBaseFormula" : "[value]",
+                "fromBaseFormula": "[value]",
+                "_links": {
+                    "self": {
+                        "href": "@contains(/units)@"
+                    },
+                    "unit": {
+                        "href": "@contains(/units)@"
+                    }
+                }
+            },
+            {
+                "name": "Minutes",
+                "groupId": "5ae2dcf90fcdf82b52b43f2d",
+                "description": "Minutes Unit",
+                "measuringSystem": "METRIC",
+                "toBaseFormula": "[value]",
+                "fromBaseFormula": "[value]",
                 "_links": {
                     "self": {
                         "href": "@contains(/units)@"
@@ -78,9 +94,8 @@
     },
     "page": {
         "size": 20,
-        "totalElements": 4,
+        "totalElements": 5,
         "totalPages": 1,
         "number": 0
     }
 }
-
