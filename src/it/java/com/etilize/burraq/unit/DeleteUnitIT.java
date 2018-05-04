@@ -28,16 +28,10 @@
 
 package com.etilize.burraq.unit;
 
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.junit.*;
 import org.springframework.http.*;
 
-import com.consol.citrus.TestCaseMetaInfo.Status;
-import com.consol.citrus.annotations.CitrusTest;
-import com.consol.citrus.dsl.junit.JUnit4CitrusTestDesigner;
-import com.consol.citrus.http.client.HttpClient;
-import com.consol.citrus.message.MessageType;
+import com.consol.citrus.annotations.*;
 import com.etilize.burraq.unit.test.base.*;
 
 /**
@@ -78,4 +72,19 @@ public class DeleteUnitIT extends AbstractIT {
 
         verifyResponse(HttpStatus.NOT_FOUND);
     }
+
+    @Test
+    @CitrusTest
+    public void shouldNotDeleteUnitWhichIsNotBaseUnit() throws Exception {
+        author("Nimra Inam");
+        description("A base unit should not be deleted");
+
+        variable(UNIT_ID, EXISTING_BASE_UNIT_ID_TO_REMOVE);
+
+        deleteRequest(UNITS_URL, "${" + UNIT_ID + "}");
+
+        verifyResponse(HttpStatus.BAD_REQUEST, //
+                readFile("/datasets/units/validations/delete/delete_base_unit_response.json"));
+    }
+
 }

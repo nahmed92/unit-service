@@ -1,0 +1,10 @@
+{
+    "errors": [
+        {
+            "entity": "unit",
+            "property": "BaseUnit",
+            "invalidValue": null,
+            "message": "BaseUnit associated with group, cannot be deleted."
+        }
+    ]
+}
