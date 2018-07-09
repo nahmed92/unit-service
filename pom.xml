@@ -26,6 +26,7 @@
         <sonar.host.url>http://sonar.etilizepak.com</sonar.host.url>
         <docker.repo.url>repo.etilizepak.com:444</docker.repo.url>
         <docker.image.prefix>etilize</docker.image.prefix>
+        <spring-cloud.version>Edgware.SR3</spring-cloud.version>
     </properties>
 
     <inceptionYear>2017</inceptionYear>
@@ -35,6 +36,17 @@
         <url>http://www.etilize.com</url>
     </organization>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -85,6 +97,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
         <dependency>
             <groupId>com.querydsl</groupId>

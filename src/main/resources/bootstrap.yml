@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: product-staging-service
+  profiles:
+    active: dev
+  cloud:
+    config:
+      profile: dev
+      uri: ${SPRING_CONFIG_URI:http://localhost:8888}
