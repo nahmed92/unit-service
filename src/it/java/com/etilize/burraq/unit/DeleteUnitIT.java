@@ -84,7 +84,7 @@ public class DeleteUnitIT extends AbstractIT {
         deleteRequest(UNITS_URL, "${" + UNIT_ID + "}");
 
         verifyResponse(HttpStatus.BAD_REQUEST, //
-                readFile("/datasets/units/validations/delete/delete_base_unit_response.json"));
+                readFile("/datasets/units/delete/delete_base_unit_response.json"));
     }
 
 }

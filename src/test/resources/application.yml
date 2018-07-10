@@ -19,3 +19,7 @@ spring:
     mongodb:
       port: 0
       database: unit-service
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false

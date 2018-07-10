@@ -1,10 +1,10 @@
 spring:
   application:
-    name: UnitServiceApplication
+    name: unit-service
   profiles:
     active: dev
 info:
-  version: ${project.version}
+  version: '@project.version@'
 endpoints:
   shutdown:
     enabled: true
@@ -12,6 +12,13 @@ server:
   port: 8080
 mongeez:
   location: mongo-changelog/changelog-master.xml
+eureka:
+  client:
+    serviceUrl:
+      # Eureka server address
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
 
 ---
 spring:
